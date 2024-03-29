@@ -55,6 +55,7 @@
         <span class="sr-only">{{ 'Toggle dropdown'|trans({}, 'Admin.Modules.Feature') }}</span>
         <div class="dropdown-menu">
           {% for module_action, module_url in urls %}
+          {{module_url}}
             {% if module_action != url_active %}
                 <li>
                   {% include '@PrestaShop/Admin/Module/Includes/action_button.html.twig' with {
