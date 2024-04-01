@@ -360,6 +360,14 @@ class ShopCore extends ObjectModel
                 $result = self::findShopByHost($host);
             }
 
+            // If could not find a matching, try with subdomain
+            if (empty($result)) {
+                $domain = Tools::getHttpHost(false, false, true);
+                $parts = explode('.', $domain);
+                $host = $parts[1].$parts[2];
+                $result = self::findShopByHost($host);
+            }
+
             $through = false;
             foreach ($result as $row) {
                 // An URL matching current shop was found

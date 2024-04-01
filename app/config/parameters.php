@@ -2,10 +2,10 @@
   'parameters' => 
   array (
     'database_host' => '127.0.0.1',
-    'database_port' => '',
+    'database_port' => '3325',
     'database_name' => 'prestashop',
     'database_user' => 'root',
-    'database_password' => 'mysql',
+    'database_password' => '',
     'database_prefix' => 'ps_',
     'database_engine' => 'InnoDB',
     'mailer_transport' => 'smtp',
