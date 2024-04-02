@@ -1,3 +1,23 @@
+{*
+* 2007-2022 ETS-Soft
+*
+* NOTICE OF LICENSE
+*
+* This file is not open source! Each license that you purchased is only available for 1 wesite only.
+* If you want to use this file on more websites (or projects), you need to purchase additional licenses. 
+* You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+* 
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs, please contact us for extra customization service at an affordable price
+*
+*  @author ETS-Soft <etssoft.jsc@gmail.com>
+*  @copyright  2007-2022 ETS-Soft
+*  @license    Valid for 1 website (or project) for each purchase of license
+*  International Registered Trademark & Property of ETS-Soft
+*}
 {extends file='page.tpl'}
 
 {block name='page_content_container' prepend}
@@ -8,19 +28,19 @@
 
             {block name='order_confirmation_header'}
               <h3 class="h1 card-title">
-                <i class="material-icons rtl-no-flip done">&#xE876;</i>{l s='Your order is confirmed' d='Shop.Theme.Checkout'}
+                <i class="material-icons done">&#xE876;</i>{l s='Your order is confirmed' d='Shop.Theme.Checkout'}
               </h3>
             {/block}
 
             <p>
-              {l s='An email has been sent to your mail address %email%.' d='Shop.Theme.Checkout' sprintf=['%email%' => $order_customer.email]}
+              {l s='An email has been sent to your mail address %email%.' d='Shop.Theme.Checkout' sprintf=['%email%' => $customer.email]}
               {if $order.details.invoice_url}
                 {* [1][/1] is for a HTML tag. *}
                 {l
                   s='You can also [1]download your invoice[/1]'
                   d='Shop.Theme.Checkout'
                   sprintf=[
-                    '[1]' => "<a href='{$order.details.invoice_url}'>",
+                    '[1]' => "<a href='{$order.details.invoice_url|escape:'html':'UTF-8'}'>",
                     '[/1]' => "</a>"
                   ]
                 }
@@ -55,22 +75,19 @@
 
         {block name='order_details'}
           <div id="order-details" class="col-md-4">
-            <h3 class="h3 card-title">{l s='Order details' d='Shop.Theme.Checkout'}:</h3>
-            <ul>
-              <li id="order-reference-value">{l s='Order reference: %reference%' d='Shop.Theme.Checkout' sprintf=['%reference%' => $order.details.reference]}</li>
-              <li>{l s='Payment method: %method%' d='Shop.Theme.Checkout' sprintf=['%method%' => $order.details.payment]}</li>
-              {if !$order.details.is_virtual}
-                <li>
-                  {l s='Shipping method: %method%' d='Shop.Theme.Checkout' sprintf=['%method%' => $order.carrier.name]}<br>
-                  <em>{$order.carrier.delay}</em>
-                </li>
-              {/if}
-              {if $order.details.recyclable}
-                <li>  
-                  <em>{l s='You have given permission to receive your order in recycled packaging.' d="Shop.Theme.Customeraccount"}</em>
-                </li>
-              {/if}
-            </ul>
+              <div class="order-details-content">
+                <h3 class="h3 card-title">{l s='Order details' d='Shop.Theme.Checkout'}:</h3>
+                <ul>
+                  <li>{l s='Order reference: %reference%' d='Shop.Theme.Checkout' sprintf=['%reference%' => $order.details.reference]}</li>
+                  <li>{l s='Payment method: %method%' d='Shop.Theme.Checkout' sprintf=['%method%' => $order.details.payment]}</li>
+                  {if !$order.details.is_virtual}
+                    <li>
+                      {l s='Shipping method: %method%' d='Shop.Theme.Checkout' sprintf=['%method%' => $order.carrier.name]}<br>
+                      <em>{$order.carrier.delay|escape:'html':'UTF-8'}</em>
+                    </li>
+                  {/if}
+                </ul>
+              </div>
           </div>
         {/block}
 
@@ -92,15 +109,16 @@
     {/if}
   {/block}
 
-  {if !$registered_customer_exists}
-    {block name='account_transformation_form'}
-      <div class="card">
+  {block name='customer_registration_form'}
+    {if $customer.is_guest}
+      <div id="registration-form" class="card">
         <div class="card-block">
-          {include file='customer/_partials/account-transformation-form.tpl'}
+          <h4 class="h4">{l s='Save time on your next order, sign up now' d='Shop.Theme.Checkout'}</h4>
+          {render file='customer/_partials/customer-form.tpl' ui=$register_form}
         </div>
       </div>
-    {/block}
-  {/if}
+    {/if}
+  {/block}
 
   {block name='hook_order_confirmation_1'}
     {hook h='displayOrderConfirmation1'}

@@ -1,27 +1,23 @@
-{**
- * Copyright since 2007 PrestaShop SA and Contributors
- * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
- * that is bundled with this package in the file LICENSE.md.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/AFL-3.0
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to https://devdocs.prestashop.com/ for more information.
- *
- * @author    PrestaShop SA and Contributors <contact@prestashop.com>
- * @copyright Since 2007 PrestaShop SA and Contributors
- * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
- *}
+{*
+* 2007-2022 ETS-Soft
+*
+* NOTICE OF LICENSE
+*
+* This file is not open source! Each license that you purchased is only available for 1 wesite only.
+* If you want to use this file on more websites (or projects), you need to purchase additional licenses. 
+* You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+* 
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs, please contact us for extra customization service at an affordable price
+*
+*  @author ETS-Soft <etssoft.jsc@gmail.com>
+*  @copyright  2007-2022 ETS-Soft
+*  @license    Valid for 1 website (or project) for each purchase of license
+*  International Registered Trademark & Property of ETS-Soft
+*}
 {block name='head_charset'}
   <meta charset="utf-8">
 {/block}
@@ -30,41 +26,15 @@
 {/block}
 
 {block name='head_seo'}
-  <title>{block name='head_seo_title'}{$page.meta.title}{/block}</title>
-  {block name='hook_after_title_tag'}
-    {hook h='displayAfterTitleTag'}
-  {/block}
-  <meta name="description" content="{block name='head_seo_description'}{$page.meta.description}{/block}">
-  <meta name="keywords" content="{block name='head_seo_keywords'}{$page.meta.keywords}{/block}">
+  <title>{block name='head_seo_title'}{$page.meta.title|escape:'html':'UTF-8'}{/block}</title>
+  <meta name="description" content="{block name='head_seo_description'}{$page.meta.description|escape:'html':'UTF-8'}{/block}">
+  <meta name="keywords" content="{block name='head_seo_keywords'}{$page.meta.keywords|escape:'html':'UTF-8'}{/block}">
   {if $page.meta.robots !== 'index'}
-    <meta name="robots" content="{$page.meta.robots}">
+    <meta name="robots" content="{$page.meta.robots|escape:'html':'UTF-8'}">
   {/if}
   {if $page.canonical}
-    <link rel="canonical" href="{$page.canonical}">
+    <link rel="canonical" href="{$page.canonical|escape:'html':'UTF-8'}">
   {/if}
-  {block name='head_hreflang'}
-    {foreach from=$urls.alternative_langs item=pageUrl key=code}
-      <link rel="alternate" href="{$pageUrl}" hreflang="{$code}">
-    {/foreach}
-  {/block}
-  
-  {block name='head_microdata'}
-    {include file="_partials/microdata/head-jsonld.tpl"}
-  {/block}
-  
-  {block name='head_microdata_special'}{/block}
-  
-  {block name='head_pagination_seo'}
-    {include file="_partials/pagination-seo.tpl"}
-  {/block}
-
-  {block name='head_open_graph'}
-    <meta property="og:title" content="{$page.meta.title}" />
-    <meta property="og:description" content="{$page.meta.description}" />
-    <meta property="og:url" content="{$urls.current_url}" />
-    <meta property="og:site_name" content="{$shop.name}" />
-    {if !isset($product) && $page.page_name != 'product'}<meta property="og:type" content="website" />{/if}
-  {/block}  
 {/block}
 
 {block name='head_viewport'}
@@ -72,8 +42,8 @@
 {/block}
 
 {block name='head_icons'}
-  <link rel="icon" type="image/vnd.microsoft.icon" href="{$shop.favicon}?{$shop.favicon_update_time}">
-  <link rel="shortcut icon" type="image/x-icon" href="{$shop.favicon}?{$shop.favicon_update_time}">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="{$shop.favicon|escape:'html':'UTF-8'}?{$shop.favicon_update_time|escape:'html':'UTF-8'}">
+  <link rel="shortcut icon" type="image/x-icon" href="{$shop.favicon|escape:'html':'UTF-8'}?{$shop.favicon_update_time|escape:'html':'UTF-8'}">
 {/block}
 
 {block name='stylesheets'}

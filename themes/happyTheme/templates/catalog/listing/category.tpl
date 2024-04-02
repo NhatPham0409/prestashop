@@ -1,33 +1,40 @@
-{**
- * Copyright since 2007 PrestaShop SA and Contributors
- * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
- * that is bundled with this package in the file LICENSE.md.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/AFL-3.0
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to https://devdocs.prestashop.com/ for more information.
- *
- * @author    PrestaShop SA and Contributors <contact@prestashop.com>
- * @copyright Since 2007 PrestaShop SA and Contributors
- * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
- *}
+{*
+* 2007-2022 ETS-Soft
+*
+* NOTICE OF LICENSE
+*
+* This file is not open source! Each license that you purchased is only available for 1 wesite only.
+* If you want to use this file on more websites (or projects), you need to purchase additional licenses. 
+* You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+* 
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs, please contact us for extra customization service at an affordable price
+*
+*  @author ETS-Soft <etssoft.jsc@gmail.com>
+*  @copyright  2007-2022 ETS-Soft
+*  @license    Valid for 1 website (or project) for each purchase of license
+*  International Registered Trademark & Property of ETS-Soft
+*}
 {extends file='catalog/listing/product-list.tpl'}
 
 {block name='product_list_header'}
-    {include file='catalog/_partials/category-header.tpl' listing=$listing category=$category}
-{/block}
 
-{block name='product_list_footer'}
-    {include file='catalog/_partials/category-footer.tpl' listing=$listing category=$category}
+    <div class="block-category card card-block">
+        {if isset($tc_config.YBC_TC_LISTING_IMAGE_BLOCK) && $tc_config.YBC_TC_LISTING_IMAGE_BLOCK == 1}
+            <h4 class="h1 title_category">{$category.name|escape:'html':'UTF-8'}</h4>
+        {/if}
+        {if isset($tc_config.YBC_TC_LISTING_IMAGE_BLOCK) && $tc_config.YBC_TC_LISTING_IMAGE_BLOCK == 1}
+            <div class="category-cover">
+                <img src="{$category.image.large.url|escape:'html':'UTF-8'}" alt="{$category.image.legend|escape:'html':'UTF-8'}">
+            </div>
+        {/if}
+        {if isset($tc_config.YBC_TC_LISTING_IMAGE_BLOCK) && $tc_config.YBC_TC_LISTING_IMAGE_BLOCK == 1}
+            {if $category.description}
+                <div id="category-description" class="text-muted">{$category.description nofilter}</div>
+            {/if}
+        {/if}
+    </div>
 {/block}

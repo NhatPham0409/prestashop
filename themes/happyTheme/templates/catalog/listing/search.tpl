@@ -1,14 +1,21 @@
 {*
- * This file allows you to customize your search page.
- * You can safely remove it if you want it to appear exactly like all other product listing pages
- *}
+* 2007-2022 ETS-Soft
+*
+* NOTICE OF LICENSE
+*
+* This file is not open source! Each license that you purchased is only available for 1 wesite only.
+* If you want to use this file on more websites (or projects), you need to purchase additional licenses. 
+* You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+* 
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs, please contact us for extra customization service at an affordable price
+*
+*  @author ETS-Soft <etssoft.jsc@gmail.com>
+*  @copyright  2007-2022 ETS-Soft
+*  @license    Valid for 1 website (or project) for each purchase of license
+*  International Registered Trademark & Property of ETS-Soft
+*}
 {extends file='catalog/listing/product-list.tpl'}
-
-{block name="error_content"}
-  <h4 id="product-search-no-matches">{l s='No matches were found for your search' d='Shop.Theme.Catalog'}</h4>
-  <p>{l s='Please try other keywords to describe what you are looking for.' d='Shop.Theme.Catalog'}</p>
-{/block}
-
-{block name='product_list'}
-  {include file='catalog/_partials/products.tpl' listing=$listing productClass="col-xs-12 col-sm-6 col-xl-3"}
-{/block}

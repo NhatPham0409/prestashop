@@ -1,54 +1,39 @@
-{**
- * Copyright since 2007 PrestaShop SA and Contributors
- * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
- * that is bundled with this package in the file LICENSE.md.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/AFL-3.0
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to https://devdocs.prestashop.com/ for more information.
- *
- * @author    PrestaShop SA and Contributors <contact@prestashop.com>
- * @copyright Since 2007 PrestaShop SA and Contributors
- * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
- *}
-
+{*
+* 2007-2022 ETS-Soft
+*
+* NOTICE OF LICENSE
+*
+* This file is not open source! Each license that you purchased is only available for 1 wesite only.
+* If you want to use this file on more websites (or projects), you need to purchase additional licenses. 
+* You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+* 
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs, please contact us for extra customization service at an affordable price
+*
+*  @author ETS-Soft <etssoft.jsc@gmail.com>
+*  @copyright  2007-2022 ETS-Soft
+*  @license    Valid for 1 website (or project) for each purchase of license
+*  International Registered Trademark & Property of ETS-Soft
+*}
 {if $homeslider.slides}
-  <div id="carousel" data-ride="carousel" class="carousel slide" data-interval="{$homeslider.speed}"
-    data-wrap="{(string)$homeslider.wrap}" data-pause="{$homeslider.pause}">
+  <div id="carousel" data-ride="carousel" class="carousel slide hidden-sm-down" data-interval="{$homeslider.speed|escape:'html':'UTF-8'}" data-wrap="{$homeslider.wrap|escape:'html':'UTF-8'}" data-pause="{$homeslider.pause|escape:'html':'UTF-8'}">
     <ul class="carousel-inner" role="listbox">
       {foreach from=$homeslider.slides item=slide name='homeslider'}
-        <li class="carousel-item {if $smarty.foreach.homeslider.first}active{/if} slide-animation">
-          <figure class="figure">
-            <img src="{$slide.image_url}" alt="{$slide.legend|escape}">
-            {if $slide.title || $slide.description}
-              <figcaption class="caption">
-                <div class="container">
-                  <div class="caption_content">
-                    <h2 class="display-1 text-uppercase">{$slide.title}</h2>
-                    <div class="caption-description">
-                      {$slide.description nofilter}
-                    </div>
-                    {if $slide.url}
-                      <a class="slide_link" href="{$slide.url}">
-                        {l s='Start shopping now' d='Shop.Theme.Catalog'}
-                      </a>
-                    {/if}
-                  </div>
-                </div>
-              </figcaption>
-            {/if}
-          </figure>
+        <li class="carousel-item {if $smarty.foreach.homeslider.first}active{/if}">
+          <a href="{$slide.url|escape:'html':'UTF-8'}">
+            <figure>
+              <img src="{$slide.image_url|escape:'html':'UTF-8'}" alt="{$slide.legend|escape}">
+              {if $slide.title || $slide.description}
+                <figcaption class="caption">
+                  <h2 class="display-1 text-uppercase">{$slide.title|escape:'html':'UTF-8'}</h2>
+                  <div class="caption-description">{$slide.description nofilter}</div>
+                </figcaption>
+              {/if}
+            </figure>
+          </a>
         </li>
       {/foreach}
     </ul>
@@ -57,13 +42,13 @@
         <span class="icon-prev hidden-xs" aria-hidden="true">
           <i class="material-icons">&#xE5CB;</i>
         </span>
-        <span class="sr-only">{l s='Back' d='Shop.Theme.Catalog'}</span>
+        <span class="sr-only">{l s='Previous' d='Shop.Theme'}</span>
       </a>
       <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
-        <span class="sr-only">{l s='Next' d='Shop.Theme.Catalog'}</span>
         <span class="icon-next" aria-hidden="true">
           <i class="material-icons">&#xE5CC;</i>
         </span>
+        <span class="sr-only">{l s='Next' d='Shop.Theme'}</span>
       </a>
     </div>
   </div>

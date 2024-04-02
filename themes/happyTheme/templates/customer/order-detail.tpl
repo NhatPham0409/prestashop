@@ -1,31 +1,27 @@
-{**
- * Copyright since 2007 PrestaShop SA and Contributors
- * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
- * that is bundled with this package in the file LICENSE.md.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/AFL-3.0
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to https://devdocs.prestashop.com/ for more information.
- *
- * @author    PrestaShop SA and Contributors <contact@prestashop.com>
- * @copyright Since 2007 PrestaShop SA and Contributors
- * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
- *}
+{*
+* 2007-2022 ETS-Soft
+*
+* NOTICE OF LICENSE
+*
+* This file is not open source! Each license that you purchased is only available for 1 wesite only.
+* If you want to use this file on more websites (or projects), you need to purchase additional licenses. 
+* You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+* 
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs, please contact us for extra customization service at an affordable price
+*
+*  @author ETS-Soft <etssoft.jsc@gmail.com>
+*  @copyright  2007-2022 ETS-Soft
+*  @license    Valid for 1 website (or project) for each purchase of license
+*  International Registered Trademark & Property of ETS-Soft
+*}
 {extends file='customer/page.tpl'}
 
 {block name='page_title'}
-  {l s='Order details' d='Shop.Theme.Customeraccount'}
+  {l s='Order details' d='Shop.Theme.Actions'}
 {/block}
 
 {block name='page_content'}
@@ -37,14 +33,14 @@
               <strong>
                 {l
                   s='Order Reference %reference% - placed on %date%'
-                  d='Shop.Theme.Customeraccount'
+                  d='Shop.Theme.Actions'
                   sprintf=['%reference%' => $order.details.reference, '%date%' => $order.details.order_date]
                 }
               </strong>
             </div>
             {if $order.details.reorder_url}
               <div class="col-xs-3 text-xs-right">
-                <a href="{$order.details.reorder_url}" class="button-primary">{l s='Reorder' d='Shop.Theme.Actions'}</a>
+                <a href="{$order.details.reorder_url|escape:'html':'UTF-8'}" class="button-primary">{l s='Reorder' d='Shop.Theme.Actions'}</a>
               </div>
             {/if}
             <div class="clearfix"></div>
@@ -53,28 +49,26 @@
 
       <div class="box">
           <ul>
-            {if $order.carrier.name}
-              <li><strong>{l s='Carrier' d='Shop.Theme.Checkout'}</strong> {$order.carrier.name}</li>
-            {/if}
-            <li><strong>{l s='Payment method' d='Shop.Theme.Checkout'}</strong> {$order.details.payment}</li>
+            <li><strong>{l s='Carrier' d='Shop.Theme.Checkout'}</strong> {$order.carrier.name|escape:'html':'UTF-8'}</li>
+            <li><strong>{l s='Payment method' d='Shop.Theme.Checkout'}</strong> {$order.details.payment|escape:'html':'UTF-8'}</li>
 
             {if $order.details.invoice_url}
               <li>
-                <a href="{$order.details.invoice_url}">
-                  {l s='Download your invoice as a PDF file.' d='Shop.Theme.Customeraccount'}
+                <a href="{$order.details.invoice_url|escape:'html':'UTF-8'}">
+                  {l s='Download your invoice as a PDF file.' d='Shop.Theme.Actions'}
                 </a>
               </li>
             {/if}
 
             {if $order.details.recyclable}
               <li>
-                {l s='You have given permission to receive your order in recycled packaging.' d='Shop.Theme.Customeraccount'}
+                {l s='You have given permission to receive your order in recycled packaging.' d='Shop.Theme.Actions'}
               </li>
             {/if}
 
             {if $order.details.gift_message}
-              <li>{l s='You have requested gift wrapping for this order.' d='Shop.Theme.Customeraccount'}</li>
-              <li>{l s='Message' d='Shop.Theme.Customeraccount'} {$order.details.gift_message nofilter}</li>
+              <li>{l s='You have requested gift wrapping for this order.' d='Shop.Theme.Actions'}</li>
+              <li>{l s='Message' d='Shop.Theme.Actions'} {$order.details.gift_message nofilter}</li>
             {/if}
           </ul>
       </div>
@@ -83,21 +77,21 @@
 
   {block name='order_history'}
     <section id="order-history" class="box">
-      <h3>{l s='Follow your order\'s status step-by-step' d='Shop.Theme.Customeraccount'}</h3>
+      <h3>{l s='Follow your order\'s status step-by-step' d='Shop.Theme.Actions'}</h3>
       <table class="table table-striped table-bordered table-labeled hidden-xs-down">
         <thead class="thead-default">
           <tr>
-            <th>{l s='Date' d='Shop.Theme.Global'}</th>
-            <th>{l s='Status' d='Shop.Theme.Global'}</th>
+            <th>{l s='Date' d='Shop.Theme.Actions'}</th>
+            <th>{l s='Status' d='Shop.Theme.Actions'}</th>
           </tr>
         </thead>
         <tbody>
           {foreach from=$order.history item=state}
             <tr>
-              <td>{$state.history_date}</td>
+              <td>{$state.history_date|escape:'html':'UTF-8'}</td>
               <td>
-                <span class="label label-pill {$state.contrast}" style="background-color:{$state.color}">
-                  {$state.ostate_name}
+                <span class="label label-pill {$state.contrast|escape:'html':'UTF-8'}" style="background-color:{$state.color|escape:'html':'UTF-8'}">
+                  {$state.ostate_name|escape:'html':'UTF-8'}
                 </span>
               </td>
             </tr>
@@ -107,10 +101,10 @@
       <div class="hidden-sm-up history-lines">
         {foreach from=$order.history item=state}
           <div class="history-line">
-            <div class="date">{$state.history_date}</div>
+            <div class="date">{$state.history_date|escape:'html':'UTF-8'}</div>
             <div class="state">
-              <span class="label label-pill {$state.contrast}" style="background-color:{$state.color}">
-                {$state.ostate_name}
+              <span class="label label-pill {$state.contrast|escape:'html':'UTF-8'}" style="background-color:{$state.color|escape:'html':'UTF-8'}">
+                {$state.ostate_name|escape:'html':'UTF-8'}
               </span>
             </div>
           </div>
@@ -121,8 +115,8 @@
 
   {if $order.follow_up}
     <div class="box">
-      <p>{l s='Click the following link to track the delivery of your order' d='Shop.Theme.Customeraccount'}</p>
-      <a href="{$order.follow_up}">{$order.follow_up}</a>
+      <p>{l s='Click the following link to track the delivery of your order' d='Shop.Theme.Actions'}</p>
+      <a href="{$order.follow_up|escape:'html':'UTF-8'}">{$order.follow_up|escape:'html':'UTF-8'}</a>
     </div>
   {/if}
 
@@ -150,7 +144,7 @@
   {$HOOK_DISPLAYORDERDETAIL nofilter}
 
   {block name='order_detail'}
-    {if $order.details.is_returnable && !$orderIsVirtual}
+    {if $order.details.is_returnable}
       {include file='customer/_partials/order-detail-return.tpl'}
     {else}
       {include file='customer/_partials/order-detail-no-return.tpl'}
@@ -163,7 +157,7 @@
         <table class="table table-striped table-bordered hidden-sm-down">
           <thead class="thead-default">
             <tr>
-              <th>{l s='Date' d='Shop.Theme.Global'}</th>
+              <th>{l s='Date' d='Shop.Theme.Actions'}</th>
               <th>{l s='Carrier' d='Shop.Theme.Checkout'}</th>
               <th>{l s='Weight' d='Shop.Theme.Checkout'}</th>
               <th>{l s='Shipping cost' d='Shop.Theme.Checkout'}</th>
@@ -173,11 +167,11 @@
           <tbody>
             {foreach from=$order.shipping item=line}
               <tr>
-                <td>{$line.shipping_date}</td>
-                <td>{$line.carrier_name}</td>
-                <td>{$line.shipping_weight}</td>
-                <td>{$line.shipping_cost}</td>
-                <td>{$line.tracking nofilter}</td>
+                <td>{$line.shipping_date|escape:'html':'UTF-8'}</td>
+                <td>{$line.carrier_name|escape:'html':'UTF-8'}</td>
+                <td>{$line.shipping_weight|escape:'html':'UTF-8'}</td>
+                <td>{$line.shipping_cost|escape:'html':'UTF-8'}</td>
+                <td>{$line.tracking|escape:'html':'UTF-8'}</td>
               </tr>
             {/foreach}
           </tbody>
@@ -187,19 +181,19 @@
             <div class="shipping-line">
               <ul>
                 <li>
-                  <strong>{l s='Date' d='Shop.Theme.Global'}</strong> {$line.shipping_date}
+                  <strong>{l s='Date' d='Shop.Theme.Actions'}</strong> {$line.shipping_date|escape:'html':'UTF-8'}
                 </li>
                 <li>
-                  <strong>{l s='Carrier' d='Shop.Theme.Checkout'}</strong> {$line.carrier_name}
+                  <strong>{l s='Carrier' d='Shop.Theme.Checkout'}</strong> {$line.carrier_name|escape:'html':'UTF-8'}
                 </li>
                 <li>
-                  <strong>{l s='Weight' d='Shop.Theme.Checkout'}</strong> {$line.shipping_weight}
+                  <strong>{l s='Weight' d='Shop.Theme.Checkout'}</strong> {$line.shipping_weight|escape:'html':'UTF-8'}
                 </li>
                 <li>
-                  <strong>{l s='Shipping cost' d='Shop.Theme.Checkout'}</strong> {$line.shipping_cost}
+                  <strong>{l s='Shipping cost' d='Shop.Theme.Checkout'}</strong> {$line.shipping_cost|escape:'html':'UTF-8'}
                 </li>
                 <li>
-                  <strong>{l s='Tracking number' d='Shop.Theme.Checkout'}</strong> {$line.tracking nofilter}
+                  <strong>{l s='Tracking number' d='Shop.Theme.Checkout'}</strong> {$line.tracking|escape:'html':'UTF-8'}
                 </li>
               </ul>
             </div>

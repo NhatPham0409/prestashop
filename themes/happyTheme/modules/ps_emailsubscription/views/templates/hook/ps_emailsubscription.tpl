@@ -1,77 +1,64 @@
-{**
- * Copyright since 2007 PrestaShop SA and Contributors
- * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
- * that is bundled with this package in the file LICENSE.md.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/AFL-3.0
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to https://devdocs.prestashop.com/ for more information.
- *
- * @author    PrestaShop SA and Contributors <contact@prestashop.com>
- * @copyright Since 2007 PrestaShop SA and Contributors
- * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
- *}
+{*
+* 2007-2022 ETS-Soft
+*
+* NOTICE OF LICENSE
+*
+* This file is not open source! Each license that you purchased is only available for 1 wesite only.
+* If you want to use this file on more websites (or projects), you need to purchase additional licenses. 
+* You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+* 
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs, please contact us for extra customization service at an affordable price
+*
+*  @author ETS-Soft <etssoft.jsc@gmail.com>
+*  @copyright  2007-2022 ETS-Soft
+*  @license    Valid for 1 website (or project) for each purchase of license
+*  International Registered Trademark & Property of ETS-Soft
+*}
+<div class="block_newsletter col-xs-12 col-md-3 col-sm-3 links">
 
-<div class="block_newsletter col-lg-8 col-md-12 col-sm-12" id="blockEmailSubscription_{$hookName}">
-  <div class="row">
-    <p id="block-newsletter-label" class="col-md-5 col-xs-12">{l s='Get our latest news and special sales' d='Shop.Theme.Global'}</p>
-    <div class="col-md-7 col-xs-12">
-      <form action="{$urls.current_url}#blockEmailSubscription_{$hookName}" method="post">
+    <h3 class="myaccount-title hidden-sm-down">
+        <a class="text-uppercase" href="{$urls.pages.my_account|escape:'html':'UTF-8'}" rel="nofollow">
+          {l s='Newsletter' d='Shop.Theme.Actions'}
+        </a>
+      </h3>
+  <div class="title clearfix hidden-md-up" data-target="#footer_newsletter" data-toggle="collapse">
+    <span class="h3">{l s='Newsletter' d='Shop.Theme.Actions'}</span>
+    <span class="pull-xs-right">
+      <span class="navbar-toggler collapse-icons">
+        <i class="material-icons material-icons-add add"></i>
+        <i class="material-icons material-icons-remove remove"></i>
+      </span>
+    </span>
+  </div>
+    <div id="footer_newsletter" class="collapse">
+        {if $conditions}
+        <p>{$conditions|escape:'html':'UTF-8'}</p>
+      {/if}
+      <form action="{$urls.pages.index|escape:'html':'UTF-8'}#footer" method="post">
         <div class="row">
           <div class="col-xs-12">
-            <input
-              class="btn btn-primary float-xs-right hidden-xs-down"
-              name="submitNewsletter"
-              type="submit"
-              value="{l s='Subscribe' d='Shop.Theme.Actions'}"
-            >
-            <input
-              class="btn btn-primary float-xs-right hidden-sm-up"
-              name="submitNewsletter"
-              type="submit"
-              value="{l s='OK' d='Shop.Theme.Actions'}"
-            >
-            <div class="input-wrapper">
-              <input
-                name="email"
-                type="email"
-                value="{$value}"
-                placeholder="{l s='Your email address' d='Shop.Forms.Labels'}"
-                aria-labelledby="block-newsletter-label"
-                required
-              >
+            <div class="submit_subscribe" data-title="\f003">
+                <input class="btn btn-primary pull-xs-right hidden-xs-down" name="submitNewsletter" type="submit" value="{l s='Subscribe' d='Shop.Theme.Actions'}" >
+                <input class="btn btn-primary pull-xs-right hidden-sm-up" name="submitNewsletter" type="submit" value="{l s='OK' d='Shop.Theme.Actions'}" >
             </div>
-            <input type="hidden" name="blockHookName" value="{$hookName}" />
-            <input type="hidden" name="action" value="0">
+            <div class="input-wrapper">
+              <input name="email" type="text" value="{$value|escape:'html':'UTF-8'}" placeholder="{l s='Enter your email...' d='Shop.Forms.Labels'}" >
+            </div>
+            <input type="hidden" name="action" value="0" />
             <div class="clearfix"></div>
           </div>
           <div class="col-xs-12">
-              {if $conditions}
-                <p>{$conditions}</p>
-              {/if}
               {if $msg}
                 <p class="alert {if $nw_error}alert-danger{else}alert-success{/if}">
-                  {$msg}
+                  {$msg|escape:'html':'UTF-8'}
                 </p>
-              {/if}
-              {hook h='displayNewsletterRegistration'}
-              {if isset($id_module)}
-                {hook h='displayGDPRConsent' id_module=$id_module}
               {/if}
           </div>
         </div>
       </form>
     </div>
-  </div>
 </div>
