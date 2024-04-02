@@ -74,16 +74,17 @@ class Ps_BestSellers extends Module implements WidgetInterface
             && $this->registerHook('actionProductUpdate')
             && $this->registerHook('actionProductDelete')
             && $this->registerHook('displayHome')
-            && ProductSale::fillProductSales()
-        ;
+            && ProductSale::fillProductSales();
     }
 
     public function uninstall()
     {
         $this->_clearCache('*');
 
-        if (!parent::uninstall() ||
-            !Configuration::deleteByName('PS_BLOCK_BESTSELLERS_TO_DISPLAY')) {
+        if (
+            !parent::uninstall() ||
+            !Configuration::deleteByName('PS_BLOCK_BESTSELLERS_TO_DISPLAY')
+        ) {
             return false;
         }
 
@@ -181,7 +182,6 @@ class Ps_BestSellers extends Module implements WidgetInterface
     {
         if (!$this->isCached($this->templateFile, $this->getCacheId('ps_bestsellers'))) {
             $variables = $this->getWidgetVariables($hookName, $configuration);
-
             if (empty($variables)) {
                 return false;
             }
@@ -224,8 +224,7 @@ class Ps_BestSellers extends Module implements WidgetInterface
         $query
             ->setResultsPerPage((int) Configuration::get('PS_BLOCK_BESTSELLERS_TO_DISPLAY'))
             ->setPage(1)
-            ->setSortOrder(new SortOrder('product', 'sales', 'desc'))
-        ;
+            ->setSortOrder(new SortOrder('product', 'sales', 'desc'));
 
         $result = $searchProvider->runQuery(
             $context,
