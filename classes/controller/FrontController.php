@@ -397,7 +397,7 @@ class FrontControllerCore extends Controller
                 unset($this->context->cookie->id_cart, $cart, $this->context->cookie->checkedTOS);
                 $this->context->cookie->check_cgv = false;
 
-            /*
+                /*
              * If geolocation is enabled and we are not allowed to order from our country, we will delete the cart.
              */
             } elseif (
@@ -412,7 +412,7 @@ class FrontControllerCore extends Controller
                 PrestaShopLogger::addLog('Frontcontroller::init - GEOLOCATION is deleting a cart', 1, null, 'Cart', (int) $this->context->cookie->id_cart, true);
                 unset($this->context->cookie->id_cart, $cart);
 
-            /*
+                /*
              * Check if cart data is still matching to what is set in our cookie - currency, language and customer.
              * If not, update it on the cart.
              */

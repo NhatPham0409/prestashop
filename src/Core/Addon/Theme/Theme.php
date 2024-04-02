@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -209,8 +210,10 @@ class Theme implements AddonInterface
     public function getLayoutNameForPage($page)
     {
         $layout_name = $this->get('theme_settings.default_layout');
-        if (isset($this->attributes['theme_settings']['layouts'][$page])
-            && $this->attributes['theme_settings']['layouts'][$page]) {
+        if (
+            isset($this->attributes['theme_settings']['layouts'][$page])
+            && $this->attributes['theme_settings']['layouts'][$page]
+        ) {
             $layout_name = $this->attributes['theme_settings']['layouts'][$page];
         }
 

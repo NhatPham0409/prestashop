@@ -613,9 +613,11 @@ class Ps_ImageSlider extends Module implements WidgetInterface
 
     public function headerHTML()
     {
-        if ('AdminModules' !== Tools::getValue('controller') ||
+        if (
+            'AdminModules' !== Tools::getValue('controller') ||
             Tools::getValue('configure') !== $this->name ||
-            Tools::getIsset('id_slide')) {
+            Tools::getIsset('id_slide')
+        ) {
             return;
         }
 
@@ -669,7 +671,7 @@ class Ps_ImageSlider extends Module implements WidgetInterface
             WHERE id_shop = ' . (int) $id_shop . '
             AND hssl.id_lang = ' . (int) $id_lang . '
             AND hssl.`image` <> ""' .
-            ($active ? ' AND hss.`active` = 1' : ' ') . '
+                ($active ? ' AND hss.`active` = 1' : ' ') . '
             ORDER BY hss.position'
         );
 
@@ -696,7 +698,7 @@ class Ps_ImageSlider extends Module implements WidgetInterface
             LEFT JOIN ' . _DB_PREFIX_ . 'homeslider_slides hss ON (hs.id_homeslider_slides = hss.id_homeslider_slides)
             LEFT JOIN ' . _DB_PREFIX_ . 'homeslider_slides_lang hssl ON (hss.id_homeslider_slides = hssl.id_homeslider_slides)
             WHERE hs.`id_homeslider_slides` = ' . (int) $id_slides . ' AND hs.`id_shop` = ' . (int) $id_shop .
-            ($active ? ' AND hss.`active` = 1' : ' ')
+                ($active ? ' AND hss.`active` = 1' : ' ')
         );
 
         foreach ($results as $result) {

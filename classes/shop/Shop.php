@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -1339,8 +1340,8 @@ class ShopCore extends ObjectModel
             LEFT JOIN ' . _DB_PREFIX_ . bqSQL($entity) . ' entity
                 ON (entity.`id_' . bqSQL($entity) . '` = es.`id_' . bqSQL($entity) . '`)
             WHERE es.`id_shop` = ' . (int) $id_shop .
-            ($active ? ' AND entity.`active` = 1' : '') .
-            ($delete ? ' AND entity.deleted = 0' : '')
+                ($active ? ' AND entity.`active` = 1' : '') .
+                ($delete ? ' AND entity.deleted = 0' : '')
         );
     }
 
