@@ -18,30 +18,42 @@
 *  @license    Valid for 1 website (or project) for each purchase of license
 *  International Registered Trademark & Property of ETS-Soft
 *}
-<article class="product-miniature js-product-miniature{if isset($tc_config.YBC_TC_FLOAT_CSS3) && $tc_config.YBC_TC_FLOAT_CSS3 == 1 && $page.page_name == 'index'} wow zoomIn{/if}" data-id-product="{$product.id_product|escape:'html':'UTF-8'}" data-id-product-attribute="{$product.id_product_attribute|escape:'html':'UTF-8'}" itemscope itemtype="http://schema.org/Product">
+<article
+    class="product-miniature js-product-miniature{if isset($tc_config.YBC_TC_FLOAT_CSS3) && $tc_config.YBC_TC_FLOAT_CSS3 == 1 && $page.page_name == 'index'} wow zoomIn{/if}"
+    data-id-product="{$product.id_product|escape:'html':'UTF-8'}"
+    data-id-product-attribute="{$product.id_product_attribute|escape:'html':'UTF-8'}" itemscope
+    itemtype="http://schema.org/Product">
     <div class="thumbnail-container">
         <div class="image_item_product">
-            {if $product.has_discount}
-                {if $product.discount_type === 'percentage'}
-                    <span class="discount-percentage">{$product.discount_percentage|escape:'html':'UTF-8'}</span>
-                {/if}
-            {/if}
             {block name='product_thumbnail'}
                 <a href="{$product.url|escape:'html':'UTF-8'}" class="thumbnail product-thumbnail">
-                    <img src = "{$product.cover.bySize.home_default.url|escape:'html':'UTF-8'}" alt = "{$product.cover.legend|escape:'html':'UTF-8'}"
-                         data-full-size-image-url = "{$product.cover.large.url|escape:'html':'UTF-8'}" />
+                    <img src="{$product.cover.bySize.home_default.url|escape:'html':'UTF-8'}"
+                        alt="{$product.cover.legend|escape:'html':'UTF-8'}"
+                        data-full-size-image-url="{$product.cover.large.url|escape:'html':'UTF-8'}" />
                 </a>
             {/block}
             <div class="button-container-product highlighted-informations">
-                <a href="#" class="quick-view" data-link-action="quickview">
+                <a class="quick-view" href="{$product.url|escape:'html':'UTF-8'}"
+                    title="{l s='Quick View' d='Shop.Theme.Actions'}">
                     <i class="icon-first material-icons material-icons-search"></i>
-                    <i class="icon-second material-icons material-icons-search"></i> {*l s='Quick view' d='Shop.Theme.Actions'*}
+                    <i class="icon-second material-icons material-icons-search"></i>
+                </a>
+                <a class="quick-view" href="{$product.url|escape:'html':'UTF-8'}"
+                    title="{l s='Add to cart' d='Shop.Theme.Actions'}">
+                    <i class="icon-first material-icons material-icons-shopping_cart"></i>
+                    <i class="icon-second material-icons material-icons-shopping_cart"></i>
+                </a>
+                <a class="quick-view" href="{$product.url|escape:'html':'UTF-8'}"
+                    title="{l s='Add to favorites' d='Shop.Theme.Actions'}">
+                    <i class="icon-first material-icons material-icons-favorite"></i>
+                    <i class="icon-second material-icons material-icons-favorite"></i>
                 </a>
             </div>
         </div>
         <div class="product-description">
             {block name='product_name'}
-                <h4 class="h3 product-title" itemprop="name"><a href="{$product.url|escape:'html':'UTF-8'}">{$product.name|truncate:30:'...'}</a></h4>
+                <h4 class="h3 product-title" itemprop="name"><a
+                        href="{$product.url|escape:'html':'UTF-8'}">{$product.name|truncate:30:'...'}</a></h4>
             {/block}
             {*if isset($product.description_short) && $product.description_short !=''}
                 <div class="short_description">{$product.description_short|escape:'html':'UTF-8'|truncate:100:'...' nofilter}</div>
@@ -60,16 +72,16 @@
                             {hook h='displayProductPriceBlock' product=$product type="old_price"}
 
                             <span class="regular-price">{$product.regular_price|escape:'html':'UTF-8'}</span>
-                            {*if $product.discount_type === 'percentage'}
+                        {*if $product.discount_type === 'percentage'}
                               <span class="discount-percentage">{$product.discount_percentage|escape:'html':'UTF-8'}</span>
                             {/if*}
-                        {/if}
+                    {/if}
 
-                        {hook h='displayProductPriceBlock' product=$product type='unit_price'}
+                    {hook h='displayProductPriceBlock' product=$product type='unit_price'}
 
-                        {hook h='displayProductPriceBlock' product=$product type='weight'}
-                    </div>
-                {/if}
+                    {hook h='displayProductPriceBlock' product=$product type='weight'}
+                </div>
+            {/if}
             {/block}
             <div class="highlighted-informations{if !$product.main_variants} no-variants{/if}">
                 {*<div class="add_to_cart_button">
@@ -84,23 +96,22 @@
                    </form>
                </div>*}
                 {hook h='displayProductListFunctionalButtons' product=$product}
-                <div class="atc_div">
+                {* <div class="atc_div">
                     <form action="{$urls.pages.cart}" method="post" id="add-to-cart-or-refresh">
                         <input type="hidden" name="token" value="{$static_token}">
                         <input type="hidden" name="id_product" value="{$product.id}" id="product_page_product_id">
-                        <button class="btn btn-primary btn-sm add-to-cart add_to_cart {if $product.quantity < 1}out-of-stock{/if}" data-button-action="add-to-cart" type="submit">
+                        <button
+                            class="btn btn-primary btn-sm add-to-cart add_to_cart {if $product.quantity < 1}out-of-stock{/if}"
+                            data-button-action="add-to-cart" type="submit">
                             <span class="shopping-cart">
-                              <i class="icon-first fa fa-shopping-cart"></i>
+                                <i class="icon-first fa fa-shopping-cart"></i>
                                 <i class="icon-second fa fa-shopping-cart"></i>
-                              {l s='Add to cart' d='Shop.Theme.Actions'}
-                          </span>
+                                {l s='Add to cart' d='Shop.Theme.Actions'}
+                            </span>
                         </button>
                     </form>
-                </div>
-                <a class="view_product" href="{$product.url|escape:'html':'UTF-8'}" title="{l s='View product' d='Shop.Theme.Actions'}">
-                    <i class="icon-first material-icons material-icons-visibility"></i>
-                    <i class="icon-second material-icons material-icons-visibility"></i>
-                </a>
+                </div> *}
+
             </div>
         </div>
         {block name='product_flags'}
@@ -118,13 +129,9 @@
                         {/if}
                     {/if}
                 {/foreach}
-                {if $product.show_price}
-                    {if $product.has_discount}
-                        {if $product.discount_type === 'percentage'}
-                            <li class="product-discount">
-                                <span class="discount-percen">{$product.discount_percentage|escape:'html':'UTF-8'}</span>
-                            </li>
-                        {/if}
+                {if $product.has_discount}
+                    {if $product.discount_type === 'percentage'}
+                        <li class="discount-percentage">{$product.discount_percentage|escape:'html':'UTF-8'}</li>
                     {/if}
                 {/if}
             </ul>

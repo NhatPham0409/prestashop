@@ -19,7 +19,9 @@
 *  International Registered Trademark & Property of ETS-Soft
 *}
 {if $homeslider.slides}
-  <div id="carousel" data-ride="carousel" class="carousel slide hidden-sm-down" data-interval="{$homeslider.speed|escape:'html':'UTF-8'}" data-wrap="{$homeslider.wrap|escape:'html':'UTF-8'}" data-pause="{$homeslider.pause|escape:'html':'UTF-8'}">
+  <div id="carousel" data-ride="carousel" class="carousel slide hidden-sm-down"
+    data-interval="{$homeslider.speed|escape:'html':'UTF-8'}" data-wrap="{$homeslider.wrap|escape:'html':'UTF-8'}"
+    data-pause="{$homeslider.pause|escape:'html':'UTF-8'}">
     <ul class="carousel-inner" role="listbox">
       {foreach from=$homeslider.slides item=slide name='homeslider'}
         <li class="carousel-item {if $smarty.foreach.homeslider.first}active{/if}">

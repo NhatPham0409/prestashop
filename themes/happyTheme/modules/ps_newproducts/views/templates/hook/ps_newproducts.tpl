@@ -19,7 +19,7 @@
 *  International Registered Trademark & Property of ETS-Soft
 *}
 <section class="featured-products clearfix home-block-section">
-  <h3 class="h1 products-section-title text-uppercase title-home">
+  <h3 class="h1 products-section-title text-uppercase title-home text-center">
     <span>{l s='New products' d='Shop.Theme.Catalog'}</span>
   </h3>
   <div class="products product_list">
@@ -31,4 +31,3 @@
     {l s='All new products' d='Shop.Theme.Catalog'}<i class="material-icons">&#xE315;</i>
   </a>*}
 </section>
-
