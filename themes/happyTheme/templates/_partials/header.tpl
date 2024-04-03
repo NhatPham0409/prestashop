@@ -86,7 +86,7 @@
     {/block}
   </div>
 
-  {if $page.page_name == 'index'}
+  {* {if $page.page_name == 'index'}
     <div id="slider_row">
       <div id="top_column" class="container">
         <div id="ybc-nivo-slider-wrapper" class="theme-default">
@@ -95,5 +95,5 @@
         {hook h='displaytopcolumn'}
       </div>
     </div>
-  {/if}
+  {/if} *}
 {/if}

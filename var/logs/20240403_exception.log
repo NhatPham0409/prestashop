@@ -1,0 +1,7 @@
+*ERROR* 	v8.1.5	2024/04/03 - 11:19:07: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: YES) at line 119 in file classes/db/DbPDO.php
+*ERROR* 	v8.1.5	2024/04/03 - 11:19:30: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: YES) at line 119 in file classes/db/DbPDO.php
+*ERROR* 	v8.1.5	2024/04/03 - 11:19:31: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: YES) at line 119 in file classes/db/DbPDO.php
+*ERROR* 	v8.1.5	2024/04/03 - 11:19:53: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: YES) at line 119 in file classes/db/DbPDO.php
+*ERROR* 	v8.1.5	2024/04/03 - 11:19:55: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: YES) at line 119 in file classes/db/DbPDO.php
+*ERROR* 	v8.1.5	2024/04/03 - 17:50:39: Link to database cannot be established: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it at line 119 in file classes/db/DbPDO.php
+*ERROR* 	v8.1.5	2024/04/03 - 17:50:39: Link to database cannot be established: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it at line 119 in file classes/db/DbPDO.php

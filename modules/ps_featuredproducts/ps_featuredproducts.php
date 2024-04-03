@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2020 PrestaShop SA and Contributors
  *
@@ -76,8 +77,7 @@ class Ps_FeaturedProducts extends Module implements WidgetInterface
             && $this->registerHook('displayHome')
             && $this->registerHook('displayOrderConfirmation2')
             && $this->registerHook('actionCategoryUpdate')
-            && $this->registerHook('actionAdminGroupsControllerSaveAfter')
-        ;
+            && $this->registerHook('actionAdminGroupsControllerSaveAfter');
     }
 
     public function uninstall()
@@ -174,8 +174,8 @@ class Ps_FeaturedProducts extends Module implements WidgetInterface
                     [
                         'type' => 'categories',
                         'tree' => [
-                          'id' => 'home_featured_category',
-                          'selected_categories' => [Configuration::get('HOME_FEATURED_CAT')],
+                            'id' => 'home_featured_category',
+                            'selected_categories' => [Configuration::get('HOME_FEATURED_CAT')],
                         ],
                         'label' => $this->trans('Category from which to pick products to be displayed', [], 'Modules.Featuredproducts.Admin'),
                         'name' => 'HOME_FEATURED_CAT',
@@ -284,8 +284,7 @@ class Ps_FeaturedProducts extends Module implements WidgetInterface
 
         $query
             ->setResultsPerPage($nProducts)
-            ->setPage(1)
-        ;
+            ->setPage(1);
 
         if (Configuration::get('HOME_FEATURED_RANDOMIZE')) {
             $query->setSortOrder(SortOrder::random());
