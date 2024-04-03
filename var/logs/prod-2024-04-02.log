@@ -1,0 +1,1 @@
+[2024-04-02 21:57:46] request.CRITICAL: Uncaught PHP Exception ParseError: "syntax error, unexpected 'if' (T_IF)" at /Applications/AMPPS/www/prestashop/modules/cd_loadproducts/cd_loadproducts.php line 100 {"exception":"[object] (ParseError(code: 0): syntax error, unexpected 'if' (T_IF) at /Applications/AMPPS/www/prestashop/modules/cd_loadproducts/cd_loadproducts.php:100)"} []
