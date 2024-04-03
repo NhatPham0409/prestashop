@@ -19,80 +19,81 @@
 *  International Registered Trademark & Property of ETS-Soft
 *}
 {if isset($tc_config.YBC_TC_LAYOUT) && $tc_config.YBC_TC_LAYOUT == 'layouthome2'}
-    {include file='_partials/header/header2.tpl'}
+  {include file='_partials/header/header2.tpl'}
 {else if isset($tc_config.YBC_TC_LAYOUT) && $tc_config.YBC_TC_LAYOUT == 'layouthome3'}
-    {include file='_partials/header/header3.tpl'}
+  {include file='_partials/header/header3.tpl'}
 {else}
-<div class="header_content">
-{block name='header_nav'}
-  <nav class="header-nav">
-    <div class="container">
-        <div class="nav">
-            <div class="left-nav">
-              {hook h='ybcCustom4'}
+  <div class="header_content">
+
+    {block name='header_top'}
+      <div class="header-top">
+        <div class="container" style="padding: 25px 0;">
+          <div style="display: flex; align-items: center">
+            <div class="_desktop_logo">
+              <a href="{$urls.base_url|escape:'html':'UTF-8'}">
+                <img class="logo img-responsive"
+                  src="{if isset($tc_dev_mode) && $tc_dev_mode && isset($logo_url)&&$logo_url}{$logo_url|escape:'html':'UTF-8'}{else}{$shop.logo|escape:'html':'UTF-8'}{/if}"
+                  alt="{$shop.name|escape:'html':'UTF-8'}">
+              </a>
             </div>
-            
-            <div class="toogle_nav_button">
-                <span class="toogle_nav">
-                    <i class="fa fa-cog"></i>
-                    {l s='Settings' d='Shop.Theme.Action'}
-                </span>
-                <div class="toogle_nav_content">
-                   {hook h='displayNav2'}
-                </div>
-            </div>
-            <div class="ybc_myaccout">
+            {* {hook h='displayNav1'} *}
+            {hook h='displayTop'}
+
+            <div class="nav" style="flex:1">
+              {* <div class="left-nav">
+                {hook h='ybcCustom4'}
+              </div> *}
+
+              <div class="toogle_nav_button">
+                {* <span class="toogle_nav">
+                  <i class="fa fa-shopping-cart"></i>
+                  {l s='Settings' d='Shop.Theme.Action'}
+                </span> *}
+                {* <div class="toogle_nav_content"> *}
+                {hook h='displayNav2'}
+                {* </div> *}
+              </div>
+              <div class="ybc_myaccout">
                 <div class="toogle_user">
-                    <a href="{$link->getPageLink('my-account', true)|escape:'html':'UTF-8'}" title="{l s='My account' d='Shop.Theme.Actions'}" rel="nofollow" >
-                        <i class="fa fa-user"></i>
-                        <span>{l s='Account' d='Shop.Theme.Actions'}</span>
-                    </a>
+                  <a href="{$link->getPageLink('my-account', true)|escape:'html':'UTF-8'}"
+                    title="{l s='My account' d='Shop.Theme.Actions'}" rel="nofollow">
+                    <i class="fa fa-user"></i>
+                    {* <span>{l s='Account' d='Shop.Theme.Actions'}</span> *}
+                  </a>
                 </div>
+              </div>
+
+              {if $customer.is_logged}
+                <a style="font-size: 17px;" class="logout userinfor"
+                  href="{$link->getPageLink('index', true, NULL, "mylogout")|escape:'html':'UTF-8'}" rel="nofollow">
+                  <i class="fa fa-unlock"></i>
+                  {* {l s='Sign out' d='Shop.Theme.Actions'} *}
+                </a>
+              {else}
+                <a style="font-size: 17px;" class="login userinfor"
+                  href="{$link->getPageLink('my-account', true)|escape:'html':'UTF-8'}"
+                  title="{l s='Log in to your customer account' d='Shop.Theme.Actions'}" rel="nofollow">
+                  <i class="fa fa-key"></i>
+                  {* <span>{l s='Sign in' d='Shop.Theme.Actions'}</span> *}
+                </a>
+              {/if}
             </div>
-
-            {if $customer.is_logged}
-              <a class="logout userinfor" href="{$link->getPageLink('index', true, NULL, "mylogout")|escape:'html':'UTF-8'}" rel="nofollow" >
-                <i class="fa fa-unlock"></i>
-                {l s='Sign out' d='Shop.Theme.Actions'}
-              </a>
-            {else}
-              <a class="login userinfor" href="{$link->getPageLink('my-account', true)|escape:'html':'UTF-8'}" title="{l s='Log in to your customer account' d='Shop.Theme.Actions'}" rel="nofollow" >
-                <i class="fa fa-key"></i>
-                <span>{l s='Sign in' d='Shop.Theme.Actions'}</span>
-              </a>
-            {/if}
+          </div>
         </div>
-    </div>
-  </nav>
-{/block}
+      </div>
+      {* {hook h='displayNavFullWidth'} *}
+      {* {hook h='displayMegaMenu'} *}
+    {/block}
+  </div>
 
-{block name='header_top'}
-  <div class="header-top">
-    <div class="container">
-       <div class="row">
-        <div id="_desktop_logo">
-          <a href="{$urls.base_url|escape:'html':'UTF-8'}">
-            <img class="logo img-responsive" src="{if isset($tc_dev_mode) && $tc_dev_mode && isset($logo_url)&&$logo_url}{$logo_url|escape:'html':'UTF-8'}{else}{$shop.logo|escape:'html':'UTF-8'}{/if}" alt="{$shop.name|escape:'html':'UTF-8'}">
-          </a>
+  {if $page.page_name == 'index'}
+    <div id="slider_row">
+      <div id="top_column" class="container">
+        <div id="ybc-nivo-slider-wrapper" class="theme-default">
+          {hook h='displayMLS'}
         </div>
-        {hook h='displayNav1'}
-        {hook h='displayTop'}
+        {hook h='displaytopcolumn'}
       </div>
     </div>
-  </div>
-  {hook h='displayNavFullWidth'}
-  {hook h='displayMegaMenu'}
-{/block}
-</div>
-
-{if $page.page_name == 'index'}
-    <div id="slider_row">
-        <div id="top_column" class="container">
-            <div id="ybc-nivo-slider-wrapper" class="theme-default">
-                {hook h='displayMLS'}
-            </div>
-            {hook h='displaytopcolumn'}
-        </div>
-    </div>
-{/if}
+  {/if}
 {/if}

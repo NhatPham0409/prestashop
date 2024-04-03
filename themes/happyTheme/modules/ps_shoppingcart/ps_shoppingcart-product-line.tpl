@@ -20,22 +20,28 @@
 *}
 {if $product.images}
     <div class="product_cart_img">
-        <img src="{$product.images.0.bySize.small_default.url|escape:'html':'UTF-8'}" title="{$product.name|escape:'html':'UTF-8'}"/>
+        <img src="{$product.images.0.bySize.small_default.url|escape:'html':'UTF-8'}"
+            title="{$product.name|escape:'html':'UTF-8'}" />
     </div>
 {/if}
-
-<p class="product-name"><span class="product-quantity">{$product.quantity|escape:'html':'UTF-8'}X </span>{$product.name|escape:'html':'UTF-8'}</p>
-<p class="product-price">{$product.price|escape:'html':'UTF-8'}</p>
-<a class="remove-from-cart" rel="nofollow" href="{$product.remove_from_cart_url|escape:'html':'UTF-8'}" data-link-action="remove-from-cart" title="{l s='remove from cart' d='Shop.Theme.Actions'}">
-    <i class="material-icons">&#xE14C;</i>
-</a>
+<div style="float: right;">
+    <p class="product-name"><span class="product-quantity">{$product.quantity|escape:'html':'UTF-8'}X
+        </span>{$product.name|escape:'html':'UTF-8'}</p>
+    <p class="product-price">{$product.price|escape:'html':'UTF-8'}</p>
+    <a class="remove-from-cart" rel="nofollow" href="{$product.remove_from_cart_url|escape:'html':'UTF-8'}"
+        data-link-action="remove-from-cart" title="{l s='remove from cart' d='Shop.Theme.Actions'}">
+        <i class="material-icons">&#xE14C;</i>
+    </a>
+</div>
 {if $product.customizations|count}
     <div class="customizations">
         <ul>
             {foreach from=$product.customizations item='customization'}
                 <li>
                     <span class="product-quantity">{$customization.quantity|escape:'html':'UTF-8'}</span>
-                    <a href="{$customization.remove_from_cart_url|escape:'html':'UTF-8'}" title="{l s='remove from cart' d='Shop.Theme.Actions'}" class="remove-from-cart" rel="nofollow">{l s='Remove' d='Shop.Theme.Actions'}</a>
+                    <a href="{$customization.remove_from_cart_url|escape:'html':'UTF-8'}"
+                        title="{l s='remove from cart' d='Shop.Theme.Actions'}" class="remove-from-cart"
+                        rel="nofollow">{l s='Remove' d='Shop.Theme.Actions'}</a>
                     <ul>
                         {foreach from=$customization.fields item='field'}
                             <li>

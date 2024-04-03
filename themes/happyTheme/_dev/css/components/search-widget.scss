@@ -1,5 +1,5 @@
 .search-widget {
-  float: right;
+  float: inherit;
   @include search-box;
 }
 .header-top {
