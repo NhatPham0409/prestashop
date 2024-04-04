@@ -39,15 +39,14 @@
                     <i class="icon-second material-icons material-icons-search"></i>
                 </a>
 
-                <form action="{$urls.pages.cart}" method="post" id="add-to-cart-or-refresh"
-                    title="{l s='Add to cart' d='Shop.Theme.Actions'}">
-                    <input type="hidden" name="token" value="{$static_token}">
-                    <input type="hidden" name="id_product" value="{$product.id}" id="product_page_product_id">
-                    <button data-button-action="add-to-cart" type="submit" class="quick-view">
+                <form action="{$urls.pages.cart|escape:'html':'UTF-8'}" method="post">
+                    <input type="hidden" name="token" value="{$static_token|escape:'html':'UTF-8'}" />
+                    <input type="hidden" value="{$product.id_product|escape:'html':'UTF-8'}" name="id_product" />
+                    <input type="hidden" class="input-group form-control" name="qty" min="1" value="1">
+                    <button data-button-action="add-to-cart" class="quick-view">
                         <i class="icon-first material-icons material-icons-shopping_cart"></i>
                     </button>
                 </form>
-
 
                 <a class="quick-view" href="{$product.url|escape:'html':'UTF-8'}"
                     title="{l s='Add to favorites' d='Shop.Theme.Actions'}">
@@ -90,17 +89,17 @@
             {/if}
             {/block}
             <div class="highlighted-informations{if !$product.main_variants} no-variants{/if}">
-                {*<div class="add_to_cart_button">
+                {* <div class="add_to_cart_button">
                     <form action="{$urls.pages.cart|escape:'html':'UTF-8'}" method="post">
-                          <input type="hidden" name="token" value="{$static_token|escape:'html':'UTF-8'}" />
-                          <input type="hidden" value="{$product.id_product|escape:'html':'UTF-8'}" name="id_product" />
-                          <input type="hidden" class="input-group form-control" name="qty" min="1" value="1">
-                          <button data-button-action="add-to-cart" class="btn btn-primary">
+                        <input type="hidden" name="token" value="{$static_token|escape:'html':'UTF-8'}" />
+                        <input type="hidden" value="{$product.id_product|escape:'html':'UTF-8'}" name="id_product" />
+                        <input type="hidden" class="input-group form-control" name="qty" min="1" value="1">
+                        <button data-button-action="add-to-cart" class="btn btn-primary">
 
-                              <i class="fa fa-shopping-cart">{l s='Add to cart' d='Shop.Theme.Actions'}</i>
-                          </button>
-                   </form>
-               </div>*}
+                            <i class="fa fa-shopping-cart">{l s='Add to cart' d='Shop.Theme.Actions'}</i>
+                        </button>
+                    </form>
+                </div> *}
                 {hook h='displayProductListFunctionalButtons' product=$product}
                 {* <div class="atc_div">
                     <form action="{$urls.pages.cart}" method="post" id="add-to-cart-or-refresh">
