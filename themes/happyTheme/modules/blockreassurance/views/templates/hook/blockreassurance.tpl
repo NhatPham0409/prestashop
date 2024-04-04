@@ -20,7 +20,7 @@
 *}
 {if $elements}
   <div id="block-reassurance">
-    <ul>
+    {* <ul>
       {foreach from=$elements item=element}
         <li>
           <div class="block-reassurance-item">
@@ -29,6 +29,6 @@
           </div>
         </li>
       {/foreach}
-    </ul>
+    </ul> *}
   </div>
 {/if}

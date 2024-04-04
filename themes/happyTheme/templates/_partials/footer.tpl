@@ -18,19 +18,20 @@
 *  @license    Valid for 1 website (or project) for each purchase of license
 *  International Registered Trademark & Property of ETS-Soft
 *}
-<div class="footer-container">
-  <div class="container">
+<div class="footer-container" style="background-color: #323232; padding-top: 40px">
+    <div class="container">
         <div class="footer_top">
             {hook h='displayFooter'}
-        </div> 
-  </div>
-  <div class="footer_after">
-      <div class="container">
+        </div>
+    </div>
+    {* <div class="footer_after">
+        <div class="container">
             {if isset($tc_config.YBC_TC_PAYMENT_LOGO) && $tc_config.YBC_TC_PAYMENT_LOGO}
-                <div class="payment_footer">                                       
+                <div class="payment_footer">
                     <ul class="payment_footer_img">
                         <li>
-                            <img src="{$tc_module_path|escape:'html':'UTF-8'}images/config/{$tc_config.YBC_TC_PAYMENT_LOGO|escape:'html':'UTF-8'}" alt="{l s='Payment methods'}" title="{l s='Payment methods'}" />
+                            <img src="{$tc_module_path|escape:'html':'UTF-8'}images/config/{$tc_config.YBC_TC_PAYMENT_LOGO|escape:'html':'UTF-8'}"
+                                alt="{l s='Payment methods'}" title="{l s='Payment methods'}" />
                         </li>
                     </ul>
                 </div>
@@ -39,30 +40,30 @@
                 <div class="footer_link_bottom">
                     {$tc_config.YBC_FOOTER_LINK_CUSTOM nofilter}
                 </div>
-             {/if}
-          {hook h='displayFooterAfter'}
-      </div>
-  </div>
-  <div class="footer_before">
-      <div class="container">
-          <div class="row">
-            {hook h='displayFooterBefore'}
-          </div>
-      </div>
-  </div>
-  
-  <div class="footer_bottom">
-      <div class="container">
-          <div class="row">
-              <div class="col-md-12 coppyright">
-                  <div class="ybc_coppyright">
-                     {if isset($tc_config.YBC_TC_COPYRIGHT_TEXT) && $tc_config.YBC_TC_COPYRIGHT_TEXT}
-                        {$tc_config.YBC_TC_COPYRIGHT_TEXT nofilter}
-                     {/if}
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+            {/if}
+            {hook h='displayFooterAfter'}
+        </div>
+    </div> *}
+    <div class="footer_before">
+        <div class="container">
+            <div class="row">
+                {hook h='displayFooterBefore'}
+            </div>
+        </div>
+    </div>
+
+    <div class="footer_bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 coppyright">
+                    <div class="ybc_coppyright">
+                        {if isset($tc_config.YBC_TC_COPYRIGHT_TEXT) && $tc_config.YBC_TC_COPYRIGHT_TEXT}
+                            {$tc_config.YBC_TC_COPYRIGHT_TEXT nofilter}
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="scroll_top"><span>TOP</span></div>
+{* <div class="scroll_top"><span>TOP</span></div> *}
