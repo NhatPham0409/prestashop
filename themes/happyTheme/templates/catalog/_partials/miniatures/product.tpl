@@ -38,11 +38,17 @@
                     <i class="icon-first material-icons material-icons-search"></i>
                     <i class="icon-second material-icons material-icons-search"></i>
                 </a>
-                <a class="quick-view" href="{$product.url|escape:'html':'UTF-8'}"
+
+                <form action="{$urls.pages.cart}" method="post" id="add-to-cart-or-refresh"
                     title="{l s='Add to cart' d='Shop.Theme.Actions'}">
-                    <i class="icon-first material-icons material-icons-shopping_cart"></i>
-                    <i class="icon-second material-icons material-icons-shopping_cart"></i>
-                </a>
+                    <input type="hidden" name="token" value="{$static_token}">
+                    <input type="hidden" name="id_product" value="{$product.id}" id="product_page_product_id">
+                    <button data-button-action="add-to-cart" type="submit" class="quick-view">
+                        <i class="icon-first material-icons material-icons-shopping_cart"></i>
+                    </button>
+                </form>
+
+
                 <a class="quick-view" href="{$product.url|escape:'html':'UTF-8'}"
                     title="{l s='Add to favorites' d='Shop.Theme.Actions'}">
                     <i class="icon-first material-icons material-icons-favorite"></i>
