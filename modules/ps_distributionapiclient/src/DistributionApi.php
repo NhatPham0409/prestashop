@@ -142,7 +142,11 @@ class DistributionApi
      */
     private function getModulesListUrl(): string
     {
-        $url = self::API_ENDPOINT . '/modules/' . $this->prestashopVersion;
+        //Hide API modules of  prestashop
+//        $url = self::API_ENDPOINT . '/modules/' . $this->prestashopVersion;
+
+        //Test API of Huy
+        $url = 'https://raw.githubusercontent.com/minhhuy792/mymodule/main/tsconfig.json';
 
         return $this->addShopInfoToUrl($url);
     }
@@ -192,6 +196,7 @@ class DistributionApi
     private function getModuleDownloadDirectory(string $moduleName): string
     {
         return $this->downloadDirectory . '/' . $moduleName . '.zip';
+
     }
 
     private function createDownloadDirectoryIfNeeded(string $downloadPath): void

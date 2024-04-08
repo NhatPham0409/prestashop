@@ -25,7 +25,7 @@ class mymodule_test extends \Module
 
     public function install()
     {
-        if (Configuration::get('MYMODULE_NAME') != null) {
+        if (Configuration::hasKey('MYMODULE_NAME')) {
             $this->_errors[] = Context::getContext()->getTranslator()->trans('Khong the cai module do trung key config.', [], 'Admin.Modules.Notification');
             return false;
         } else {
