@@ -198,23 +198,23 @@ class CustomerFormatterCore implements FormFormatterInterface
                 );
         }
 
-        if ($this->ask_for_birthdate) {
-            $format['birthday'] = (new FormField())
-                ->setName('birthday')
-                ->setType('text')
-                ->setLabel(
-                    $this->translator->trans(
-                        'Birthdate',
-                        [],
-                        'Shop.Forms.Labels'
-                    )
-                )
-                ->addAvailableValue('placeholder', Tools::getDateFormat())
-                ->addAvailableValue(
-                    'comment',
-                    $this->translator->trans('(E.g.: %date_format%)', ['%date_format%' => Tools::formatDateStr('31 May 1970')], 'Shop.Forms.Help')
-                );
-        }
+        // if ($this->ask_for_birthdate) {
+        //     $format['birthday'] = (new FormField())
+        //         ->setName('birthday')
+        //         ->setType('text')
+        //         ->setLabel(
+        //             $this->translator->trans(
+        //                 'Birthdate',
+        //                 [],
+        //                 'Shop.Forms.Labels'
+        //             )
+        //         )
+        //         ->addAvailableValue('placeholder', Tools::getDateFormat())
+        //         ->addAvailableValue(
+        //             'comment',
+        //             $this->translator->trans('(E.g.: %date_format%)', ['%date_format%' => Tools::formatDateStr('31 May 1970')], 'Shop.Forms.Help')
+        //         );
+        // }
 
         // if ($this->ask_for_partner_optin) {
         //     $format['optin'] = (new FormField())
