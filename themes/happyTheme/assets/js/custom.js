@@ -60,7 +60,7 @@ $(document).ready(function(){
                     items : 3
                 },
                 992 : {
-                    items : 3
+                    items : 4
                 }
             },
         nav : true,  
@@ -70,36 +70,6 @@ $(document).ready(function(){
         dots : false,         
         navText: ['', ''],  
         callbacks: true,
-    });
-
-    var $owlSingleItem = $('.single-item-carousel'); // Chọn carousel mới của bạn
-
-    $owlSingleItem.owlCarousel({
-        items: 1, // Chỉ hiển thị 1 sản phẩm trên mỗi lần trượt
-        margin: 30, // Khoảng cách giữa các sản phẩm (tuỳ chọn)
-        responsive: {
-            // Cài đặt breakpoint responsive (tuỳ chọn)
-            0: {
-                items: 1 // Hiển thị 1 sản phẩm ở mỗi breakpoint từ 0px trở lên
-            },
-            480: {
-                items: 1 // Hiển thị 1 sản phẩm ở mỗi breakpoint từ 480px trở lên
-            },
-            768: {
-                items: 1 // Hiển thị 1 sản phẩm ở mỗi breakpoint từ 768px trở lên
-            },
-            992: {
-                items: 1 // Hiển thị 1 sản phẩm ở mỗi breakpoint từ 992px trở lên
-            }
-        },
-        nav: true, // Hiển thị nút điều hướng
-        loop: true, // Vòng lặp
-        rewindNav: false, // Không cho phép quay lại slide đầu tiên sau khi đến slide cuối cùng
-        dots: false, // Không hiển thị chấm chấm
-        navText: ['', ''], // Văn bản cho nút điều hướng (tuỳ chọn)
-        autoplay: true, // Tự động phát
-        autoplayTimeout: 3000, // Thời gian chờ giữa các slide (tính bằng mili giây)
-        callbacks: true // Kích hoạt các hàm callback (tuỳ chọn)
     });
     
     $(document).on('click','.toogle_search_top', function(e){
