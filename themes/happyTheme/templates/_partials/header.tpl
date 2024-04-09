@@ -83,8 +83,6 @@
       {* {hook h='displayNavFullWidth'} *}
       {* {hook h='displayMegaMenu'} *}
       {hook h='displayNav1'}
-
-
     {/block}
   </div>
 

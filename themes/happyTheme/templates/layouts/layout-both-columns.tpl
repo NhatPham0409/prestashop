@@ -21,44 +21,56 @@
 <!doctype html>
 <html lang="{$language.iso_code|escape:'html':'UTF-8'}">
 
-  <head>
-    {block name='head'}
-      {include file='_partials/head.tpl'}
+<head>
+  {block name='head'}
+    {include file='_partials/head.tpl'}
+  {/block}
+
+</head>
+
+<body id="{$page.page_name|escape:'html':'UTF-8'}"
+  class="{$page.body_classes|classnames} {if isset($YBC_TC_CLASSES)}{$YBC_TC_CLASSES|escape:'html':'UTF-8'}{/if}">
+  {block name='hook_after_body_opening_tag'}
+    {hook h='displayAfterBodyOpeningTag'}
+  {/block}
+
+  <main>
+    {block name='product_activation'}
+      {include file='catalog/_partials/product-activation.tpl'}
     {/block}
 
-  </head>
+    <header id="header">
+      {block name='header'}
+        {include file='_partials/header.tpl'}
+      {/block}
+    </header>
 
-  <body id="{$page.page_name|escape:'html':'UTF-8'}" class="{$page.body_classes|classnames} {if isset($YBC_TC_CLASSES)}{$YBC_TC_CLASSES|escape:'html':'UTF-8'}{/if}">
-
-    {block name='hook_after_body_opening_tag'}
-      {hook h='displayAfterBodyOpeningTag'}
+    {block name='notifications'}
+      {include file='_partials/notifications.tpl'}
     {/block}
 
-    <main>
-      {block name='product_activation'}
-        {include file='catalog/_partials/product-activation.tpl'}
-      {/block}
+    <div style="display: flex; flex-direction: column;" id="wrapper">
 
-      <header id="header">
-        {block name='header'}
-          {include file='_partials/header.tpl'}
-        {/block}
-      </header>
+      {if $page.page_name == 'index'}
+        <div class="col-xs-12 col-sm-12 col-md-12" style="overflow: hidden;">
+          {hook h="displayNav"}
+        </div>
+      {/if}
 
-      {block name='notifications'}
-        {include file='_partials/notifications.tpl'}
-      {/block}
-
-      <div id="wrapper">
-        <div class="container">
+      <div class="container">
+        {if  $page.page_name != 'index'}
           {block name='breadcrumb'}
             {include file='_partials/breadcrumb.tpl'}
           {/block}
+        {/if}
 
+        <div style="display: flex;">
           {block name="left_column"}
-            <div id="left-column" class="col-xs-12 col-sm-4 col-md-3">
+            <div id="left-column" class="col-xs-12 col-sm-4 col-md-3" style="padding-top: 15px; margin-top: 0px;">
               {if $page.page_name == 'product'}
                 {hook h='displayLeftColumnProduct'}
+              {else if $page.page_name == 'index'}
+                {hook h='displayYbcProductReview'}
               {else}
                 {hook h="displayLeftColumn"}
               {/if}
@@ -83,23 +95,27 @@
             </div>
           {/block}
         </div>
+
+
+
       </div>
+    </div>
 
-      <footer id="footer">
-        {block name="footer"}
-          {include file="_partials/footer.tpl"}
-        {/block}
-      </footer>
+    <footer id="footer">
+      {block name="footer"}
+        {include file="_partials/footer.tpl"}
+      {/block}
+    </footer>
 
-    </main>
+  </main>
 
 
-    {block name='javascript_bottom'}
-        {include file="_partials/javascript.tpl" javascript=$javascript.bottom}
-    {/block}
-    {block name='hook_before_body_closing_tag'}
-      {hook h='displayBeforeBodyClosingTag'}
-    {/block}
-  </body>
+  {block name='javascript_bottom'}
+    {include file="_partials/javascript.tpl" javascript=$javascript.bottom}
+  {/block}
+  {block name='hook_before_body_closing_tag'}
+    {hook h='displayBeforeBodyClosingTag'}
+  {/block}
+</body>
 
 </html>

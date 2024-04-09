@@ -18,17 +18,4 @@
 *  @license    Valid for 1 website (or project) for each purchase of license
 *  International Registered Trademark & Property of ETS-Soft
 *}
-{extends file='page.tpl'}
-
-{block name='page_content_container'}
-  <div id="content" class="page-home">
-    {block name='page_content_top'}{/block}
-
-    {block name='page_content'}
-
-      {block name='hook_home'}
-        {$HOOK_HOME nofilter}
-      {/block}
-    {/block}
-  </div>
-{/block}
+<h1>Slider Demo</h1>

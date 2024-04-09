@@ -113,13 +113,13 @@ global_settings:
       displayFooterProduct:
         - ps_categoryproducts
       displayHome:
-        - ps_imageslider
+        # - ps_imageslider
         - ps_featuredproducts
         - ps_banner
         - ps_customtext
         - ps_specials
         - ps_newproducts
-        - ps_bestsellers
+        # - ps_bestsellers
       displayLeftColumn:
         - ps_categorytree
         - ps_facetedsearch
@@ -152,7 +152,7 @@ global_settings:
       displayMyAccountBlock:
         - blockwishlist
       displayNav:
-        # - ybc_widget
+        - ps_imageslider
       displayNav1:
         - ps_mainmenu
       displayNav2:
@@ -187,7 +187,8 @@ global_settings:
         - ets_multilayerslider
         - ybc_widget
       displayYbcProductReview:
-        - ybc_themeconfig
+        - ps_bestsellers
+        # - ybc_themeconfig
       paymentOptions:
         - ps_checkpayment
         - ps_wirepayment
@@ -252,6 +253,7 @@ global_settings:
 theme_settings:
   default_layout: layout-full-width
   layouts:
+    index: layout-left-column
     category: layout-left-column
     best-sales: layout-left-column
     new-products: layout-left-column
