@@ -1,20 +1,20 @@
 <!--**
- * Copyright since 2007 PrestaShop SA and Contributors
- * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ * 2007-2020 PrestaShop and Contributors
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Academic Free License version 3.0
- * that is bundled with this package in the file LICENSE.md.
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
  * https://opensource.org/licenses/AFL-3.0
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@prestashop.com so we can send you a copy immediately.
  *
- * @author    PrestaShop SA and Contributors <contact@prestashop.com>
- * @copyright Since 2007 PrestaShop SA and Contributors
- * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2020 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ * International Registered Trademark & Property of PrestaShop SA
  *-->
 <script>
   import EventBus from '@components/EventBus';
@@ -74,7 +74,7 @@
           this.productId = event.detail.productId;
         }
 
-        if (typeof event.detail.productAttributeId === 'number') {
+        if (event.detail.productAttributeId) {
           this.productAttributeId = event.detail.productAttributeId;
         }
 
@@ -86,27 +86,33 @@
   };
 </script>
 
-<style lang="scss" type="text/scss">
+<style lang="scss" type="text/scss" scoped>
   @import '@scss/_variables';
 
   .wishlist {
     &-add-to-new {
       cursor: pointer;
       transition: 0.2s ease-out;
-      font-size: 0.875rem;
+      height: 16px;
+      width: 79px;
+      font-size: 14px;
       letter-spacing: 0;
-      line-height: 1rem;
+      line-height: 16px;
+
+      &:not([href]):not([tabindex]) {
+        color: $blue;
+      }
 
       &:hover {
         opacity: 0.7;
       }
 
       i {
-        margin-right: 0.3125rem;
+        margin-right: 5px;
         vertical-align: middle;
         color: $blue;
-        margin-top: -0.125rem;
-        font-size: 1.25rem;
+        margin-top: -2px;
+        font-size: 20px;
       }
     }
 
@@ -118,6 +124,7 @@
 
         &-footer {
           text-align: left;
+          padding: 12px 20px;
         }
       }
     }

@@ -1,0 +1,9 @@
+*ERROR* 	v8.1.5	2024/04/07 - 21:19:54: Property Address-&amp;gt;id_country is empty. at line 1104 in file classes/ObjectModel.php
+*ERROR* 	v8.1.5	2024/04/07 - 21:19:58: Property Address-&amp;gt;id_country is empty. at line 1104 in file classes/ObjectModel.php
+*ERROR* 	v8.1.5	2024/04/07 - 21:31:37: Property Address-&amp;gt;id_country is empty. at line 1104 in file classes/ObjectModel.php
+*ERROR* 	v8.1.5	2024/04/07 - 21:32:30: Property Address-&amp;gt;id_country is empty. at line 1104 in file classes/ObjectModel.php
+*ERROR* 	v8.1.5	2024/04/07 - 22:15:10: Property Address-&amp;gt;phone is empty. at line 1104 in file classes/ObjectModel.php
+*ERROR* 	v8.1.5	2024/04/07 - 22:31:48: Property Address-&amp;gt;phone is empty. at line 1104 in file classes/ObjectModel.php
+*ERROR* 	v8.1.5	2024/04/07 - 22:33:46: Property Address-&amp;gt;phone is empty. at line 1104 in file classes/ObjectModel.php
+*ERROR* 	v8.1.5	2024/04/07 - 22:49:07: Property Address-&amp;gt;postcode is empty. at line 1104 in file classes/ObjectModel.php
+*ERROR* 	v8.1.5	2024/04/07 - 22:49:16: Property Address-&amp;gt;postcode is empty. at line 1104 in file classes/ObjectModel.php

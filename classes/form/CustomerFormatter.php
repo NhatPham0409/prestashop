@@ -139,25 +139,25 @@ class CustomerFormatterCore implements FormFormatterInterface
                 $this->translator->trans('Only letters and the dot (.) character, followed by a space, are allowed.', [], 'Shop.Forms.Help')
             );
 
-        if (Configuration::get('PS_B2B_ENABLE')) {
-            $format['company'] = (new FormField())
-                ->setName('company')
-                ->setType('text')
-                ->setLabel($this->translator->trans(
-                    'Company',
-                    [],
-                    'Shop.Forms.Labels'
-                ));
-            $format['siret'] = (new FormField())
-                ->setName('siret')
-                ->setType('text')
-                ->setLabel($this->translator->trans(
-                    // Please localize this string with the applicable registration number type in your country. For example : "SIRET" in France and "Código fiscal" in Spain.
-                    'Identification number',
-                    [],
-                    'Shop.Forms.Labels'
-                ));
-        }
+        // if (Configuration::get('PS_B2B_ENABLE')) {
+        //     $format['company'] = (new FormField())
+        //         ->setName('company')
+        //         ->setType('text')
+        //         ->setLabel($this->translator->trans(
+        //             'Company',
+        //             [],
+        //             'Shop.Forms.Labels'
+        //         ));
+        //     $format['siret'] = (new FormField())
+        //         ->setName('siret')
+        //         ->setType('text')
+        //         ->setLabel($this->translator->trans(
+        //             // Please localize this string with the applicable registration number type in your country. For example : "SIRET" in France and "Código fiscal" in Spain.
+        //             'Identification number',
+        //             [],
+        //             'Shop.Forms.Labels'
+        //         ));
+        // }
 
         $format['email'] = (new FormField())
             ->setName('email')
@@ -169,7 +169,7 @@ class CustomerFormatterCore implements FormFormatterInterface
                     'Shop.Forms.Labels'
                 )
             )
-            ->setRequired(true);
+            ->setRequired(false);
 
         if ($this->ask_for_password) {
             $format['password'] = (new FormField())
@@ -216,36 +216,36 @@ class CustomerFormatterCore implements FormFormatterInterface
                 );
         }
 
-        if ($this->ask_for_partner_optin) {
-            $format['optin'] = (new FormField())
-                ->setName('optin')
-                ->setType('checkbox')
-                ->setLabel(
-                    $this->translator->trans(
-                        'Receive offers from our partners',
-                        [],
-                        'Shop.Theme.Customeraccount'
-                    )
-                )
-                ->setRequired($this->partner_optin_is_required);
-        }
+        // if ($this->ask_for_partner_optin) {
+        //     $format['optin'] = (new FormField())
+        //         ->setName('optin')
+        //         ->setType('checkbox')
+        //         ->setLabel(
+        //             $this->translator->trans(
+        //                 'Receive offers from our partners',
+        //                 [],
+        //                 'Shop.Theme.Customeraccount'
+        //             )
+        //         )
+        //         ->setRequired($this->partner_optin_is_required);
+        // }
 
         // ToDo, replace the hook exec with HookFinder when the associated PR will be merged
         // An array [module_name => module_output] will be returned
-        $additionalCustomerFormFields = Hook::exec('additionalCustomerFormFields', ['fields' => &$format], null, true);
+        // $additionalCustomerFormFields = Hook::exec('additionalCustomerFormFields', ['fields' => &$format], null, true);
 
-        if (is_array($additionalCustomerFormFields)) {
-            foreach ($additionalCustomerFormFields as $moduleName => $additionnalFormFields) {
-                if (!is_array($additionnalFormFields)) {
-                    continue;
-                }
+        // if (is_array($additionalCustomerFormFields)) {
+        //     foreach ($additionalCustomerFormFields as $moduleName => $additionnalFormFields) {
+        //         if (!is_array($additionnalFormFields)) {
+        //             continue;
+        //         }
 
-                foreach ($additionnalFormFields as $formField) {
-                    $formField->moduleName = $moduleName;
-                    $format[$moduleName . '_' . $formField->getName()] = $formField;
-                }
-            }
-        }
+        //         foreach ($additionnalFormFields as $formField) {
+        //             $formField->moduleName = $moduleName;
+        //             $format[$moduleName . '_' . $formField->getName()] = $formField;
+        //         }
+        //     }
+        // }
 
         // TODO: TVA etc.?
 

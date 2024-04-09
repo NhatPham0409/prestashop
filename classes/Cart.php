@@ -2873,11 +2873,11 @@ class CartCore extends ObjectModel
             // Foreach packages, get the carriers with best price, best position and best grade
             foreach ($packages as $id_package => $package) {
                 // No carriers available
-                if (count($packages) == 1 && count($package['carrier_list']) == 1 && current($package['carrier_list']) == 0) {
-                    $cache[$this->id] = [];
+                // if (count($packages) == 1 && count($package['carrier_list']) == 1 && current($package['carrier_list']) == 0) {
+                //     $cache[$this->id] = [];
 
-                    return $cache[$this->id];
-                }
+                //     return $cache[$this->id];
+                // }
 
                 $carriers_price[$id_address][$id_package] = [];
 

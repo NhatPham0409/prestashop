@@ -60,8 +60,7 @@ class AddressFormatCore extends ObjectModel
         'firstname',
         'lastname',
         'address1',
-        'city',
-        'Country:name',
+        'phone',
     ];
 
     /** @var array Default forbidden property list */

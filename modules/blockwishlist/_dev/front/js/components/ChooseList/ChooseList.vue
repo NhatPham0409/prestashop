@@ -1,20 +1,20 @@
 <!--**
- * Copyright since 2007 PrestaShop SA and Contributors
- * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ * 2007-2020 PrestaShop and Contributors
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Academic Free License version 3.0
- * that is bundled with this package in the file LICENSE.md.
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
  * https://opensource.org/licenses/AFL-3.0
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@prestashop.com so we can send you a copy immediately.
  *
- * @author    PrestaShop SA and Contributors <contact@prestashop.com>
- * @copyright Since 2007 PrestaShop SA and Contributors
- * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2020 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ * International Registered Trademark & Property of PrestaShop SA
  *-->
 <template>
   <div class="wishlist-chooselist">
@@ -174,11 +174,7 @@
          * Send an event to the Heart the user previously clicked on
          */
         EventBus.$emit('addedToWishlist', {
-          detail: {
-            productId: this.productId,
-            listId,
-            productAttributeId: this.productAttributeId,
-          },
+          detail: {productId: this.productId, listId},
         });
       },
     },
@@ -201,7 +197,7 @@
   .wishlist {
     &-list {
       max-height: 55vh;
-      overflow-y: auto;
+      overflow-y: scroll;
       border-top: 1px solid #e5e5e5;
       border-bottom: 1px solid #e5e5e5;
       margin: 0;
@@ -210,28 +206,27 @@
         font-size: 30;
         text-align: center;
         padding: 30px;
-        padding-bottom: 1.25rem;
+        padding-bottom: 20px;
         font-weight: bold;
         color: #000;
       }
 
-      & .wishlist-list-item {
-        padding: 0.875rem 0;
+      &-item {
+        padding: 14px 0;
         transition: 0.25s ease-out;
         cursor: pointer;
-        margin-bottom: 0;
 
         &:hover {
           background: lighten($blue, 45%);
         }
 
         p {
-          font-size: 0.875rem;
+          font-size: 14px;
           letter-spacing: 0;
           color: #232323;
           margin-bottom: 0;
-          line-height: 1rem;
-          padding: 0 2.5rem;
+          line-height: 16px;
+          padding: 0 40px;
         }
       }
     }

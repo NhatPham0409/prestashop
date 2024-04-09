@@ -1,6 +1,6 @@
 <?php
-/**
-* 2007-2018 PrestaShop.
+/*
+* 2007-2016 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -24,10 +24,11 @@
 *  International Registered Trademark & Property of PrestaShop SA
 */
 
+use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
 use PrestaShop\PrestaShop\Adapter\Image\ImageRetriever;
 use PrestaShop\PrestaShop\Adapter\Product\PriceFormatter;
+use PrestaShop\PrestaShop\Core\Product\ProductListingPresenter;
 use PrestaShop\PrestaShop\Adapter\Product\ProductColorsRetriever;
-use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -36,32 +37,27 @@ if (!defined('_PS_VERSION_')) {
 class Ps_Viewedproduct extends Module implements WidgetInterface
 {
     private $templateFile;
-    private $currentProductId;
 
     public function __construct()
     {
         $this->name = 'ps_viewedproduct';
         $this->author = 'PrestaShop';
-        $this->version = '1.2.4';
-        $this->tab = 'front_office_features';
+        $this->version = '1.0.1';
         $this->need_instance = 0;
 
-        $this->ps_versions_compliancy = [
+        $this->ps_versions_compliancy = array(
             'min' => '1.7.0.0',
             'max' => _PS_VERSION_,
-        ];
+        );
 
         $this->bootstrap = true;
         parent::__construct();
 
-        $this->displayName = $this->trans('Viewed products block', [], 'Modules.Viewedproduct.Admin');
-        $this->description = $this->trans(
-            'Display a kind of showcase on your product pages with recently viewed products.',
-            [],
-            'Modules.Viewedproduct.Admin'
-        );
+        $this->displayName = $this->trans('Viewed products block', array(), 'Modules.Viewedproduct.Admin');
+        $this->description = $this->trans('Adds a block displaying recently viewed products.', array(), 'Modules.Viewedproduct.Admin');
 
-        $this->templateFile = 'module:ps_viewedproduct/views/templates/hook/ps_viewedproduct.tpl';
+
+        $this->templateFile = 'module:ps_viewedproduct/views/template/hook/ps_viewedproduct.tpl';
     }
 
     public function install()
@@ -69,7 +65,7 @@ class Ps_Viewedproduct extends Module implements WidgetInterface
         return parent::install()
             && Configuration::updateValue('PRODUCTS_VIEWED_NBR', 8)
             && $this->registerHook('displayFooterProduct')
-            && $this->registerHook('displayProductAdditionalInfo')
+            && $this->registerHook('displayProductButtons')
             && $this->registerHook('actionObjectProductDeleteAfter')
             && $this->registerHook('actionObjectProductUpdateAfter')
         ;
@@ -77,12 +73,17 @@ class Ps_Viewedproduct extends Module implements WidgetInterface
 
     public function hookActionObjectProductDeleteAfter($params)
     {
-        $this->_clearCache($this->templateFile);
+        $this->_clearCache('*');
     }
 
     public function hookActionObjectProductUpdateAfter($params)
     {
-        $this->_clearCache($this->templateFile);
+        $this->_clearCache('*');
+    }
+
+    public function _clearCache($template, $cache_id = null, $compile_id = null)
+    {
+        parent::_clearCache($this->templateFile);
     }
 
     public function getContent()
@@ -91,64 +92,50 @@ class Ps_Viewedproduct extends Module implements WidgetInterface
 
         if (Tools::isSubmit('submitBlockViewed')) {
             if (!($productNbr = Tools::getValue('PRODUCTS_VIEWED_NBR')) || empty($productNbr)) {
-                $output .= $this->displayError($this->trans(
-                    'You must fill in the \'Products displayed\' field.',
-                    [],
-                    'Modules.Viewedproduct.Admin'
-                ));
-            } elseif (0 === (int) ($productNbr)) {
-                $output .= $this->displayError($this->trans('Invalid number.', [], 'Modules.Viewedproduct.Admin'));
+                $output .= $this->displayError($this->trans('You must fill in the \'Products displayed\' field.', array(), 'Modules.Viewedproduct.Admin'));
+            } elseif (0 === (int)($productNbr)) {
+                $output .= $this->displayError($this->trans('Invalid number.', array(), 'Modules.Viewedproduct.Admin'));
             } else {
-                Configuration::updateValue('PRODUCTS_VIEWED_NBR', (int) $productNbr);
+                Configuration::updateValue('PRODUCTS_VIEWED_NBR', (int)$productNbr);
 
-                $this->_clearCache($this->templateFile);
+                $this->_clearCache('*');
 
-                $output .= $this->displayConfirmation($this->trans(
-                    'The settings have been updated.',
-                    [],
-                    'Admin.Notifications.Success'
-                ));
+                $output .= $this->displayConfirmation($this->trans('The settings have been updated.', array(), 'Admin.Notifications.Success'));
             }
         }
-
         return $output . $this->renderForm();
     }
 
     public function renderForm()
     {
-        $fields_form = [
-            'form' => [
-                'legend' => [
-                    'title' => $this->trans('Settings', [], 'Admin.Global'),
-                    'icon' => 'icon-cogs',
-                ],
-                'input' => [
-                    [
+        $fields_form = array(
+            'form' => array(
+                'legend' => array(
+                    'title' => $this->trans('Settings', array(), 'Admin.Global'),
+                    'icon' => 'icon-cogs'
+                ),
+                'input' => array(
+                    array(
                         'type' => 'text',
-                        'label' => $this->trans('Products to display', [], 'Modules.Viewedproduct.Admin'),
+                        'label' => $this->trans('Products to display', array(), 'Modules.Viewedproduct.Admin'),
                         'name' => 'PRODUCTS_VIEWED_NBR',
                         'class' => 'fixed-width-xs',
-                        'desc' => $this->trans(
-                            'Define the number of products displayed in this block.',
-                            [],
-                            'Modules.Viewedproduct.Admin'
-                        ),
-                    ],
-                ],
-                'submit' => [
-                    'title' => $this->trans('Save', [], 'Admin.Actions'),
-                ],
-            ],
-        ];
+                        'desc' => $this->trans('Define the number of products displayed in this block.', array(), 'Modules.Viewedproduct.Admin'),
+                    ),
+                ),
+                'submit' => array(
+                    'title' => $this->trans('Save', array(), 'Admin.Actions'),
+                ),
+            ),
+        );
 
-        $lang = new Language((int) Configuration::get('PS_LANG_DEFAULT'));
+        $lang = new Language((int)Configuration::get('PS_LANG_DEFAULT'));
 
         $helper = new HelperForm();
         $helper->show_toolbar = false;
-        $helper->table = $this->table;
+        $helper->table =  $this->table;
         $helper->default_form_language = $lang->id;
-        $configFormLang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG');
-        $helper->allow_employee_form_lang = $configFormLang ? $configFormLang : 0;
+        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
         $helper->identifier = $this->identifier;
         $helper->submit_action = 'submitBlockViewed';
         $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false) .
@@ -156,20 +143,20 @@ class Ps_Viewedproduct extends Module implements WidgetInterface
             '&tab_module=' . $this->tab .
             '&module_name=' . $this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
-        $helper->tpl_vars = [
+        $helper->tpl_vars = array(
             'fields_value' => $this->getConfigFieldsValues(),
             'languages' => $this->context->controller->getLanguages(),
-            'id_language' => $this->context->language->id,
-        ];
+            'id_language' => $this->context->language->id
+        );
 
-        return $helper->generateForm([$fields_form]);
+        return $helper->generateForm(array($fields_form));
     }
 
     public function getConfigFieldsValues()
     {
-        return [
+        return array(
             'PRODUCTS_VIEWED_NBR' => Tools::getValue('PRODUCTS_VIEWED_NBR', Configuration::get('PRODUCTS_VIEWED_NBR')),
-        ];
+        );
     }
 
     public function getCacheId($name = null)
@@ -181,13 +168,8 @@ class Ps_Viewedproduct extends Module implements WidgetInterface
 
     public function renderWidget($hookName = null, array $configuration = [])
     {
-        if (isset($configuration['product']['id_product'])) {
-            $this->currentProductId = $configuration['product']['id_product'];
-        }
-
-        if ('displayProductAdditionalInfo' === $hookName) {
-            $this->addViewedProduct($this->currentProductId);
-
+        if ('displayProductButtons' === $hookName) {
+            $this->addViewedProduct($configuration['product']['id_product']);
             return;
         }
 
@@ -210,24 +192,19 @@ class Ps_Viewedproduct extends Module implements WidgetInterface
 
     public function getWidgetVariables($hookName = null, array $configuration = [])
     {
-        if (isset($configuration['product']['id_product'])) {
-            $this->currentProductId = $configuration['product']['id_product'];
-        }
-
-        $products = $this->getViewedProducts();
+        $products = $this->getViewedProducts($configuration['product']['id_product']);
 
         if (!empty($products)) {
-            return [
+            return array(
                 'products' => $products,
-            ];
+            );
         }
-
         return false;
     }
 
     protected function addViewedProduct($idProduct)
     {
-        $arr = [];
+        $arr = array();
 
         if (isset($this->context->cookie->viewed)) {
             $arr = explode(',', $this->context->cookie->viewed);
@@ -235,7 +212,6 @@ class Ps_Viewedproduct extends Module implements WidgetInterface
 
         if (!in_array($idProduct, $arr)) {
             $arr[] = $idProduct;
-            $arr = array_reverse(array_slice(array_reverse($arr), 0, ((int) Configuration::get('PRODUCTS_VIEWED_NBR') + 1)));
 
             $this->context->cookie->viewed = trim(implode(',', $arr), ',');
         }
@@ -243,20 +219,12 @@ class Ps_Viewedproduct extends Module implements WidgetInterface
 
     protected function getViewedProductIds()
     {
-        $viewedProductsIds = array_reverse(explode(',', $this->context->cookie->viewed));
-        if (null !== $this->currentProductId && in_array($this->currentProductId, $viewedProductsIds)) {
-            $viewedProductsIds = array_diff($viewedProductsIds, [$this->currentProductId]);
-        }
+        $arr = array_reverse(explode(',', $this->context->cookie->viewed));
 
-        $existingProducts = $this->getExistingProductsIds();
-        $viewedProductsIds = array_filter($viewedProductsIds, function ($entry) use ($existingProducts) {
-            return in_array($entry, $existingProducts);
-        });
-
-        return array_slice($viewedProductsIds, 0, (int) (Configuration::get('PRODUCTS_VIEWED_NBR')));
+        return array_slice($arr, 0, (int) (Configuration::get('PRODUCTS_VIEWED_NBR') + 1));
     }
 
-    protected function getViewedProducts()
+    protected function getViewedProducts($idProductPage)
     {
         $productIds = $this->getViewedProductIds();
 
@@ -265,36 +233,24 @@ class Ps_Viewedproduct extends Module implements WidgetInterface
 
             $presenterFactory = new ProductPresenterFactory($this->context);
             $presentationSettings = $presenterFactory->getPresentationSettings();
-            if (version_compare(_PS_VERSION_, '1.7.5', '>=')) {
-                $presenter = new \PrestaShop\PrestaShop\Adapter\Presenter\Product\ProductListingPresenter(
-                    new ImageRetriever(
-                        $this->context->link
-                    ),
-                    $this->context->link,
-                    new PriceFormatter(),
-                    new ProductColorsRetriever(),
-                    $this->context->getTranslator()
-                );
-            } else {
-                $presenter = new \PrestaShop\PrestaShop\Core\Product\ProductListingPresenter(
-                    new ImageRetriever(
-                        $this->context->link
-                    ),
-                    $this->context->link,
-                    new PriceFormatter(),
-                    new ProductColorsRetriever(),
-                    $this->context->getTranslator()
-                );
-            }
+            $presenter = new ProductListingPresenter(
+                new ImageRetriever(
+                    $this->context->link
+                ),
+                $this->context->link,
+                new PriceFormatter(),
+                new ProductColorsRetriever(),
+                $this->context->getTranslator()
+            );
 
-            $products_for_template = [];
+            $products_for_template = array();
 
             if (is_array($productIds)) {
                 foreach ($productIds as $productId) {
-                    if ($this->currentProductId !== $productId) {
+                    if ($idProductPage != $productId) {
                         $products_for_template[] = $presenter->present(
                             $presentationSettings,
-                            $assembler->assembleProduct(['id_product' => $productId]),
+                            $assembler->assembleProduct(array('id_product' => $productId)),
                             $this->context->language
                         );
                     }
@@ -307,19 +263,5 @@ class Ps_Viewedproduct extends Module implements WidgetInterface
         return false;
     }
 
-    /**
-     * @return array the list of active product ids
-     */
-    private function getExistingProductsIds()
-    {
-        $existingProductsQuery = Db::getInstance((bool) _PS_USE_SQL_SLAVE_)->executeS('
-            SELECT p.id_product
-            FROM ' . _DB_PREFIX_ . 'product p
-            WHERE p.active = 1'
-        );
 
-        return array_map(function ($entry) {
-            return $entry['id_product'];
-        }, $existingProductsQuery);
-    }
 }

@@ -23,15 +23,14 @@
     {include file='_partials/form-errors.tpl' errors=$errors['']}
 
     {block name="address_form_url"}
-    <form
-      method="POST"
-      action="{url entity='address' params=['id_address' => $id_address]}"
-      data-id-address="{$id_address|escape:'html':'UTF-8'}"
-      data-refresh-url="{url entity='address' params=['ajax' => 1, 'action' => 'addressForm']}"
-    >
-    {/block}
+      <form method="POST" action="{url entity='address' params=['id_address' => $id_address]}"
+        data-id-address="{$id_address|escape:'html':'UTF-8'}"
+        data-refresh-url="{url entity='address' params=['ajax' => 1, 'action' => 'addressForm']}">
+      {/block}
 
       {block name="address_form_fields"}
+        {dump($formFields)}
+
         <section class="form-fields">
           {block name='form_fields'}
             {foreach from=$formFields item="field"}
@@ -40,18 +39,19 @@
               {/block}
             {/foreach}
           {/block}
+
         </section>
       {/block}
 
       {block name="address_form_footer"}
-      <footer class="form-footer clearfix">
-        <input type="hidden" name="submitAddress" value="1">
-        {block name='form_buttons'}
-          <button class="btn btn-primary pull-xs-right" type="submit" class="form-control-submit">
-            {l s='Save' d='Shop.Theme.Actions'}
-          </button>
-        {/block}
-      </footer>
+        <footer class="form-footer clearfix">
+          <input type="hidden" name="submitAddress" value="1">
+          {block name='form_buttons'}
+            <button class="btn btn-primary pull-xs-right" type="submit" class="form-control-submit">
+              {l s='Save' d='Shop.Theme.Actions'}
+            </button>
+          {/block}
+        </footer>
       {/block}
 
     </form>

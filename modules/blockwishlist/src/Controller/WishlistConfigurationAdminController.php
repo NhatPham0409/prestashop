@@ -1,21 +1,21 @@
 <?php
 /**
- * Copyright since 2007 PrestaShop SA and Contributors
- * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ * 2007-2020 PrestaShop and Contributors
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Academic Free License version 3.0
- * that is bundled with this package in the file LICENSE.md.
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
  * https://opensource.org/licenses/AFL-3.0
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@prestashop.com so we can send you a copy immediately.
  *
- * @author    PrestaShop SA and Contributors <contact@prestashop.com>
- * @copyright Since 2007 PrestaShop SA and Contributors
- * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2020 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ * International Registered Trademark & Property of PrestaShop SA
  */
 
 namespace PrestaShop\Module\BlockWishList\Controller;
@@ -57,9 +57,6 @@ class WishlistConfigurationAdminController extends FrameworkBundleAdminControlle
 
         if ($configurationForm->isSubmitted() && $configurationForm->isValid()) {
             $resultHandleForm = $this->handleForm($configurationForm->getData());
-            if ($resultHandleForm) {
-                return $this->redirectToRoute('blockwishlist_configuration');
-            }
         }
 
         return $this->render('@Modules/blockwishlist/views/templates/admin/home.html.twig', [
@@ -88,8 +85,6 @@ class WishlistConfigurationAdminController extends FrameworkBundleAdminControlle
             'currentMonthStatisticsGrid' => $this->presentGrid($currentMonthGrid),
             'currentDayStatisticsGrid' => $this->presentGrid($currentDayGrid),
             'shopId' => $this->shopId,
-            'enableSidebar' => true,
-            'help_link' => $this->generateSidebarLink('WishlistConfigurationAdminController'),
         ]);
     }
 
@@ -113,37 +108,22 @@ class WishlistConfigurationAdminController extends FrameworkBundleAdminControlle
     private function handleForm($datas)
     {
         $result = true;
-        $defaultLanguageId = (int) Configuration::get('PS_LANG_DEFAULT');
-
         if (isset($datas['WishlistPageName'])) {
             foreach ($datas['WishlistPageName'] as $langID => $value) {
-                if (empty($value) && $langID != $defaultLanguageId) {
-                    $value = $datas['WishlistPageName'][$defaultLanguageId];
-                }
-                $result = $result && Configuration::updateValue('blockwishlist_WishlistPageName', [$langID => $value]);
+                $result &= Configuration::updateValue('blockwishlist_WishlistPageName', [$langID => $value]);
             }
         }
 
         if (isset($datas['WishlistDefaultTitle'])) {
             foreach ($datas['WishlistDefaultTitle'] as $langID => $value) {
-                if (empty($value) && $langID != $defaultLanguageId) {
-                    $value = $datas['WishlistDefaultTitle'][$defaultLanguageId];
-                }
-                $result = $result && Configuration::updateValue('blockwishlist_WishlistDefaultTitle', [$langID => $value]);
+                $result &= Configuration::updateValue('blockwishlist_WishlistDefaultTitle', [$langID => $value]);
             }
         }
 
         if (isset($datas['CreateButtonLabel'])) {
             foreach ($datas['CreateButtonLabel'] as $langID => $value) {
-                if (empty($value) && $langID != $defaultLanguageId) {
-                    $value = $datas['CreateButtonLabel'][$defaultLanguageId];
-                }
-                $result = $result && Configuration::updateValue('blockwishlist_CreateButtonLabel', [$langID => $value]);
+                $result &= Configuration::updateValue('blockwishlist_CreateButtonLabel', [$langID => $value]);
             }
-        }
-
-        if ($result === true) {
-            $this->addFlash('success', $this->trans('Successful update.', 'Admin.Notifications.Success'));
         }
 
         return $result;

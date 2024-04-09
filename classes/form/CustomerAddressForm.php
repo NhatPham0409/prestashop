@@ -124,18 +124,18 @@ class CustomerAddressFormCore extends AbstractForm
     {
         $is_valid = true;
 
-        $postcode = $this->getField('postcode');
-        if ($postcode && $postcode->isRequired()) {
-            $country = $this->formatter->getCountry();
-            if (!$country->checkZipCode($postcode->getValue())) {
-                $postcode->addError($this->translator->trans(
-                    'Invalid postcode - should look like "%zipcode%"',
-                    ['%zipcode%' => $country->zip_code_format],
-                    'Shop.Forms.Errors'
-               ));
-                $is_valid = false;
-            }
-        }
+        // $postcode = $this->getField('postcode');
+        // if ($postcode && $postcode->isRequired()) {
+        //     $country = $this->formatter->getCountry();
+        //     if (!$country->checkZipCode($postcode->getValue())) {
+        //         $postcode->addError($this->translator->trans(
+        //             'Invalid postcode - should look like "%zipcode%"',
+        //             ['%zipcode%' => $country->zip_code_format],
+        //             'Shop.Forms.Errors'
+        //        ));
+        //         $is_valid = false;
+        //     }
+        // }
 
         if (($hookReturn = Hook::exec('actionValidateCustomerAddressForm', ['form' => $this])) !== '') {
             $is_valid &= (bool) $hookReturn;
@@ -146,9 +146,9 @@ class CustomerAddressFormCore extends AbstractForm
 
     public function submit()
     {
-        if (!$this->validate()) {
-            return false;
-        }
+        // if (!$this->validate()) {
+        //     return false;
+        // }
 
         $address = new Address(
             Tools::getValue('id_address'),

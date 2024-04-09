@@ -26,8 +26,6 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 }
 
 use PrestaShop\Module\LinkList\DataMigration;
-use PrestaShop\Module\LinkList\Filter\BestSalesRouteFilter;
-use PrestaShop\Module\LinkList\Filter\LinkFilter;
 use PrestaShop\Module\LinkList\LegacyLinkBlockRepository;
 use PrestaShop\Module\LinkList\Model\LinkBlockLang;
 use PrestaShop\Module\LinkList\Presenter\LinkBlockPresenter;
@@ -73,7 +71,7 @@ class Ps_Linklist extends Module implements WidgetInterface
     {
         $this->name = 'ps_linklist';
         $this->author = 'PrestaShop';
-        $this->version = '6.0.7';
+        $this->version = '5.0.4';
         $this->need_instance = 0;
         $this->tab = 'front_office_features';
 
@@ -99,17 +97,11 @@ class Ps_Linklist extends Module implements WidgetInterface
         $this->displayName = $this->trans('Link List', [], 'Modules.Linklist.Admin');
         $this->description = $this->trans('Give more visibility to your content/static pages (CMS, external pages, or else), where you want and when you want, to make your visitors feel like shopping on your store.', [], 'Modules.Linklist.Admin');
 
-        $this->ps_versions_compliancy = ['min' => '8.1.0', 'max' => _PS_VERSION_];
+        $this->ps_versions_compliancy = ['min' => '1.7.8.0', 'max' => _PS_VERSION_];
         $this->templateFile = 'module:ps_linklist/views/templates/hook/linkblock.tpl';
         $this->templateFileColumn = 'module:ps_linklist/views/templates/hook/linkblock-column.tpl';
 
-        $this->linkBlockPresenter = new LinkBlockPresenter(
-            new Link(),
-            $this->context->language,
-            new LinkFilter([
-                new BestSalesRouteFilter(),
-            ])
-        );
+        $this->linkBlockPresenter = new LinkBlockPresenter(new Link(), $this->context->language);
         $this->legacyBlockRepository = new LegacyLinkBlockRepository(Db::getInstance(), $this->context->shop, $this->context->getTranslator());
     }
 
@@ -139,11 +131,10 @@ class Ps_Linklist extends Module implements WidgetInterface
         } else {
             $dataLoadedWithSuccess = $this->installFixtures();
         }
-        $dataLoadedWithSuccess = $dataLoadedWithSuccess
+
+        if ($dataLoadedWithSuccess
             && $this->registerHook('displayFooter')
-            && $this->registerHook('actionUpdateLangAfter')
-            && $this->registerHook('actionGeneralPageSave');
-        if ($dataLoadedWithSuccess) {
+            && $this->registerHook('actionUpdateLangAfter')) {
             return true;
         }
 
@@ -155,7 +146,7 @@ class Ps_Linklist extends Module implements WidgetInterface
     /**
      * @return bool
      *
-     * @throws \Doctrine\DBAL\Exception
+     * @throws \Doctrine\DBAL\DBALException
      */
     private function createTables()
     {
@@ -174,7 +165,7 @@ class Ps_Linklist extends Module implements WidgetInterface
     /**
      * @return bool
      *
-     * @throws \Doctrine\DBAL\Exception
+     * @throws \Doctrine\DBAL\DBALException
      */
     private function installFixtures()
     {
@@ -233,17 +224,10 @@ class Ps_Linklist extends Module implements WidgetInterface
         }
     }
 
-    public function hookActionGeneralPageSave()
-    {
-        $this->_clearCache('');
-    }
-
     public function _clearCache($template, $cache_id = null, $compile_id = null)
     {
-        return array_sum([
-            parent::_clearCache($this->templateFile),
-            parent::_clearCache($this->templateFileColumn),
-        ]);
+        parent::_clearCache($this->templateFile);
+        parent::_clearCache($this->templateFileColumn);
     }
 
     public function getContent()
@@ -260,14 +244,7 @@ class Ps_Linklist extends Module implements WidgetInterface
     {
         $key = 'ps_linklist|' . $hookName;
 
-        if (
-            in_array($hookName, [
-                'displayLeftColumn',
-                'displayLeftColumnProduct',
-                'displayRightColumn',
-                'displayRightColumnProduct',
-            ])
-        ) {
+        if ($hookName === 'displayLeftColumn' || $hookName === 'displayRightColumn') {
             $template = $this->templateFileColumn;
         } else {
             $template = $this->templateFile;

@@ -38,6 +38,7 @@ class CustomerAddressFormatterCore implements FormFormatterInterface
         TranslatorInterface $translator,
         array $availableCountries
     ) {
+        dump($availableCountries);
         $this->country = $country;
         $this->translator = $translator;
         $this->availableCountries = $availableCountries;
@@ -47,6 +48,7 @@ class CustomerAddressFormatterCore implements FormFormatterInterface
     public function setCountry(Country $country)
     {
         $this->country = $country;
+
 
         return $this;
     }
@@ -64,7 +66,6 @@ class CustomerAddressFormatterCore implements FormFormatterInterface
             true
         );
         $required = array_flip(AddressFormat::getFieldsRequired());
-
         $format = [
             'back' => (new FormField())
                 ->setName('back')
@@ -80,6 +81,8 @@ class CustomerAddressFormatterCore implements FormFormatterInterface
         ];
 
         foreach ($fields as $field) {
+        $ignorefields = ['company', 'vat_number','address2','postcode','city',];
+            if (!in_array($field, $ignorefields)) {
             $formField = new FormField();
             $formField->setName($field);
 
@@ -88,7 +91,7 @@ class CustomerAddressFormatterCore implements FormFormatterInterface
             if (count($fieldParts) === 1) {
                 if ($field === 'postcode') {
                     if ($this->country->need_zip_code) {
-                        $formField->setRequired(true);
+                        $formField->setRequired(false);
                     }
                 } elseif ($field === 'phone') {
                     $formField->setType('tel');
@@ -126,7 +129,7 @@ class CustomerAddressFormatterCore implements FormFormatterInterface
                                 $state[$entityField]
                             );
                         }
-                        $formField->setRequired(true);
+                        $formField->setRequired(false);
                     }
                 }
             }
@@ -145,6 +148,7 @@ class CustomerAddressFormatterCore implements FormFormatterInterface
 
             $format[$formField->getName()] = $formField;
         }
+    }
 
         //To add the extra fields in address form
         // An array [module_name => module_output] will be returned
