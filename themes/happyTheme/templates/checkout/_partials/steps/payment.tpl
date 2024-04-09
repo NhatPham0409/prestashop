@@ -31,15 +31,9 @@
           <div id="{$option.id|escape:'html':'UTF-8'}-container" class="payment-option clearfix">
             {* This is the way an option should be selected when Javascript is enabled *}
             <span class="custom-radio pull-xs-left">
-              <input
-                class="ps-shown-by-js {if $option.binary} binary {/if}"
-                id="{$option.id|escape:'html':'UTF-8'}"
-                data-module-name="{$option.module_name|escape:'html':'UTF-8'}"
-                name="payment-option"
-                type="radio"
-                required
-                {if $selected_payment_option == $option.id} checked {/if}
-              >
+              <input class="ps-shown-by-js {if $option.binary} binary {/if}" id="{$option.id|escape:'html':'UTF-8'}"
+                data-module-name="{$option.module_name|escape:'html':'UTF-8'}" name="payment-option" type="radio" required
+                {if $selected_payment_option == $option.id} checked {/if}>
               <span></span>
             </span>
             {* This is the way an option should be selected when Javascript is disabled *}
@@ -47,7 +41,8 @@
               {if $option.id === $selected_payment_option}
                 {l s='Selected' d='Shop.Theme.Checkout'}
               {else}
-                <button class="ps-hidden-by-js" type="submit" name="select_payment_option" value="{$option.id|escape:'html':'UTF-8'}">
+                <button class="ps-hidden-by-js" type="submit" name="select_payment_option"
+                  value="{$option.id|escape:'html':'UTF-8'}">
                   {l s='Choose' d='Shop.Theme.Actions'}
                 </button>
               {/if}
@@ -64,24 +59,21 @@
         </div>
 
         {if $option.additionalInformation}
-          <div
-            id="{$option.id|escape:'html':'UTF-8'}-additional-information"
-            class="js-additional-information definition-list additional-information{if $option.id != $selected_payment_option} ps-hidden {/if}"
-          >
+          <div id="{$option.id|escape:'html':'UTF-8'}-additional-information"
+            class="js-additional-information definition-list additional-information{if $option.id != $selected_payment_option} ps-hidden {/if}">
             {$option.additionalInformation nofilter}
           </div>
         {/if}
 
-        <div
-          id="pay-with-{$option.id|escape:'html':'UTF-8'}-form"
-          class="js-payment-option-form {if $option.id != $selected_payment_option} ps-hidden {/if}"
-        >
+        <div id="pay-with-{$option.id|escape:'html':'UTF-8'}-form"
+          class="js-payment-option-form {if $option.id != $selected_payment_option} ps-hidden {/if}">
           {if $option.form}
             {$option.form nofilter}
           {else}
             <form id="payment-form" method="POST" action="{$option.action nofilter}">
               {foreach from=$option.inputs item=input}
-                <input type="{$input.type|escape:'html':'UTF-8'}" name="{$input.name|escape:'html':'UTF-8'}" value="{$input.value|escape:'html':'UTF-8'}">
+                <input type="{$input.type|escape:'html':'UTF-8'}" name="{$input.name|escape:'html':'UTF-8'}"
+                  value="{$input.value|escape:'html':'UTF-8'}">
               {/foreach}
               <button style="display:none" id="pay-with-{$option.id|escape:'html':'UTF-8'}" type="submit"></button>
             </form>
@@ -89,7 +81,8 @@
         </div>
       {/foreach}
     {foreachelse}
-      <p class="alert alert-danger">{l s='Unfortunately, there are no payment method available.' d='Shop.Theme.Checkout'}</p>
+      <p class="alert alert-danger">{l s='Unfortunately, there are no payment method available.' d='Shop.Theme.Checkout'}
+      </p>
     {/foreach}
   </div>
 
@@ -108,13 +101,9 @@
           <li>
             <div class="pull-xs-left">
               <span class="custom-checkbox">
-                <input  id    = "conditions_to_approve[{$condition_name|escape:'html':'UTF-8'}]"
-                        name  = "conditions_to_approve[{$condition_name|escape:'html':'UTF-8'}]"
-                        required
-                        type  = "checkbox"
-                        value = "1"
-                        class = "ps-shown-by-js"
-                >
+                <input id="conditions_to_approve[{$condition_name|escape:'html':'UTF-8'}]"
+                  name="conditions_to_approve[{$condition_name|escape:'html':'UTF-8'}]" required type="checkbox" value="1"
+                  class="ps-shown-by-js">
                 <span><i class="material-icons checkbox-checked">&#xE5CA;</i></span>
               </span>
             </div>

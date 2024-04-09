@@ -29,11 +29,12 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
 use PrestaShop\PrestaShop\Adapter\Category\CategoryProductSearchProvider;
 use PrestaShop\PrestaShop\Adapter\Image\ImageRetriever;
 use PrestaShop\PrestaShop\Adapter\Product\PriceFormatter;
+use PrestaShop\PrestaShop\Core\Product\ProductListingPresenter;
 use PrestaShop\PrestaShop\Adapter\Product\ProductColorsRetriever;
-use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
 use PrestaShop\PrestaShop\Core\Product\Search\ProductSearchContext;
 use PrestaShop\PrestaShop\Core\Product\Search\ProductSearchQuery;
 use PrestaShop\PrestaShop\Core\Product\Search\SortOrder;
@@ -46,30 +47,29 @@ class Ps_Categoryproducts extends Module implements WidgetInterface
     public function __construct()
     {
         $this->name = 'ps_categoryproducts';
-        $this->tab = 'pricing_promotion';
         $this->author = 'PrestaShop';
-        $this->version = '1.0.7';
+        $this->version = '1.0.2';
 
         $this->bootstrap = true;
         parent::__construct();
 
-        $this->displayName = $this->trans('Products in the same category', [], 'Modules.Categoryproducts.Admin');
-        $this->description = $this->trans('Add a block on every product page that displays items from the same category.', [], 'Modules.Categoryproducts.Admin');
-        $this->ps_versions_compliancy = ['min' => '1.7.0.0', 'max' => _PS_VERSION_];
+        $this->displayName = $this->trans('Products in the same category', array(), 'Modules.Categoryproducts.Admin');
+        $this->description = $this->trans('Adds a block on the product page that displays products from the same category.', array(), 'Modules.Categoryproducts.Admin');
+        $this->ps_versions_compliancy = array('min' => '1.7.0.0', 'max' => _PS_VERSION_);
 
         $this->templateFile = 'module:ps_categoryproducts/views/templates/hook/ps_categoryproducts.tpl';
     }
 
     public function install()
     {
-        return parent::install()
+        return (parent::install()
             && Configuration::updateValue('CATEGORYPRODUCTS_DISPLAY_PRICE', 1)
             && Configuration::updateValue('CATEGORYPRODUCTS_DISPLAY_PRODUCTS', 16)
             && $this->registerHook('displayFooterProduct')
             && $this->registerHook('actionProductAdd')
             && $this->registerHook('actionProductUpdate')
             && $this->registerHook('actionProductDelete')
-        ;
+        );
     }
 
     public function uninstall()
@@ -79,7 +79,6 @@ class Ps_Categoryproducts extends Module implements WidgetInterface
             !Configuration::deleteByName('CATEGORYPRODUCTS_DISPLAY_PRODUCTS')) {
             return false;
         }
-
         return true;
     }
 
@@ -90,7 +89,7 @@ class Ps_Categoryproducts extends Module implements WidgetInterface
         if (Tools::isSubmit('submitCross')) {
             $isValidDisplayPrice = Tools::getValue('CATEGORYPRODUCTS_DISPLAY_PRICE') === '0' || Tools::getValue('CATEGORYPRODUCTS_DISPLAY_PRICE') === '1';
             if (false === $isValidDisplayPrice) {
-                $this->html .= $this->displayError($this->trans('Invalid value for display price.', [], 'Modules.Categoryproducts.Admin'));
+                $this->html .= $this->displayError($this->trans('Invalid value for display price.', array(), 'Modules.Categoryproducts.Admin'));
             }
 
             if ($isValidDisplayPrice) {
@@ -98,7 +97,7 @@ class Ps_Categoryproducts extends Module implements WidgetInterface
                 Configuration::updateValue('CATEGORYPRODUCTS_DISPLAY_PRODUCTS', (int) Tools::getValue('CATEGORYPRODUCTS_DISPLAY_PRODUCTS'));
 
                 $this->_clearCache($this->templateFile);
-                $this->html .= $this->displayConfirmation($this->trans('The settings have been updated.', [], 'Admin.Notifications.Success'));
+                $this->html .= $this->displayConfirmation($this->trans('The settings have been updated.', array(), 'Admin.Notifications.Success'));
             }
         }
 
@@ -137,46 +136,46 @@ class Ps_Categoryproducts extends Module implements WidgetInterface
 
     public function renderForm()
     {
-        $fields_form = [
-            'form' => [
-                'legend' => [
-                    'title' => $this->trans('Settings', [], 'Admin.Global'),
+        $fields_form = array(
+            'form' => array(
+                'legend' => array(
+                    'title' => $this->trans('Settings', array(), 'Admin.Global'),
                     'icon' => 'icon-cogs',
-                ],
-                'input' => [
-                    [
+                ),
+                'input' => array(
+                    array(
                         'type' => 'switch',
-                        'label' => $this->trans('Display products\' prices', [], 'Modules.Categoryproducts.Admin'),
-                        'desc' => $this->trans('Show the prices of the products displayed in the block.', [], 'Modules.Categoryproducts.Admin'),
+                        'label' => $this->trans('Display products\' prices', array(), 'Modules.Categoryproducts.Admin'),
+                        'desc' => $this->trans('Show the prices of the products displayed in the block.', array(), 'Modules.Categoryproducts.Admin'),
                         'name' => 'CATEGORYPRODUCTS_DISPLAY_PRICE',
-                        'values' => [
-                            [
+                        'values' => array(
+                            array(
                                 'id' => 'active_on',
                                 'value' => 1,
-                                'label' => $this->trans('Enabled', [], 'Admin.Global'),
-                            ],
-                            [
+                                'label' => $this->trans('Enabled', array(), 'Admin.Global'),
+                            ),
+                            array(
                                 'id' => 'active_off',
                                 'value' => 0,
-                                'label' => $this->trans('Disabled', [], 'Admin.Global'),
-                            ],
-                        ],
-                    ],
-                    [
+                                'label' => $this->trans('Disabled', array(), 'Admin.Global'),
+                            )
+                        ),
+                    ),
+                    array(
                         'type' => 'text',
-                        'label' => $this->trans('Number of product to display', [], 'Modules.Categoryproducts.Admin'),
-                        'desc' => $this->trans('Show the prices of the products displayed in the block.', [], 'Modules.Categoryproducts.Admin'),
+                        'label' => $this->trans('Number of product to display', array(), 'Modules.Categoryproducts.Admin'),
+                        'desc' => $this->trans('Show the prices of the products displayed in the block.', array(), 'Modules.Categoryproducts.Admin'),
                         'name' => 'CATEGORYPRODUCTS_DISPLAY_PRODUCTS',
                         'class' => 'fixed-width-xs',
-                    ],
-                ],
-                'submit' => [
-                    'title' => $this->trans('Save', [], 'Admin.Actions'),
-                ],
-            ],
-        ];
+                    ),
+                ),
+                'submit' => array(
+                    'title' => $this->trans('Save', array(), 'Admin.Actions'),
+                ),
+            ),
+        );
 
-        $lang = new Language((int) Configuration::get('PS_LANG_DEFAULT'));
+        $lang = new Language((int)Configuration::get('PS_LANG_DEFAULT'));
 
         $helper = new HelperForm();
         $helper->show_toolbar = false;
@@ -190,52 +189,55 @@ class Ps_Categoryproducts extends Module implements WidgetInterface
         $helper->currentIndex = $this->context->link->getAdminLink(
                 'AdminModules',
                 false
-            ) . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
+            ).'&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
-        $helper->tpl_vars = [
+        $helper->tpl_vars = array(
             'fields_value' => $this->getConfigFieldsValues(),
             'languages' => $this->context->controller->getLanguages(),
-            'id_language' => $this->context->language->id,
-        ];
+            'id_language' => $this->context->language->id
+        );
 
-        return $helper->generateForm([$fields_form]);
+        return $helper->generateForm(array($fields_form));
     }
 
     public function getConfigFieldsValues()
     {
-        return [
+        return array(
             'CATEGORYPRODUCTS_DISPLAY_PRICE' => Configuration::get('CATEGORYPRODUCTS_DISPLAY_PRICE'),
             'CATEGORYPRODUCTS_DISPLAY_PRODUCTS' => Configuration::get('CATEGORYPRODUCTS_DISPLAY_PRODUCTS'),
-        ];
+        );
     }
 
-    public function getWidgetVariables($hookName = null, array $configuration = [])
+    public function getWidgetVariables($hookName = null, array $configuration = array())
     {
         $params = $this->getInformationFromConfiguration($configuration);
 
         if ($params) {
+
             $products = $this->getCategoryProducts($params['id_product'], $params['id_category']);
 
             if (!empty($products)) {
-                return [
+                return array(
                     'products' => $products,
-                ];
+                );
             }
+
         }
 
         return false;
     }
 
-    public function renderWidget($hookName = null, array $configuration = [])
+    public function renderWidget($hookName = null, array $configuration = array())
     {
         $params = $this->getInformationFromConfiguration($configuration);
 
         if ($params) {
-            if ((int) Configuration::get('CATEGORYPRODUCTS_DISPLAY_PRODUCTS') > 0) {
+            if ((int)Configuration::get('CATEGORYPRODUCTS_DISPLAY_PRODUCTS') > 0) {
+
                 // Need variables only if this template isn't cached
                 if (!$this->isCached($this->templateFile, $params['cache_id'])) {
                     if (!empty($params['id_category'])) {
-                        $category = new Category((int) $params['id_category']);
+                        $category = new Category($params['id_category']);
                     }
 
                     if (empty($category) || !Validate::isLoadedObject($category) || !$category->active) {
@@ -292,29 +294,17 @@ class Ps_Categoryproducts extends Module implements WidgetInterface
         $assembler = new ProductAssembler($this->context);
         $presenterFactory = new ProductPresenterFactory($this->context);
         $presentationSettings = $presenterFactory->getPresentationSettings();
-        if (version_compare(_PS_VERSION_, '1.7.5', '>=')) {
-            $presenter = new \PrestaShop\PrestaShop\Adapter\Presenter\Product\ProductListingPresenter(
-                new ImageRetriever(
-                    $this->context->link
-                ),
-                $this->context->link,
-                new PriceFormatter(),
-                new ProductColorsRetriever(),
-                $this->context->getTranslator()
-            );
-        } else {
-            $presenter = new \PrestaShop\PrestaShop\Core\Product\ProductListingPresenter(
-                new ImageRetriever(
-                    $this->context->link
-                ),
-                $this->context->link,
-                new PriceFormatter(),
-                new ProductColorsRetriever(),
-                $this->context->getTranslator()
-            );
-        }
+        $presenter = new ProductListingPresenter(
+            new ImageRetriever(
+                $this->context->link
+            ),
+            $this->context->link,
+            new PriceFormatter(),
+            new ProductColorsRetriever(),
+            $this->context->getTranslator()
+        );
 
-        $productsForTemplate = [];
+        $productsForTemplate = array();
 
         $presentationSettings->showPrices = $showPrice;
 
@@ -341,7 +331,11 @@ class Ps_Categoryproducts extends Module implements WidgetInterface
         }
 
         $product = $configuration['product'];
-        if ($product instanceof Product) {
+        if (is_object($product)) {
+            if ($product instanceof \PrestaShop\PrestaShop\Adapter\Presenter\Product\ProductLazyArray) {
+               $id =  $product->getId();
+                $product = new Product($id);
+            }
             $product = (array) $product;
             $product['id_product'] = $product['id'];
         }
@@ -350,13 +344,14 @@ class Ps_Categoryproducts extends Module implements WidgetInterface
         $id_category = (isset($configuration['category']->id) ? (int) $configuration['category']->id : (int) $product['id_category_default']);
 
         if (!empty($id_product) && !empty($id_category)) {
-            $cache_id = 'ps_categoryproducts|' . $id_product . '|' . $id_category;
 
-            return [
+            $cache_id = 'ps_categoryproducts|'.$id_product.'|'.$id_category;
+
+            return array(
                 'id_product' => $id_product,
                 'id_category' => $id_category,
-                'cache_id' => $this->getCacheId($cache_id),
-            ];
+                'cache_id' => $cache_id,
+            );
         }
 
         return false;

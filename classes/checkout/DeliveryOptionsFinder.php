@@ -77,7 +77,6 @@ class DeliveryOptionsFinderCore
         $display_taxes_label = (Configuration::get('PS_TAX') && $this->context->country->display_tax_label && !Configuration::get('AEUC_LABEL_TAX_INC_EXC'));
 
         $carriers_available = [];
-
         if (isset($delivery_option_list[$this->context->cart->id_address_delivery])) {
             foreach ($delivery_option_list[$this->context->cart->id_address_delivery] as $id_carriers_list => $carriers_list) {
                 foreach ($carriers_list as $carriers) {

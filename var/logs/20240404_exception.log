@@ -1,3 +1,6 @@
 *ERROR* 	v8.1.5	2024/04/04 - 04:32:52: SQLSTATE[HY000]: General error: 2006 MySQL server has gone away at line 151 in file classes/db/DbPDO.php
 *ERROR* 	v8.1.5	2024/04/04 - 04:32:54: Link to database cannot be established: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it at line 119 in file classes/db/DbPDO.php
 *ERROR* 	v8.1.5	2024/04/04 - 04:33:54: Link to database cannot be established: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it at line 119 in file classes/db/DbPDO.php
+*ERROR* 	v8.1.5	2024/04/04 - 02:53:20: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: NO) at line 119 in file classes/db/DbPDO.php
+*ERROR* 	v8.1.5	2024/04/04 - 02:53:27: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: NO) at line 119 in file classes/db/DbPDO.php
+*ERROR* 	v8.1.5	2024/04/04 - 02:53:27: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: NO) at line 119 in file classes/db/DbPDO.php

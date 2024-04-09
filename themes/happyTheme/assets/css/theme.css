@@ -1,7 +1,6 @@
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;800&display=swap');
 @import url('./slide.css');
-@import url('./best_seller.css');
 /*
  *  Bootstrap TouchSpin - v3.1.1
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
@@ -8286,6 +8285,7 @@ a:hover {
   top: auto;
   transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
+  width: auto;
 }
 #left-column .owl-nav > div {
   margin-left: 3px;
@@ -12455,7 +12455,7 @@ li.product-flag.discount {
   width: 100vw;
 }
 #index #wrapper {
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 .bg-home::before {
   background-color: #f6f6f6;
@@ -15607,5 +15607,4 @@ body:not(#product) .wishlist-button-add {
 body#view .wishlist-button-add {
 	display: flex;
 }
-
 /*# sourceMappingURL=theme.css.map*/

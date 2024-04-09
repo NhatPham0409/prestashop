@@ -4,13 +4,15 @@ services:
 
   prestashop.module.link_block.cache:
     class: PrestaShop\Module\LinkList\Cache\LegacyLinkBlockCache
+    arguments:
+      $moduleRepository: '@prestashop.core.admin.module.repository'
 
   prestashop.module.link_block.repository:
     class: PrestaShop\Module\LinkList\Repository\LinkBlockRepository
     arguments:
       $connection: '@doctrine.dbal.default_connection'
       $dbPrefix: '%database_prefix%'
-      $languages: '@=service("prestashop.adapter.legacy.context").getLanguages(false, service("prestashop.adapter.shop.context").getContextShopID())'
+      $languages: '@=service("prestashop.adapter.legacy.context").getLanguages(true, service("prestashop.adapter.shop.context").getContextShopID())'
       $translator: '@translator'
       $isMultiStoreUsed: '@=service("prestashop.adapter.feature.multistore").isUsed()'
       $multiStoreContext: '@prestashop.adapter.shop.context'
@@ -57,7 +59,8 @@ services:
     arguments:
       $repository: '@prestashop.module.link_block.repository'
       $cache: '@prestashop.module.link_block.cache'
-      $languages: '@=service("prestashop.adapter.legacy.context").getLanguages(false, service("prestashop.adapter.shop.context").getContextShopID())'
+      $moduleRepository: '@prestashop.core.admin.module.repository'
+      $languages: '@=service("prestashop.adapter.legacy.context").getLanguages(true, service("prestashop.adapter.shop.context").getContextShopID())'
       $shopContext: '@prestashop.adapter.shop.context'
       $configuration: '@prestashop.adapter.legacy.configuration'
 
@@ -117,7 +120,6 @@ services:
         - 'sitemap'
         - 'stores'
         - 'authentication'
-        - 'registration'
         - 'my-account'
 
   # Form types
@@ -155,15 +157,3 @@ services:
 
   prestashop.module.link_block.adapter.object_model_handler:
     class: 'PrestaShop\Module\LinkList\Adapter\ObjectModelHandler'
-
-  PrestaShop\Module\LinkList\Form\Type\TranslateCustomUrlType:
-    parent: 'form.type.translatable.aware'
-    public: true
-    arguments:
-      - "@=service('prestashop.adapter.legacy.context').getAvailableLanguages()"
-      - '@router.default'
-      - "@=service('prestashop.adapter.legacy.configuration').getBoolean('PS_BO_ALLOW_EMPLOYEE_FORM_LANG')"
-      - "@=service('prestashop.adapter.legacy.context').getContext().cookie.employee_form_lang"
-      - "@=service('prestashop.adapter.legacy.configuration').getInt('PS_LANG_DEFAULT')"
-    tags:
-      - { name: form.type }

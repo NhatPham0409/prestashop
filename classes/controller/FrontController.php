@@ -2096,7 +2096,6 @@ class FrontControllerCore extends Controller
         } else {
             $availableCountries = Country::getCountries($this->context->language->id, true);
         }
-
         $form = new CustomerAddressForm(
             $this->context->smarty,
             $this->context->language,

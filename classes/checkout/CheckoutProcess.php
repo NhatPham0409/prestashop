@@ -96,6 +96,7 @@ class CheckoutProcessCore implements RenderableInterface
     {
         if ($this instanceof CheckoutProcess) {
             $step->setCheckoutProcess($this);
+            dump($this);
             $this->steps[] = $step;
         }
 

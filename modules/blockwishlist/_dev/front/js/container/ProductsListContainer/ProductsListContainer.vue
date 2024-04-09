@@ -1,20 +1,20 @@
 <!--**
- * Copyright since 2007 PrestaShop SA and Contributors
- * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ * 2007-2020 PrestaShop and Contributors
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Academic Free License version 3.0
- * that is bundled with this package in the file LICENSE.md.
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
  * https://opensource.org/licenses/AFL-3.0
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@prestashop.com so we can send you a copy immediately.
  *
- * @author    PrestaShop SA and Contributors <contact@prestashop.com>
- * @copyright Since 2007 PrestaShop SA and Contributors
- * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2020 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ * International Registered Trademark & Property of PrestaShop SA
  *-->
 <template>
   <div class="wishlist-products-container">
@@ -34,8 +34,8 @@
         class="sort-by-row"
         v-if="products.datas"
       >
-        <span class="hidden-sm-down col-sm-3 col-md-3 sort-by">{{ filter }}</span>
-        <div class="col-xs-12 col-sm-9 col-md-9 products-sort-order dropdown">
+        <span class="col-sm-3 col-md-3 hidden-sm-down sort-by">Sort by:</span>
+        <div class="col-sm-9 col-xs-8 col-md-9 products-sort-order dropdown">
           <button
             class="btn-unstyle select-title"
             rel="nofollow"
@@ -50,7 +50,7 @@
             <a
               rel="nofollow"
               @click="changeSelectedSort(sort)"
-              class="select-list"
+              class="select-list js-search-link"
               :key="key"
               v-for="(sort, key) in productList"
             >
@@ -177,10 +177,6 @@
         type: String,
         required: true,
       },
-      filter: {
-        type: String,
-        required: true,
-      },
       noProductsMessage: {
         type: String,
         required: true,
@@ -266,22 +262,22 @@
 
   .wishlist {
     &-list-loader {
-      padding: 0 1.25rem;
+      padding: 0 20px;
       width: 100%;
     }
 
     &-list-empty {
       font-size: 30;
       text-align: center;
-      padding: 1.875rem;
-      padding-bottom: 1.25rem;
+      padding: 30px;
+      padding-bottom: 20px;
       font-weight: bold;
       color: #000;
     }
 
     &-products-container {
       .sort-by-row {
-        min-width: 19.6875rem;
+        min-width: 315px;
         display: flex;
         align-items: center;
 
@@ -302,12 +298,12 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 1.25rem;
+        margin-bottom: 20px;
       }
 
       @at-root #main & .card.page-content {
         padding: 0;
-        margin-bottom: 0.75rem;
+        margin-bottom: 12px;
       }
     }
 
@@ -315,17 +311,23 @@
       &-list {
         display: flex;
         flex-wrap: wrap;
-        margin: -1.5625rem;
-        padding: 1.25rem 2.8125rem;
+        margin: -25px;
+        padding: 20px 45px;
         margin-top: 0;
       }
 
       &-count {
         color: #7a7a7a;
-        font-size: 1.375rem;
+        font-size: 22px;
         font-weight: normal;
-        line-height: 1.875rem;
+        line-height: 30px;
       }
+    }
+  }
+
+  #view {
+    #wrapper .container {
+      width: 975px;
     }
   }
 
@@ -346,20 +348,19 @@
 
           .sort-by-row {
             width: 100%;
-            min-width: 16.00rem;
           }
         }
 
         .page-content.card {
-          box-shadow: 0.125rem 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.2);
           background-color: #fff;
-          margin-top: 1.25rem;
+          margin-top: 20px;
         }
 
         .wishlist-products-list {
           justify-content: center;
           margin: 0;
-          padding: 0.9375rem;
+          padding: 15px;
         }
       }
     }

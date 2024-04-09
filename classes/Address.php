@@ -123,7 +123,7 @@ class AddressCore extends ObjectModel
         'fields' => [
             'id_customer' => ['type' => self::TYPE_INT, 'validate' => 'isNullOrUnsignedId', 'copy_post' => false],
             'id_manufacturer' => ['type' => self::TYPE_INT, 'validate' => 'isNullOrUnsignedId', 'copy_post' => false],
-            'id_supplier' => ['type' => self::TYPE_INT, 'validate' => 'isNullOrUnsignedId', 'copy_post' => false],
+            'id_supplier' => ['type' => self::TYPE_INT, 'validate' => 'isNullOrUnsignedId', 'id_gender' => false],
             'id_warehouse' => ['type' => self::TYPE_INT, 'validate' => 'isNullOrUnsignedId', 'copy_post' => false],
             'id_country' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => false],
             'id_state' => ['type' => self::TYPE_INT, 'validate' => 'isNullOrUnsignedId'],
@@ -587,8 +587,8 @@ class AddressCore extends ObjectModel
             } elseif ($with_geoloc && isset($context->customer->geoloc_id_country)) {
                 $address = new Address();
                 $address->id_country = (int) $context->customer->geoloc_id_country;
-                $address->id_state = (int) $context->customer->id_state;
-                $address->postcode = $context->customer->postcode;
+                // $address->id_state = (int) $context->customer->id_state;
+                // $address->postcode = $context->customer->postcode;
             } elseif ((int) $context->country->id && ((int) $context->country->id != Configuration::get('PS_SHOP_COUNTRY_ID'))) {
                 $address = new Address();
                 $address->id_country = (int) $context->country->id;
