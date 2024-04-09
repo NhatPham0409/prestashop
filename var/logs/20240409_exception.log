@@ -1,0 +1,2 @@
+*ERROR* 	v8.1.5	2024/04/09 - 03:46:11: SQLSTATE[HY000]: General error: 2006 MySQL server has gone away at line 151 in file classes/db/DbPDO.php
+*ERROR* 	v8.1.5	2024/04/09 - 03:46:13: Link to database cannot be established: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it at line 119 in file classes/db/DbPDO.php
