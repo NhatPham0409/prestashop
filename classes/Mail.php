@@ -513,6 +513,7 @@ class MailCore extends ObjectModel
                 $replyTo = $from;
             }
 
+            // Họ tên người nhận email
             if (isset($replyTo) && $replyTo) {
                 $message->setReplyTo($replyTo, ($replyToName !== '' ? $replyToName : null));
             }
@@ -596,11 +597,18 @@ class MailCore extends ObjectModel
                 true
             );
             $templateVars = array_merge($templateVars, $extraTemplateVars);
+
+            // Đăng ký vào plugin để thay thế các biến trong email
+            // Địa chỉ email của người nhận sẽ được chuyển sang dạng punycode
             $swift->registerPlugin(new Swift_Plugins_DecoratorPlugin([self::toPunycode($toPlugin) => $templateVars]));
+
+            // Đây là một câu lệnh điều kiện kiểm tra xem loại email được cấu hình là gửi cả HTML và văn bản thuần (PLAIN_TEXT) hay chỉ gửi HTML.
             if ($configuration['PS_MAIL_TYPE'] == Mail::TYPE_BOTH ||
                 $configuration['PS_MAIL_TYPE'] == Mail::TYPE_HTML
             ) {
                 $message->setBody($templateHtml, 'text/html', 'utf-8');
+
+                // Nếu loại email được cấu hình là gửi cả HTML và văn bản thuần (PLAIN_TEXT) thì thêm phần văn bản thuần vào email
                 if ($configuration['PS_MAIL_TYPE'] == Mail::TYPE_BOTH) {
                     $message->addPart($templateTxt, 'text/plain', 'utf-8');
                 }
