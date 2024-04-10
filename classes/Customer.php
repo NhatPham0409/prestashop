@@ -181,7 +181,7 @@ class CustomerCore extends ObjectModel
             'secure_key' => ['type' => self::TYPE_STRING, 'validate' => 'isMd5', 'copy_post' => false],
             'lastname' => ['type' => self::TYPE_STRING, 'validate' => 'isCustomerName', 'required' => true, 'size' => 255],
             'firstname' => ['type' => self::TYPE_STRING, 'validate' => 'isCustomerName', 'required' => true, 'size' => 255],
-            'email' => ['type' => self::TYPE_STRING, 'validate' => 'isEmail', 'required' => true, 'size' => 255],
+            'email' => ['type' => self::TYPE_STRING, 'validate' => 'isEmail', 'required' => false, 'size' => 255],
             'passwd' => ['type' => self::TYPE_STRING, 'validate' => 'isHashedPassword', 'required' => true, 'size' => 255],
             'last_passwd_gen' => ['type' => self::TYPE_STRING, 'copy_post' => false],
             'id_gender' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedId'],

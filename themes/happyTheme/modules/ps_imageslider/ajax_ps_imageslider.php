@@ -17,12 +17,26 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+include_once '../../config/config.inc.php';
+include_once '../../init.php';
+include_once 'ps_imageslider.php';
 
-header('Cache-Control: no-store, no-cache, must-revalidate');
-header('Cache-Control: post-check=0, pre-check=0', false);
-header('Pragma: no-cache');
+$home_slider = new Ps_ImageSlider();
+$slides = [];
 
-header('Location: ../');
-exit;
+if (!Tools::isSubmit('secure_key') || Tools::getValue('secure_key') != $home_slider->secure_key || !Tools::getValue('action')) {
+    exit(1);
+}
+
+if (Tools::getValue('action') == 'updateSlidesPosition' && Tools::getValue('slides')) {
+    $slides = Tools::getValue('slides');
+
+    foreach ($slides as $position => $id_slide) {
+        $res = Db::getInstance()->execute('
+			UPDATE `' . _DB_PREFIX_ . 'homeslider_slides` SET `position` = ' . (int) $position . '
+			WHERE `id_homeslider_slides` = ' . (int) $id_slide
+        );
+    }
+
+    $home_slider->clearCache();
+}

@@ -125,19 +125,19 @@ class AddressCore extends ObjectModel
             'id_manufacturer' => ['type' => self::TYPE_INT, 'validate' => 'isNullOrUnsignedId', 'copy_post' => false],
             'id_supplier' => ['type' => self::TYPE_INT, 'validate' => 'isNullOrUnsignedId', 'copy_post' => false],
             'id_warehouse' => ['type' => self::TYPE_INT, 'validate' => 'isNullOrUnsignedId', 'copy_post' => false],
-            'id_country' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => true],
+            'id_country' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => false],
             'id_state' => ['type' => self::TYPE_INT, 'validate' => 'isNullOrUnsignedId'],
-            'alias' => ['type' => self::TYPE_STRING, 'validate' => 'isGenericName', 'required' => true, 'size' => 32],
-            'company' => ['type' => self::TYPE_STRING, 'validate' => 'isGenericName', 'size' => 255],
+            'alias' => ['type' => self::TYPE_STRING, 'validate' => 'isGenericName', 'required' => false, 'size' => 32],
+            'company' => ['type' => self::TYPE_STRING, 'validate' => 'isGenericName', 'size' => 255,'required' => false],
             'lastname' => ['type' => self::TYPE_STRING, 'validate' => 'isName', 'required' => true, 'size' => 255],
             'firstname' => ['type' => self::TYPE_STRING, 'validate' => 'isName', 'required' => true, 'size' => 255],
-            'vat_number' => ['type' => self::TYPE_STRING, 'validate' => 'isGenericName'],
+            'vat_number' => ['type' => self::TYPE_STRING, 'validate' => 'isGenericName',],
             'address1' => ['type' => self::TYPE_STRING, 'validate' => 'isAddress', 'required' => true, 'size' => 128],
             'address2' => ['type' => self::TYPE_STRING, 'validate' => 'isAddress', 'size' => 128],
             'postcode' => ['type' => self::TYPE_STRING, 'validate' => 'isPostCode', 'size' => 12],
-            'city' => ['type' => self::TYPE_STRING, 'validate' => 'isCityName', 'required' => true, 'size' => 64],
+            'city' => ['type' => self::TYPE_STRING, 'validate' => 'isCityName', 'required' => false, 'size' => 64],
             'other' => ['type' => self::TYPE_STRING, 'validate' => 'isMessage', 'size' => 300],
-            'phone' => ['type' => self::TYPE_STRING, 'validate' => 'isPhoneNumber', 'size' => 32],
+            'phone' => ['type' => self::TYPE_STRING, 'validate' => 'isPhoneNumber', 'size' => 32,'required' => true],
             'phone_mobile' => ['type' => self::TYPE_STRING, 'validate' => 'isPhoneNumber', 'size' => 32],
             'dni' => ['type' => self::TYPE_STRING, 'validate' => 'isDniLite', 'size' => 16],
             'deleted' => ['type' => self::TYPE_BOOL, 'validate' => 'isBool', 'copy_post' => false],
@@ -210,6 +210,7 @@ class AddressCore extends ObjectModel
     public function update($null_values = false)
     {
         // Empty related caches
+        
         if (isset(self::$_idCountries[$this->id])) {
             unset(self::$_idCountries[$this->id]);
         }
@@ -568,7 +569,7 @@ class AddressCore extends ObjectModel
             $context_hash = (int) $id_address;
         } elseif ($with_geoloc && isset($context->customer->geoloc_id_country)) {
             $context_hash = md5((int) $context->customer->geoloc_id_country . '-' . (int) $context->customer->id_state . '-' .
-                                $context->customer->postcode);
+            $context->customer->postcode);
         } else {
             $context_hash = md5((string) $context->country->id);
         }

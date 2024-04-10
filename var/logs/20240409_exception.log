@@ -1,3 +1,7 @@
 *ERROR* 	v8.1.5	2024/04/09 - 03:46:11: SQLSTATE[HY000]: General error: 2006 MySQL server has gone away at line 151 in file classes/db/DbPDO.php
 *ERROR* 	v8.1.5	2024/04/09 - 03:46:13: Link to database cannot be established: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it at line 119 in file classes/db/DbPDO.php
 *ERROR* 	v8.1.5	2024/04/09 - 06:52:30: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: NO) at line 119 in file classes/db/DbPDO.php
+*ERROR* 	v8.1.5	2024/04/09 - 03:30:32: Property Address-&amp;gt;city is empty. at line 1104 in file classes/ObjectModel.php
+*ERROR* 	v8.1.5	2024/04/09 - 03:39:30: Property Address-&amp;gt;address1 is empty. at line 1104 in file classes/ObjectModel.php
+*ERROR* 	v8.1.5	2024/04/09 - 03:41:49: Property Address-&amp;gt;phone is empty. at line 1104 in file classes/ObjectModel.php
+*ERROR* 	v8.1.5	2024/04/09 - 04:55:50: Property Address-&amp;gt;phone is empty. at line 1104 in file classes/ObjectModel.php

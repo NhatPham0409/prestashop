@@ -80,6 +80,8 @@ class CustomerAddressFormatterCore implements FormFormatterInterface
         ];
 
         foreach ($fields as $field) {
+            $ignorefields = ['postcode', 'address2','company', 'postcode','city','vat_number'];
+            if (!in_array($field, $ignorefields)) {
             $formField = new FormField();
             $formField->setName($field);
 
@@ -126,7 +128,7 @@ class CustomerAddressFormatterCore implements FormFormatterInterface
                                 $state[$entityField]
                             );
                         }
-                        $formField->setRequired(true);
+                        $formField->setRequired(false);
                     }
                 }
             }
@@ -144,7 +146,7 @@ class CustomerAddressFormatterCore implements FormFormatterInterface
             }
 
             $format[$formField->getName()] = $formField;
-        }
+        }}
 
         //To add the extra fields in address form
         // An array [module_name => module_output] will be returned

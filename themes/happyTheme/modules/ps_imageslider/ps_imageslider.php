@@ -559,11 +559,10 @@ class Ps_ImageSlider extends Module implements WidgetInterface
                 }
             }
         }
+
         $slideWidth = $this->getSlideWidth();
 
-
         $config = $this->getConfigFieldsValues();
-
 
         return [
             'homeslider' => [
@@ -690,11 +689,12 @@ class Ps_ImageSlider extends Module implements WidgetInterface
     public function getSlideWidth ()
     {
         $this->context = Context::getContext();
-      
+        $id_shop = $this->context->shop->id;
+        $id_lang = $this->context->language->id;
+
         $slideWidth = Db::getInstance()->executeS("SELECT * FROM customTheme WHERE name = 'MWG_SLIDERWIDTH'");
         return $slideWidth;
     }
-
 
     public function getAllImagesBySlidesId($id_slides, $active = null, $id_shop = null)
     {
