@@ -19,10 +19,10 @@
 *  International Registered Trademark & Property of ETS-Soft
 *}
 
-{assign var="layout" value=3}
 {extends file='layouts/layout-both-columns.tpl'}
+{assign var="layout" value=$customParam['MWG_LAYOUT']}
 
-{if $layout == 1}
+{if $layout == 'left_column'}
     {block name='right_column'}{/block}
 
     {block name='content_wrapper'}
@@ -32,7 +32,7 @@
             {/block}
         </div>
     {/block}
-{elseif $layout == 2}
+{elseif $layout == 'none_column'}
     {block name='left_column'}{/block}
     {block name='right_column'}{/block}
 
