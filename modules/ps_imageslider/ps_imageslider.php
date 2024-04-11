@@ -683,6 +683,8 @@ class Ps_ImageSlider extends Module implements WidgetInterface
         return $slides;
     }
 
+  
+
     public function getAllImagesBySlidesId($id_slides, $active = null, $id_shop = null)
     {
         $this->context = Context::getContext();

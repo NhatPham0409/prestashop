@@ -33,16 +33,31 @@ class IndexControllerCore extends FrontController
      * Assign template vars related to page content.
      *
      * @see FrontController::initContent()
+     * 
      */
+  
     public function initContent()
     {
         parent::initContent();
+        function getCustomParam() 
+        {
+            $nameValueArray = [];
+            $customParam = Db::getInstance()->executeS("SELECT name, value FROM ps_configuration
+            WHERE name IN ('MWG_IMAGEWIDTH', 'MWG_ISSLIDE', 'MWG_LAYOUT', 'MWG_NUMOFPRODUCT');");
+            foreach ($customParam as $row) {
+                $nameValueArray[$row['name']] = $row['value'];
+            }
+            return $nameValueArray;
+        }
+        $customParam = getCustomParam();
+        $this->context->smarty->assign('customParam', $customParam);
         $this->context->smarty->assign([
             'HOOK_HOME' => Hook::exec('displayHome'),
         ]);
         $this->setTemplate('index');
     }
 
+    
     /**
      * {@inheritdoc}
      */
