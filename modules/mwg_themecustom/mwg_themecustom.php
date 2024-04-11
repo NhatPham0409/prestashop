@@ -29,7 +29,7 @@ class Mwg_ThemeCustom extends Module
 
     public function install()
     {
-        if (Configuration::get('MWG_IMAGEWIDTH') != null || Configuration::get('MWG_LAYOUT') != null || Configuration::get('MWG_ISSLIDE') != null) {
+        if (Configuration::get('MWG_IMAGEWIDTH') != null || Configuration::get('MWG_LAYOUT') != null || Configuration::get('MWG_ISSLIDE') != null || Configuration::get('MWG_NUMOFPRODUCT') != null) {
             $this->_errors[] = Context::getContext()->getTranslator()->trans('Khong the cai module do trung key config.', [], 'Admin.Modules.Notification');
         }
         if (Shop::isFeatureActive()) {
@@ -40,7 +40,8 @@ class Mwg_ThemeCustom extends Module
             && $this->registerHook(['displayHome', 'MWG_LEFTHOOK', 'MWG_RIGHTHOOK'])
             && Configuration::updateValue('MWG_IMAGEWIDTH', 'NORMAL')
             && Configuration::updateValue('MWG_LAYOUT', 'NONE_COLUMN')
-            && Configuration::updateValue('MWG_ISSLIDE', false)
+            && Configuration::updateValue('MWG_ISSLIDE', 0)
+            && Configuration::updateValue('MWG_NUMOFPRODUCT', 4)
         );
     }
 
@@ -51,6 +52,7 @@ class Mwg_ThemeCustom extends Module
             && Configuration::deleteByName('MWG_IMAGEWIDTH')
             && Configuration::deleteByName('MWG_LAYOUT')
             && Configuration::deleteByName('MWG_ISSLIDE')
+            && Configuration::deleteByName('MWG_NUMOFPRODUCT')
         );
     }
 
@@ -65,19 +67,28 @@ class Mwg_ThemeCustom extends Module
         //this part is  executed only when the form is submitted
         if (Tools::isSubmit('submit' . $this->name)) {
             //retrieve the value set by the user
-            $imageWidth = (string)Tools::getValue('MWG_IMAGEWIDTH') ?? 'NORMAL';
-            $layout = (string)Tools::getValue('MWG_LAYOUT') ?? 'NONE_COLUMN';
-            $isslide = (boolean)Tools::getValue('MWG_ISSLIDE') ?? false;
+            $imageWidth = (string)Tools::getValue('MWG_IMAGEWIDTH');
+            $layout = (string)Tools::getValue('MWG_LAYOUT');
+            $isslide = (boolean)Tools::getValue('MWG_ISSLIDE');
+            $numofproduct = (int)Tools::getValue('MWG_NUMOFPRODUCT');
 
             //check that the value is valid
             if (!Validate::isGenericName($imageWidth) || !Validate::isGenericName($layout)) {
                 //invalid value, show an error
                 $output = $this->displayError($this->l('Invalid Configuration value'));
-            } else {
+            }
+
+            elseif ($numofproduct < 4 || $numofproduct > 10) {
+                //invalid value, show an error
+                $output = $this->displayError($this->l('Invalid Number of product value'));
+            }
+
+            else {
                 // value is ok, update it and display a confirmation message
                 Configuration::updateValue('MWG_IMAGEWIDTH', $imageWidth);
                 Configuration::updateValue('MWG_LAYOUT', $layout);
                 Configuration::updateValue('MWG_ISSLIDE', $isslide);
+                Configuration::updateValue('MWG_NUMOFPRODUCT', $numofproduct);
                 $output = $this->displayConfirmation($this->displayConfirmation($this->l('Settings updated')));
             }
         }
@@ -103,7 +114,6 @@ class Mwg_ThemeCustom extends Module
                         'type' => 'select',
                         'label' => $this->l('Image Slider Width'),
                         'name' => 'MWG_IMAGEWIDTH',
-                        //'size' => 20,
                         'required' => false,
                         'options' => [
                             'query' => [
@@ -116,9 +126,8 @@ class Mwg_ThemeCustom extends Module
                     ],
                     [
                         'type' => 'select',
-                        'label' => $this->l('Image Slider Width'),
+                        'label' => $this->l('Layout'),
                         'name' => 'MWG_LAYOUT',
-                        //'size' => 20,
                         'required' => false,
                         'options' => [
                             'query' => [
@@ -153,6 +162,18 @@ class Mwg_ThemeCustom extends Module
                                 'label' => $this->trans('No', [], 'Admin.Global'),
                             ],
                         ],
+                    ],
+                    [
+                        'type' => 'text',
+                        'label' => $this->l('Number of slider products'),
+                        'name' => 'MWG_NUMOFPRODUCT',
+                        'required' => false,
+                        'size' => 10,
+                        'desc' => $this->trans(
+                            "Number of products to display in slider. Min is 4. Max is 10",
+                            [],
+                            'Modules.Mwgthemecustom.Admin'
+                        ),
                     ]
                 ],
                 'submit' => [
@@ -178,6 +199,7 @@ class Mwg_ThemeCustom extends Module
         $helper->fields_value['MWG_IMAGEWIDTH'] = Tools::getValue('MWG_IMAGEWIDTH', Configuration::get('MWG_IMAGEWIDTH'));
         $helper->fields_value['MWG_LAYOUT'] = Tools::getValue('MWG_LAYOUT', Configuration::get('MWG_LAYOUT'));
         $helper->fields_value['MWG_ISSLIDE'] = Tools::getValue('MWG_ISSLIDE', Configuration::get('MWG_ISSLIDE'));
+        $helper->fields_value['MWG_NUMOFPRODUCT'] = Tools::getValue('MWG_NUMOFPRODUCT', Configuration::get('MWG_NUMOFPRODUCT'));
 
         return $helper->generateForm([$form]);
     }
