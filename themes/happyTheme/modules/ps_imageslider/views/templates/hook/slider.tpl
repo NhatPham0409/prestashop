@@ -21,7 +21,7 @@
 {assign var="isShow" value=$customParam['MWG_IMAGEWIDTH']}
 {if $homeslider.slides}
   <div id="carousel" data-ride="carousel" class="carousel slide hidden-sm-down"
-    data-interval="{$homeslider.speed|escape:'html':'UTF-8'}" {if  $isShow == 'NORMAL'}
+    data-interval="{$homeslider.speed|escape:'html':'UTF-8'}" {if  $isShow == 'normal'}
     style="width: 100%; left: 0;right: 0; margin-left: 0;" {/if} data-wrap="{$homeslider.wrap|escape:'html':'UTF-8'}"
     data-pause="{$homeslider.pause|escape:'html':'UTF-8'}">
     <ul class="carousel-inner" role="listbox">
