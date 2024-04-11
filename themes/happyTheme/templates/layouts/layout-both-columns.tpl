@@ -98,7 +98,9 @@
               {if $page.page_name == 'product'}
                 {hook h='displayRightColumnProduct'}
               {else if $page.page_name == 'index'}
-                {hook h='displayColumn'}
+                <div style="position: sticky; top: 10px;">
+                  {hook h='displayColumn'}
+                </div>
               {else}
                 {hook h="displayRightColumn"}
               {/if}
