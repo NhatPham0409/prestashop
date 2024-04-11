@@ -38,8 +38,8 @@ class Mwg_ThemeCustom extends Module
         return (
             parent::install()
             && $this->registerHook(['displayHome', 'MWG_LEFTHOOK', 'MWG_RIGHTHOOK'])
-            && Configuration::updateValue('MWG_IMAGEWIDTH', 'NORMAL')
-            && Configuration::updateValue('MWG_LAYOUT', 'NONE_COLUMN')
+            && Configuration::updateValue('MWG_IMAGEWIDTH', 'normal')
+            && Configuration::updateValue('MWG_LAYOUT', 'none_column')
             && Configuration::updateValue('MWG_ISSLIDE', 0)
             && Configuration::updateValue('MWG_NUMOFPRODUCT', 4)
         );
