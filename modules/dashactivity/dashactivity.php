@@ -36,7 +36,7 @@ class dashactivity extends Module
         $this->name = 'dashactivity';
         $this->tab = 'administration';
         $this->version = '2.1.0';
-        $this->author = 'PrestaShop';
+        $this->author = 'nhatpham';
 
         parent::__construct();
         $this->displayName = $this->trans('Dashboard Activity', [], 'Modules.Dashactivity.Admin');

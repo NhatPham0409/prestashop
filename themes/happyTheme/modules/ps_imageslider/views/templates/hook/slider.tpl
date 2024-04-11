@@ -20,6 +20,7 @@
 *}
 {assign var="isShow" value=2}
 {if $homeslider.slides}
+  {dump($customParam)}
   <div id="carousel" data-ride="carousel" class="carousel slide hidden-sm-down"
     data-interval="{$homeslider.speed|escape:'html':'UTF-8'}" {if  $isShow == 1}
     style="width: 100%; left: 0;right: 0; margin-left: 0;" {/if} data-wrap="{$homeslider.wrap|escape:'html':'UTF-8'}"
