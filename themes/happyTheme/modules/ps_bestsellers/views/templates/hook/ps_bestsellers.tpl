@@ -24,7 +24,7 @@
   <h3 class="text-uppercase text-white bg-success text-center" style="padding: 10px">
     <span>{l s='Best Selling' d='Shop.Theme.Catalog'}</span>
   </h3>
-  <div class="products single-item-carousel">
+  <div class="products single-item-carousel" data-custom={{$customParam}}>
     {foreach from=$products item="product"}
       {include file="catalog/_partials/miniatures/product-bestSeller.tpl" product=$product}
     {/foreach}

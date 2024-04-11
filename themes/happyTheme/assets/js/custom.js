@@ -19,6 +19,22 @@
  *  International Registered Trademark & Property of ETS-Soft
  */
 
+function getCookie(name) {
+    var cookieName = name + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var cookieArray = decodedCookie.split(';');
+    for (var i = 0; i < cookieArray.length; i++) {
+        var cookie = cookieArray[i];
+        while (cookie.charAt(0) == ' ') {
+            cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(cookieName) == 0) {
+            return cookie.substring(cookieName.length, cookie.length);
+        }
+    }
+    return "";
+}
+
 $(document).ready(function(){
     bindGrid();
     if($(".zoomContainer").length){
@@ -42,7 +58,13 @@ $(document).ready(function(){
 	$(document).on('click','.js-qv-mask img.thumb',function(e) {
         restartElevateZoom();
     });
-    var $owl = $('.home-block-section .product_list, .product-accessories .products');
+    var numOfProduct = getCookie('MWG_NUMOFPRODUCT');
+    var isSlide = getCookie('MWG_ISSLIDE');
+    var $owl = $('');
+    if(isSlide){
+     $owl = $('.home-block-section .product_list, .product-accessories .products');
+    }
+console.log(numOfProduct)
     $owl.owlCarousel({
         items : 4,
         responsive : {
@@ -60,7 +82,8 @@ $(document).ready(function(){
                     items : 3
                 },
                 992 : {
-                    items : 3
+                    items : numOfProduct
+
                 }
             },
         nav : true,  

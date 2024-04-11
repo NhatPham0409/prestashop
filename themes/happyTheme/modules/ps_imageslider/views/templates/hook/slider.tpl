@@ -19,7 +19,6 @@
 *  International Registered Trademark & Property of ETS-Soft
 *}
 {if $homeslider.slides}
-  {dump($customParam)}
   <div id="carousel" data-ride="carousel" class="carousel slide hidden-sm-down"
     data-interval="{$homeslider.speed|escape:'html':'UTF-8'}" data-wrap="{$homeslider.wrap|escape:'html':'UTF-8'}"
     data-pause="{$homeslider.pause|escape:'html':'UTF-8'}">

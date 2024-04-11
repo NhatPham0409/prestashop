@@ -54,6 +54,7 @@
       {if $page.page_name == 'index'}
         <div class="col-xs-12 col-sm-12 col-md-12" style="overflow: hidden;">
           {hook h="displayNav"}
+          {dump($customParam)}
         </div>
       {/if}
 
@@ -61,11 +62,13 @@
         {if  $page.page_name != 'index'}
           {block name='breadcrumb'}
             {include file='_partials/breadcrumb.tpl'}
+
           {/block}
         {/if}
 
         <div style="display: flex;">
           {block name="left_column"}
+
             <div id="left-column" class="col-xs-12 col-sm-4 col-md-3" style="padding-top: 15px; margin-top: 0px;">
               {if $page.page_name == 'product'}
                 {hook h='displayLeftColumnProduct'}
