@@ -74,9 +74,9 @@ class DistributionApi
     /**
      * @return array<array<string, string>>
      */
-    public function getModuleList(): array
+    public function getModuleList(string $supplier = 'PRESTASHOP'): array
     {
-        $endpoint = $this->getModulesListUrl();
+        $endpoint = $this->getModulesListUrl($supplier);
         $response = $this->getResponse($endpoint);
 
         $modules = [];
@@ -140,14 +140,15 @@ class DistributionApi
      *
      * @return string
      */
-    private function getModulesListUrl(): string
+    private function getModulesListUrl(string $supplier): string
     {
+        if($supplier == 'MWG'){
+            //Test API of Huy
+            $url = 'https://raw.githubusercontent.com/minhhuy792/mymodule/main/tsconfig.json';
+            return $this->addShopInfoToUrl($url);
+        }
         //Hide API modules of  prestashop
-//        $url = self::API_ENDPOINT . '/modules/' . $this->prestashopVersion;
-
-        //Test API of Huy
-        $url = 'https://raw.githubusercontent.com/minhhuy792/mymodule/main/tsconfig.json';
-
+        $url = self::API_ENDPOINT . '/modules/' . $this->prestashopVersion;
         return $this->addShopInfoToUrl($url);
     }
 

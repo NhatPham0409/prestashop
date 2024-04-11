@@ -8,8 +8,8 @@ class MyModule extends Module
     public function __construct()
     {
         $this->name = 'mymodule';
-        $this->tab = 'administration';
-        $this->version = '2.0.1';
+        $this->tab = null;
+        $this->version = '1.0.0';
         $this->author = 'Minh Huy';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = [
@@ -36,14 +36,7 @@ class MyModule extends Module
         return (
             parent::install()
             && Configuration::updateValue('MYMODULE_NAME', 'first value')
-            && $this->registerHook('actionModuleInstallAfter')
         );
-    }
-    public function hookActionModuleInstallAfter()
-    {
-        // Prevent automatic installation after upload
-        // You can display a message or perform any other action here
-        die('Module installation disabled. Please manually install modules.');
     }
 
     public function uninstall()
