@@ -119,7 +119,6 @@ global_settings:
         - ps_customtext
         - ps_specials
         - ps_newproducts
-        # - ps_bestsellers
       displayLeftColumn:
         - ps_categorytree
         - ps_facetedsearch
@@ -187,8 +186,7 @@ global_settings:
         - ets_multilayerslider
         - ybc_widget
       displayYbcProductReview:
-        - ps_bestsellers
-        # - ybc_themeconfig
+        - ybc_themeconfig
       paymentOptions:
         - ps_checkpayment
         - ps_wirepayment
@@ -219,6 +217,8 @@ global_settings:
         - ybc_widget
       ybcLayoutUpdate:
         - ybc_themeconfig
+      displayColumn:
+        - ps_bestsellers
 
   image_types:
     cart_default:
@@ -253,7 +253,7 @@ global_settings:
 theme_settings:
   default_layout: layout-full-width
   layouts:
-    index: layout-left-column
+    index: layout-custom-column
     category: layout-left-column
     best-sales: layout-left-column
     new-products: layout-left-column

@@ -18,16 +18,18 @@
 *  @license    Valid for 1 website (or project) for each purchase of license
 *  International Registered Trademark & Property of ETS-Soft
 *}
+{assign var="isShow" value=$customParam['MWG_IMAGEWIDTH']}
 {if $homeslider.slides}
   <div id="carousel" data-ride="carousel" class="carousel slide hidden-sm-down"
-    data-interval="{$homeslider.speed|escape:'html':'UTF-8'}" data-wrap="{$homeslider.wrap|escape:'html':'UTF-8'}"
+    data-interval="{$homeslider.speed|escape:'html':'UTF-8'}" {if  $isShow == 'NORMAL'}
+    style="width: 100%; left: 0;right: 0; margin-left: 0;" {/if} data-wrap="{$homeslider.wrap|escape:'html':'UTF-8'}"
     data-pause="{$homeslider.pause|escape:'html':'UTF-8'}">
     <ul class="carousel-inner" role="listbox">
       {foreach from=$homeslider.slides item=slide name='homeslider'}
         <li class="carousel-item {if $smarty.foreach.homeslider.first}active{/if}">
           <a href="{$slide.url|escape:'html':'UTF-8'}">
             <figure>
-              <img src="{$slide.image_url|escape:'html':'UTF-8'}" alt="{$slide.legend|escape}">
+              <img src="{$slide.image_url|escape:'html':'UTF-8'}" alt="{$slide.legend|escape}" class="img-fluid">
               {if $slide.title || $slide.description}
                 <figcaption class="caption">
                   <h2 class="display-1 text-uppercase">{$slide.title|escape:'html':'UTF-8'}</h2>

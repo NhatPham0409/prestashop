@@ -18,6 +18,9 @@
 *  @license    Valid for 1 website (or project) for each purchase of license
 *  International Registered Trademark & Property of ETS-Soft
 *}
+
+{assign var="isShow" value=$customParam['MWG_IMAGEWIDTH']}
+
 <!doctype html>
 <html lang="{$language.iso_code|escape:'html':'UTF-8'}">
 
@@ -30,6 +33,7 @@
 
 <body id="{$page.page_name|escape:'html':'UTF-8'}"
   class="{$page.body_classes|classnames} {if isset($YBC_TC_CLASSES)}{$YBC_TC_CLASSES|escape:'html':'UTF-8'}{/if}">
+  {dump($customParam['MWG_LAYOUT'])}
   {block name='hook_after_body_opening_tag'}
     {hook h='displayAfterBodyOpeningTag'}
   {/block}
@@ -52,7 +56,7 @@
     <div style="display: flex; flex-direction: column;" id="wrapper">
 
       {if $page.page_name == 'index'}
-        <div class="col-xs-12 col-sm-12 col-md-12" style="overflow: hidden;">
+        <div class="col-xs-12 col-sm-12 col-md-12 {if $isShow == 'NORMAL'}container{/if}" style="overflow: hidden;">
           {hook h="displayNav"}
           {dump($customParam)}
         </div>
@@ -67,13 +71,15 @@
         {/if}
 
         <div style="display: flex;">
-          {block name="left_column"}
 
-            <div id="left-column" class="col-xs-12 col-sm-4 col-md-3" style="padding-top: 15px; margin-top: 0px;">
+          {block name="left_column"}
+            <div id="left-column" class="col-xs-12 col-sm-4 col-md-3" style="margin-top: 0px;padding-left: 15px;">
               {if $page.page_name == 'product'}
                 {hook h='displayLeftColumnProduct'}
               {else if $page.page_name == 'index'}
-                {hook h='displayYbcProductReview'}
+                <div style="position: sticky; top: 10px;">
+                  {hook h='displayColumn'}
+                </div>
               {else}
                 {hook h="displayLeftColumn"}
               {/if}
@@ -92,6 +98,8 @@
             <div id="right-column" class="col-xs-12 col-sm-4 col-md-3">
               {if $page.page_name == 'product'}
                 {hook h='displayRightColumnProduct'}
+              {else if $page.page_name == 'index'}
+                {hook h='displayColumn'}
               {else}
                 {hook h="displayRightColumn"}
               {/if}
