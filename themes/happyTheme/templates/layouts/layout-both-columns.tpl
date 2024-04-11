@@ -56,9 +56,8 @@
     <div style="display: flex; flex-direction: column;" id="wrapper">
 
       {if $page.page_name == 'index'}
-        <div class="col-xs-12 col-sm-12 col-md-12 {if $isShow == 'NORMAL'}container{/if}" style="overflow: hidden;">
+        <div class="col-xs-12 col-sm-12 col-md-12 {if $isShow == 'normal'}container{/if}" style="overflow: hidden;">
           {hook h="displayNav"}
-          {dump($customParam)}
         </div>
       {/if}
 
