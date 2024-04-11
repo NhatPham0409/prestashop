@@ -22,7 +22,7 @@
   <h3 class="h1 products-section-title text-uppercase title-home text-center">
     <span>{l s='Special products' d='Shop.Theme.Catalog'}</span>
   </h3>
-  <div class="products product_list">
+  <div class="products product_list" data-carousel-product-number="{$carousel_product_number}">
     {foreach from=$products item="product"}
       {include file="catalog/_partials/miniatures/product.tpl" product=$product}
     {/foreach}

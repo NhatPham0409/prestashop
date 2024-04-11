@@ -253,7 +253,7 @@ global_settings:
 theme_settings:
   default_layout: layout-full-width
   layouts:
-    index: layout-left-column
+    index: layout-custom-column
     category: layout-left-column
     best-sales: layout-left-column
     new-products: layout-left-column

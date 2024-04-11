@@ -18,6 +18,9 @@
 *  @license    Valid for 1 website (or project) for each purchase of license
 *  International Registered Trademark & Property of ETS-Soft
 *}
+{assign var="isShow" value=2}
+{assign var="layout" value=1}
+
 <!doctype html>
 <html lang="{$language.iso_code|escape:'html':'UTF-8'}">
 
@@ -52,7 +55,7 @@
     <div style="display: flex; flex-direction: column;" id="wrapper">
 
       {if $page.page_name == 'index'}
-        <div class="col-xs-12 col-sm-12 col-md-12" style="overflow: hidden;">
+        <div class="col-xs-12 col-sm-12 col-md-12 {if $isShow == 1}container{/if}" style="overflow: hidden;">
           {hook h="displayNav"}
         </div>
       {/if}
@@ -65,8 +68,9 @@
         {/if}
 
         <div style="display: flex;">
+
           {block name="left_column"}
-            <div id="left-column" class="col-xs-12 col-sm-4 col-md-3" style="padding-top: 15px; margin-top: 0px;">
+            <div id="left-column" class="col-xs-12 col-sm-4 col-md-3" style="margin-top: 0px;padding-left: 15px;">
               {if $page.page_name == 'product'}
                 {hook h='displayLeftColumnProduct'}
               {else if $page.page_name == 'index'}
@@ -89,6 +93,8 @@
             <div id="right-column" class="col-xs-12 col-sm-4 col-md-3">
               {if $page.page_name == 'product'}
                 {hook h='displayRightColumnProduct'}
+              {else if $page.page_name == 'index'}
+                {hook h='displayYbcProductReview'}
               {else}
                 {hook h="displayRightColumn"}
               {/if}
