@@ -69,8 +69,9 @@ class Mwg_ThemeCustom extends Module
             //retrieve the value set by the user
             $imageWidth = (string)Tools::getValue('MWG_IMAGEWIDTH');
             $layout = (string)Tools::getValue('MWG_LAYOUT');
-            $isslide = (boolean)Tools::getValue('MWG_ISSLIDE');
+            $isslide = (int)Tools::getValue('MWG_ISSLIDE');
             $numofproduct = (int)Tools::getValue('MWG_NUMOFPRODUCT');
+            $selectedModules = (array) Tools::getValue('MWG_MODULES');
 
             //check that the value is valid
             if (!Validate::isGenericName($imageWidth) || !Validate::isGenericName($layout)) {
@@ -78,7 +79,19 @@ class Mwg_ThemeCustom extends Module
                 $output = $this->displayError($this->l('Invalid Configuration value'));
             }
 
-            elseif ($numofproduct < 4 || $numofproduct > 10) {
+            if ($layout != 'none_column') {
+                if (empty($selectedModules)) {
+                    $output = $this->displayError($this->l('Please select at least one module'));
+                }
+                foreach ($selectedModules as $moduleName) {
+                    $module = Module::getInstanceByName($moduleName);
+                    if ($module) {
+                        $module->registerHook('displayColumn');
+                    }
+                }
+            }
+
+            if ($numofproduct < 1 || $numofproduct > 6) {
                 //invalid value, show an error
                 $output = $this->displayError($this->l('Invalid Number of product value'));
             }
@@ -103,6 +116,15 @@ class Mwg_ThemeCustom extends Module
      */
     public function displayForm()
     {
+        $modules = Module::getModulesInstalled();
+        $options = [];
+        foreach ($modules as $module) {
+            $options[] = [
+                'id' => $module['name'],
+                'name' => $module['name'],
+            ];
+        }
+
         //Init Fields form array
         $form = [
             'form' => [
@@ -140,10 +162,21 @@ class Mwg_ThemeCustom extends Module
                         ],
                     ],
                     [
+                        'type' => 'select',
+                        'label' => $this->l('MODULES'),
+                        'name' => 'MWG_MODULES[]',
+                        'required' => false,
+                        'multiple' => true,
+                        'options' => [
+                            'query' => $options,
+                            'id' => 'id',
+                            'name'=> 'name',
+                        ],
+                    ],
+                    [
                         'type' => 'switch',
                         'label' => $this->l('Homepage Product Slide'),
                         'name' => 'MWG_ISSLIDE',
-                        'is_bool' => true,
                         'required' => false,
                         'desc' => $this->trans(
                             "Choose Yes and products in homepage will displayed as slider",
@@ -170,7 +203,7 @@ class Mwg_ThemeCustom extends Module
                         'required' => false,
                         'size' => 10,
                         'desc' => $this->trans(
-                            "Number of products to display in slider. Min is 4. Max is 10",
+                            "Number of products to display in slider. Min is 1. Max is 6",
                             [],
                             'Modules.Mwgthemecustom.Admin'
                         ),
