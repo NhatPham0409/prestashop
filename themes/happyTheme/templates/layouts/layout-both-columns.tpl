@@ -33,7 +33,6 @@
 
 <body id="{$page.page_name|escape:'html':'UTF-8'}"
   class="{$page.body_classes|classnames} {if isset($YBC_TC_CLASSES)}{$YBC_TC_CLASSES|escape:'html':'UTF-8'}{/if}">
-  {dump($customParam['MWG_LAYOUT'])}
   {block name='hook_after_body_opening_tag'}
     {hook h='displayAfterBodyOpeningTag'}
   {/block}

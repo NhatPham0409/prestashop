@@ -214,6 +214,7 @@ class Ps_Specials extends Module implements WidgetInterface
 
         if (!empty($products)) {
             return [
+                'hookName' => $hookName,
                 'products' => $products,
                 'allSpecialProductsLink' => Context::getContext()->link->getPageLink('prices-drop'),
             ];

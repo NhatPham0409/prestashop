@@ -19,15 +19,27 @@
 *  International Registered Trademark & Property of ETS-Soft
 *}
 
-<section class="featured-products clearfix home-block-section"
-  style="border: 1px solid #D4D4D4; border-radius: 6px; position: sticky; top: 10px;">
-  <h3 class="text-uppercase text-white bg-success text-center" style="padding: 10px">
-    <span>{l s='Best Selling' d='Shop.Theme.Catalog'}</span>
-  </h3>
-  <div class="products single-item-carousel" data-custom={{$customParam}}>
-    {foreach from=$products item="product"}
-      {include file="catalog/_partials/miniatures/product-bestSeller.tpl" product=$product}
-    {/foreach}
-  </div>
-
-</section>
+{if $hookName == 'displayColumn'}
+  <section class="featured-products clearfix home-block-section" style="border: 1px solid #D4D4D4; border-radius: 6px;">
+    <h3 class="text-uppercase text-white bg-success text-center" style="padding: 10px">
+      <span>{l s='Best Selling' d='Shop.Theme.Catalog'}</span>
+    </h3>
+    <div class="products single-item-carousel" data-custom={{$customParam}}>
+      {foreach from=$products item="product"}
+        {include file="catalog/_partials/miniatures/product-bestSeller.tpl" product=$product}
+      {/foreach}
+    </div>
+  </section>
+{else}
+  <section class="featured-products clearfix home-block-section">
+    <h3 class="h1 products-section-title text-uppercase title-home text-center">
+      <span>{l s='Best selling products' d='Shop.Theme.Catalog'}</span>
+    </h3>
+    <div class="products product_list">
+      {foreach from=$products item="product"}
+        {include file="catalog/_partials/miniatures/product.tpl" product=$product}
+      {/foreach}
+    </div>
+  </section>
+  {hook h='ybcCustom2'}
+{/if}

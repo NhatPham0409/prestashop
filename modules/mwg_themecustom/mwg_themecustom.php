@@ -26,7 +26,6 @@ class Mwg_ThemeCustom extends Module
 
         $this->displayName = $this->trans('MWG theme custom', [], 'Modules.Mwgthemecustom.Admin');
         $this->description = $this->trans('Customize theme module.', [], 'Modules.Mwgthemecustom.Admin');
-
     }
 
     public function install()
@@ -104,9 +103,7 @@ class Mwg_ThemeCustom extends Module
             if ($numofproduct < 1 || $numofproduct > 6) {
                 //invalid value, show an error
                 $output = $this->displayError($this->l('Invalid Number of product value'));
-            }
-
-            else {
+            } else {
                 // value is ok, update it and display a confirmation message
                 Configuration::updateValue('MWG_IMAGEWIDTH', $imageWidth);
                 Configuration::updateValue('MWG_LAYOUT', $layout);
@@ -136,116 +133,202 @@ class Mwg_ThemeCustom extends Module
         }
 
         //Init Fields form array
-        $form = [
-            'form' => [
-                'legend' => [
-                    'title' => $this->l('Settings'),
+        // $form = [
+        //     'form' => [
+        //         'legend' => [
+        //             'title' => $this->l('Settings'),
+        //         ],
+        //         'input' => [
+        //             [
+        //                 'type' => 'select',
+        //                 'label' => $this->l('Image Slider Width'),
+        //                 'name' => 'MWG_IMAGEWIDTH',
+        //                 'required' => false,
+        //                 'options' => [
+        //                     'query' => [
+        //                         ['id' => 'full', 'name' => 'FULL'],
+        //                         ['id' => 'normal', 'name' => 'NORMAL'],
+        //                     ],
+        //                     'id' => 'id',
+        //                     'name' => 'name',
+        //                 ],
+        //             ],
+        //             [
+        //                 'type' => 'select',
+        //                 'label' => $this->l('Layout'),
+        //                 'name' => 'MWG_LAYOUT',
+        //                 'required' => false,
+        //                 'options' => [
+        //                     'query' => [
+        //                         ['id' => 'left_column', 'name' => 'LEFT_COLUMN'],
+        //                         ['id' => 'right_column', 'name' => 'RIGHT_COLUMN'],
+        //                         ['id' => 'none_column', 'name' => 'NONE_COLUMN'],
+        //                     ],
+        //                     'id' => 'id',
+        //                     'name' => 'name',
+        //                 ],
+        //             ],
+        //             [
+        //                 'type' => 'select',
+        //                 'label' => $this->l('MODULES'),
+        //                 'name' => 'MWG_MODULES[]',
+        //                 'required' => false,
+        //                 'multiple' => true,
+        //                 'options' => [
+        //                     'query' => $options,
+        //                     'id' => 'id',
+        //                     'name' => 'name',
+        //                 ],
+        //             ],
+        //             [
+        //                 'type' => 'switch',
+        //                 'label' => $this->l('Homepage Product Slide'),
+        //                 'name' => 'MWG_ISSLIDE',
+        //                 'is_bool' => true,
+        //                 'required' => false,
+        //                 'desc' => $this->trans(
+        //                     "Choose Yes and products in homepage will displayed as slider",
+        //                     [],
+        //                     'Modules.Mwgthemecustom.Admin'
+        //                 ),
+        //                 'values' => [
+        //                     [
+        //                         'id' => self::MWG_ISSLIDE . '_on',
+        //                         'value' => 1,
+        //                         'label' => $this->trans('Yes', [], 'Admin.Global'),
+        //                     ],
+        //                     [
+        //                         'id' => self::MWG_ISSLIDE . '_off',
+        //                         'value' => 0,
+        //                         'label' => $this->trans('No', [], 'Admin.Global'),
+        //                     ],
+        //                 ],
+        //             ],
+        //             [
+        //                 'type' => 'text',
+        //                 'label' => $this->l('Number of slider products'),
+        //                 'name' => 'MWG_NUMOFPRODUCT',
+        //                 'required' => false,
+        //                 'size' => 10,
+        //                 'desc' => $this->trans(
+        //                     "Number of products to display in slider. Min is 4. Max is 10",
+        //                     [],
+        //                     'Modules.Mwgthemecustom.Admin'
+        //                 ),
+        //             ]
+        //         ],
+        //         'submit' => [
+        //             'title' => $this->l('Save'),
+        //             'class' => 'btn btn-default pull-right',
+        //         ],
+        //     ],
+        // ];
+
+        $fields_form = [
+            'legend' => [
+                'title' => $this->l('Settings'),
+            ],
+            'input' => [
+                [
+                    'type' => 'select',
+                    'label' => $this->l('Image Slider Width'),
+                    'name' => 'MWG_IMAGEWIDTH',
+                    'required' => false,
+                    'options' => [
+                        'query' => [
+                            ['id' => 'full', 'name' => 'FULL'],
+                            ['id' => 'normal', 'name' => 'NORMAL'],
+                        ],
+                        'id' => 'id',
+                        'name' => 'name',
+                    ],
                 ],
-                'input' => [
-                    [
-                        'type' => 'select',
-                        'label' => $this->l('Image Slider Width'),
-                        'name' => 'MWG_IMAGEWIDTH',
-                        'required' => false,
-                        'options' => [
-                            'query' => [
-                                ['id' => 'full', 'name' => 'FULL'],
-                                ['id' => 'normal', 'name' => 'NORMAL'],
-                            ],
-                            'id' => 'id',
-                            'name'=> 'name',
+                [
+                    'type' => 'select',
+                    'label' => $this->l('Layout'),
+                    'name' => 'MWG_LAYOUT',
+                    'required' => false,
+                    'options' => [
+                        'query' => [
+                            ['id' => 'left_column', 'name' => 'LEFT_COLUMN'],
+                            ['id' => 'right_column', 'name' => 'RIGHT_COLUMN'],
+                            ['id' => 'none_column', 'name' => 'NONE_COLUMN'],
                         ],
-                        'class' => 'bg-danger'
+                        'id' => 'id',
+                        'name' => 'name',
                     ],
-                    [
-                        'type' => 'select',
-                        'label' => $this->l('Layout'),
-                        'name' => 'MWG_LAYOUT',
-                        'required' => false,
-                        'options' => [
-                            'query' => [
-                                ['id' => 'left_column', 'name' => 'LEFT_COLUMN'],
-                                ['id' => 'right_column', 'name' => 'RIGHT_COLUMN'],
-                                ['id' => 'none_column', 'name' => 'NONE_COLUMN'],
-                            ],
-                            'id' => 'id',
-                            'name'=> 'name',
-                        ],
-                    ],
-                    [
-                        'type' => 'select',
-                        'label' => $this->l('MODULES'),
-                        'name' => 'MWG_MODULES[]',
-                        'required' => false,
-                        'multiple' => true,
-                        'options' => [
-                            'query' => $options,
-                            'id' => 'id',
-                            'name'=> 'name',
-                        ],
-                    ],
-                    [
-                        'type' => 'switch',
-                        'label' => $this->l('Homepage Product Slide'),
-                        'name' => 'MWG_ISSLIDE',
-                        'is_bool' => true,
-                        'required' => false,
-                        'desc' => $this->trans(
-                            "Choose Yes and products in homepage will displayed as slider",
-                            [],
-                            'Modules.Mwgthemecustom.Admin'
-                        ),
-                        'values' => [
-                            [
-                                'id' => self::MWG_ISSLIDE . '_on',
-                                'value' => 1,
-                                'label' => $this->trans('Yes', [], 'Admin.Global'),
-                            ],
-                            [
-                                'id' => self::MWG_ISSLIDE . '_off',
-                                'value' => 0,
-                                'label' => $this->trans('No', [], 'Admin.Global'),
-                            ],
-                        ],
-                    ],
-                    [
-                        'type' => 'text',
-                        'label' => $this->l('Number of slider products'),
-                        'name' => 'MWG_NUMOFPRODUCT',
-                        'required' => false,
-                        'size' => 10,
-                        'desc' => $this->trans(
-                            "Number of products to display in slider. Min is 1. Max is 6",
-                            [],
-                            'Modules.Mwgthemecustom.Admin'
-                        ),
-                    ]
                 ],
-                'submit' => [
-                    'title' => $this->l('Save'),
-                    'class' => 'btn btn-default pull-right',
+                [
+                    'type' => 'select',
+                    'label' => $this->l('MODULES'),
+                    'name' => 'MWG_MODULES[]',
+                    'required' => false,
+                    'multiple' => true,
+                    'options' => [
+                        'query' => $options,
+                        'id' => 'id',
+                        'name' => 'name',
+                    ],
                 ],
+                [
+                    'type' => 'switch',
+                    'label' => $this->l('Homepage Product Slide'),
+                    'name' => 'MWG_ISSLIDE',
+                    'is_bool' => true,
+                    'required' => false,
+                    'desc' => $this->trans(
+                        "Choose Yes and products in homepage will displayed as slider",
+                        [],
+                        'Modules.Mwgthemecustom.Admin'
+                    ),
+                    'values' => [
+                        [
+                            'id' => self::MWG_ISSLIDE . '_on',
+                            'value' => 1,
+                            'label' => $this->trans('Yes', [], 'Admin.Global'),
+                        ],
+                        [
+                            'id' => self::MWG_ISSLIDE . '_off',
+                            'value' => 0,
+                            'label' => $this->trans('No', [], 'Admin.Global'),
+                        ],
+                    ],
+                ],
+                [
+                    'type' => 'text',
+                    'label' => $this->l('Number of slider products'),
+                    'name' => 'MWG_NUMOFPRODUCT',
+                    'required' => false,
+                    'size' => 10,
+                    'desc' => $this->trans(
+                        "Number of products to display in slider. Min is 4. Max is 10",
+                        [],
+                        'Modules.Mwgthemecustom.Admin'
+                    ),
+                ]
+            ],
+            'submit' => [
+                'title' => $this->l('Save'),
+                'class' => 'btn btn-default pull-right',
             ],
         ];
 
-        $helper = new HelperForm();
+        $fields_value = [
+            'MWG_IMAGEWIDTH' => Tools::getValue('MWG_IMAGEWIDTH', Configuration::get('MWG_IMAGEWIDTH')),
+            'MWG_LAYOUT' => Tools::getValue('MWG_LAYOUT', Configuration::get('MWG_LAYOUT')),
+            'MWG_MODULES' => Tools::getValue('MWG_MODULES', Configuration::get('MWG_MODULES')),
+            'MWG_ISSLIDE' => Tools::getValue('MWG_ISSLIDE', Configuration::get('MWG_ISSLIDE')),
+            'MWG_NUMOFPRODUCT' => Tools::getValue('MWG_NUMOFPRODUCT', Configuration::get('MWG_NUMOFPRODUCT')),
+        ];
 
-        //Module, token and currentIndex
-        $helper->table = $this->table;
-        $helper->name_controller = $this->name;
-        $helper->token = Tools::getAdminTokenLite('AdminModules');
-        $helper->currentIndex = AdminController::$currentIndex . '&' . http_build_query(['configure' => $this->name]);
-        $helper->submit_action = 'submit' . $this->name;
+        $this->context->smarty->assign([
+            'fields_form' => $fields_form,
+            'fields_value' => $fields_value,
+            'action' => AdminController::$currentIndex . '&configure=' . $this->name . '&save' . $this->name . '&token=' . Tools::getAdminTokenLite('AdminModules'),
+            'languages' => Language::getLanguages(false),
+            'id_language' => $this->context->language->id,
+        ]);
 
-        //Default language
-        $helper->default_form_language = (int)Configuration::get('PS_LANG_DEFAULT');
-
-        //Load current value into the form
-        $helper->fields_value['MWG_IMAGEWIDTH'] = Tools::getValue('MWG_IMAGEWIDTH', Configuration::get('MWG_IMAGEWIDTH'));
-        $helper->fields_value['MWG_LAYOUT'] = Tools::getValue('MWG_LAYOUT', Configuration::get('MWG_LAYOUT'));
-        $helper->fields_value['MWG_ISSLIDE'] = Tools::getValue('MWG_ISSLIDE', Configuration::get('MWG_ISSLIDE'));
-        $helper->fields_value['MWG_NUMOFPRODUCT'] = Tools::getValue('MWG_NUMOFPRODUCT', Configuration::get('MWG_NUMOFPRODUCT'));
-
-        return $helper->generateForm([$form]);
+        return $this->display(__FILE__, 'views/templates/admin/configure.tpl');
     }
 }
