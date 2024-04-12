@@ -669,7 +669,7 @@ class Ets_purchasetogether extends Module
                     $ids[] = (int)$id;
         }
         return $ids;
-     }
+    }
      
      
 	public function assignContentVars($params)

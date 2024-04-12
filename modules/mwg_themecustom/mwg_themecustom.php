@@ -7,6 +7,8 @@ class Mwg_ThemeCustom extends Module
 {
     const MWG_ISSLIDE = 'HOMEPAGE_PRODUCT_SLIDER';
 
+   
+
     public function __construct()
     {
         $this->name = 'mwg_themecustom';
@@ -38,12 +40,19 @@ class Mwg_ThemeCustom extends Module
         return (
             parent::install()
             && $this->registerHook(['displayHome', 'MWG_LEFTHOOK', 'MWG_RIGHTHOOK'])
+            && $this->registerHook('displayBackOfficeHeader')
             && Configuration::updateValue('MWG_IMAGEWIDTH', 'NORMAL')
             && Configuration::updateValue('MWG_LAYOUT', 'NONE_COLUMN')
             && Configuration::updateValue('MWG_ISSLIDE', 0)
             && Configuration::updateValue('MWG_NUMOFPRODUCT', 4)
         );
     }
+
+    public function hookDisplayBackOfficeHeader($params)
+{
+    $cssFilePath = $this->_path . 'views/css/customTheme.css';
+    $this->context->controller->addCSS($cssFilePath);
+}
 
     public function uninstall()
     {
@@ -62,6 +71,7 @@ class Mwg_ThemeCustom extends Module
      */
     public function getContent()
     {
+       
         $output = '';
 
         //this part is  executed only when the form is submitted
@@ -91,7 +101,7 @@ class Mwg_ThemeCustom extends Module
                 }
             }
 
-            if ($numofproduct < 4 || $numofproduct > 10) {
+            if ($numofproduct < 1 || $numofproduct > 6) {
                 //invalid value, show an error
                 $output = $this->displayError($this->l('Invalid Number of product value'));
             }
@@ -145,6 +155,7 @@ class Mwg_ThemeCustom extends Module
                             'id' => 'id',
                             'name'=> 'name',
                         ],
+                        'class' => 'bg-danger'
                     ],
                     [
                         'type' => 'select',
@@ -204,7 +215,7 @@ class Mwg_ThemeCustom extends Module
                         'required' => false,
                         'size' => 10,
                         'desc' => $this->trans(
-                            "Number of products to display in slider. Min is 4. Max is 10",
+                            "Number of products to display in slider. Min is 1. Max is 6",
                             [],
                             'Modules.Mwgthemecustom.Admin'
                         ),
