@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use PrestaShop\Module\DistributionApiClient\DistributionApi;
+use PrestaShop\Module\DistributionApiMwg\DistributionApi;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -34,7 +34,7 @@ class ps_distributionapimwg extends \Module
      */
     public function hookActionListModules(): array
     {
-        return $this->getDistributionApi()->getModuleList('MWG');
+        return $this->getDistributionApi()->getModuleList();
     }
 
     /**
@@ -69,7 +69,7 @@ class ps_distributionapimwg extends \Module
     private function getDistributionApi(): DistributionApi
     {
         /** @var DistributionApi $distributionApi */
-        $distributionApi = $this->get('distributionapiclient.distribution_api');
+        $distributionApi = $this->get('distributionapimwg.distribution_api');
 
         return $distributionApi;
     }
