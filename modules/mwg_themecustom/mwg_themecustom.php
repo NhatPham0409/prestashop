@@ -68,14 +68,14 @@ class Mwg_ThemeCustom extends Module
         //this part is  executed only when the form is submitted
         if (Tools::isSubmit('submit' . $this->name)) {
             //retrieve the value set by the user
-            $imageWidth = (string)Tools::getValue('MWG_IMAGEWIDTH');
-            $layout = (string)Tools::getValue('MWG_LAYOUT');
-            $isslide = (int)Tools::getValue('MWG_ISSLIDE');
-            $numofproduct = (int)Tools::getValue('MWG_NUMOFPRODUCT');
+            $imageWidth = (string) Tools::getValue('MWG_IMAGEWIDTH');
+            $layout = (string) Tools::getValue('MWG_LAYOUT');
+            $isslide = (int) Tools::getValue('MWG_ISSLIDE');
+            $numofproduct = (int) Tools::getValue('MWG_NUMOFPRODUCT');
             $selectedModules = (array) Tools::getValue('MWG_MODULES');
 
             //check that the value is valid
-            if (!Validate::isGenericName($imageWidth) || !Validate::isGenericName($layout)) {
+            if (!Validate::isGenericName($imageWidth) || !Validate::isGenericName($layout) || !Validate::isInt($numofproduct) || !Validate::isInt($isslide)) {
                 //invalid value, show an error
                 $output = $this->displayError($this->l('Invalid Configuration value'));
             }
@@ -114,10 +114,22 @@ class Mwg_ThemeCustom extends Module
     /**
      * Builds the configuration form
      * @return string HTML code
+     * @throws PrestaShopDatabaseException
      */
     public function displayForm()
     {
+        // Get all modules that registered to hook 'displayHome'
+        $exceptModule = Hook::getHookModuleExecList('displayHome');
+        $exceptModule = array_map(function ($module) {
+            return $module['module'];
+        }, $exceptModule);
+
+        // Get all installed modules that are active and not in the exceptModule list
         $modules = Module::getModulesInstalled();
+        $modules = array_filter($modules, function ($module) use ($exceptModule) {
+            return $module['active'] == 1 && in_array($module['name'], $exceptModule);
+        });
+
         $options = [];
         foreach ($modules as $module) {
             $options[] = [
@@ -125,6 +137,10 @@ class Mwg_ThemeCustom extends Module
                 'name' => $module['name'],
             ];
         }
+
+        usort($options, function($a, $b) {
+            return strcmp($a['name'], $b['name']);
+        });
 
         //Init Fields form array
         $form = [
@@ -168,7 +184,6 @@ class Mwg_ThemeCustom extends Module
                         'name' => 'MWG_MODULES[]',
                         'required' => false,
                         'multiple' => true,
-                        'style' => 'min-height: 200px',
                         'options' => [
                             'query' => $options,
                             'id' => 'id',
