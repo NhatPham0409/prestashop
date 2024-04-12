@@ -68,16 +68,17 @@ class Ps_NewProducts extends Module implements WidgetInterface
             && $this->registerHook('actionProductAdd')
             && $this->registerHook('actionProductUpdate')
             && $this->registerHook('actionProductDelete')
-            && $this->registerHook('displayHome')
-        ;
+            && $this->registerHook('displayHome');
     }
 
     public function uninstall()
     {
         $this->_clearCache('*');
 
-        if (!parent::uninstall() ||
-            !Configuration::deleteByName('NEW_PRODUCTS_NBR')) {
+        if (
+            !parent::uninstall() ||
+            !Configuration::deleteByName('NEW_PRODUCTS_NBR')
+        ) {
             return false;
         }
 
@@ -213,6 +214,7 @@ class Ps_NewProducts extends Module implements WidgetInterface
 
         if (!empty($products)) {
             return [
+                'hookName' => $hookName,
                 'products' => $products,
                 'allNewProductsLink' => Context::getContext()->link->getPageLink('new-products'),
             ];

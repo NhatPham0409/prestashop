@@ -119,6 +119,7 @@ global_settings:
         - ps_customtext
         - ps_specials
         - ps_newproducts
+        - ps_bestsellers
       displayLeftColumn:
         - ps_categorytree
         - ps_facetedsearch
@@ -218,7 +219,7 @@ global_settings:
       ybcLayoutUpdate:
         - ybc_themeconfig
       displayColumn:
-        - ps_bestsellers
+        - ps_bestsellers: '@ps_bestsellers_column'
 
   image_types:
     cart_default:
