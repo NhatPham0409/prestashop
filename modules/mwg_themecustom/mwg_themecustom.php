@@ -6,6 +6,8 @@ if (!defined('_PS_VERSION_')) {
 class Mwg_ThemeCustom extends Module
 {
     const MWG_ISSLIDE = 'HOMEPAGE_PRODUCT_SLIDER';
+    const MIN_PRODUCT_SLIDE = 1;
+    const MAX_PRODUCT_SLIDE = 6;
 
     public function __construct()
     {
@@ -37,7 +39,6 @@ class Mwg_ThemeCustom extends Module
         }
         return (
             parent::install()
-            && $this->registerHook(['displayHome', 'MWG_LEFTHOOK', 'MWG_RIGHTHOOK'])
             && Configuration::updateValue('MWG_IMAGEWIDTH', 'normal')
             && Configuration::updateValue('MWG_LAYOUT', 'none_column')
             && Configuration::updateValue('MWG_ISSLIDE', 0)
@@ -91,7 +92,7 @@ class Mwg_ThemeCustom extends Module
                 }
             }
 
-            if ($numofproduct < 1 || $numofproduct > 6) {
+            if ($numofproduct < self::MIN_PRODUCT_SLIDE || $numofproduct > self::MAX_PRODUCT_SLIDE) {
                 //invalid value, show an error
                 $output = $this->displayError($this->l('Invalid Number of product value'));
             }
@@ -167,6 +168,7 @@ class Mwg_ThemeCustom extends Module
                         'name' => 'MWG_MODULES[]',
                         'required' => false,
                         'multiple' => true,
+                        'style' => 'min-height: 200px',
                         'options' => [
                             'query' => $options,
                             'id' => 'id',
