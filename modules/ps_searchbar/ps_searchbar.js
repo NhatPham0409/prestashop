@@ -4,7 +4,6 @@ $(document).ready(function () {
     var $searchBox    = $searchWidget.find('input[type=text]');
     var searchURL     = $searchWidget.attr('data-search-controller-url');
     var $clearButton  = $searchWidget.find('i.clear');
-
     $.widget('prestashop.psBlockSearchAutocomplete', $.ui.autocomplete, {
         _renderItem: function (ul, product) {
             var image = (product.cover) ? product.cover : prestashop.urls.no_picture_image;

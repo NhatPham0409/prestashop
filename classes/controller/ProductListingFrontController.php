@@ -310,6 +310,7 @@ abstract class ProductListingFrontControllerCore extends ProductPresentingFrontC
         // ...modules decide if they can handle it (first one that can is used)
         $provider = $this->getProductSearchProviderFromModules($query);
 
+        
         // if no module wants to do the query, then the core feature is used
         if (null === $provider) {
             $provider = $this->getDefaultProductSearchProvider();
@@ -636,6 +637,7 @@ abstract class ProductListingFrontControllerCore extends ProductPresentingFrontC
             $this->context->smarty->assign([
                 'listing' => $variables,
             ]);
+
             $this->setTemplate($template, $params, $locale);
         }
     }

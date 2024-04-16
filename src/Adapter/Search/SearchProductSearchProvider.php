@@ -54,6 +54,26 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
         $this->translator = $translator;
     }
 
+    public function getSearchByApi(string $search_query)
+    {
+        // Gọi API
+        $api_url = 'https://imdb-api.tienich.workers.dev/search?query=' . urlencode($search_query);
+        $response = Tools::file_get_contents($api_url);
+
+        if ($response !== false) {
+            $data = json_decode($response, true);
+            // Xử lý dữ liệu ở đây
+            if ($data !== null) {
+            return $data;
+
+            } else {
+                // Xử lý lỗi khi không thể chuyển đổi JSON
+            }
+        } else {
+            // Xử lý lỗi khi không thể gửi yêu cầu HTTP
+        }
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -63,10 +83,10 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
     ) {
         $products = [];
         $count = 0;
-
         if (($string = $query->getSearchString())) {
             $queryString = Tools::replaceAccentedChars(urldecode($string));
-
+            $searchApi = $this->getSearchByApi($query->getSearchString());
+            dump($searchApi);
             $result = Search::find(
                 $context->getIdLang(),
                 $queryString,
@@ -78,6 +98,7 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
                 false, // $use_cookie, ignored anyway
                 null
             );
+
             $products = $result['result'];
             $count = $result['total'];
 

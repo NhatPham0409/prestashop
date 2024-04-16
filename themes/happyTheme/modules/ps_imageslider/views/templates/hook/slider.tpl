@@ -18,6 +18,7 @@
 *  @license    Valid for 1 website (or project) for each purchase of license
 *  International Registered Trademark & Property of ETS-Soft
 *}
+
 {assign var="isShow" value=$customParam['MWG_IMAGEWIDTH']}
 {if $homeslider.slides}
   <div id="carousel" data-ride="carousel" class="carousel slide hidden-sm-down"
