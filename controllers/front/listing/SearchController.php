@@ -58,6 +58,7 @@ class SearchControllerCore extends ProductListingFrontController
                 'search_string' => $this->search_string,
                 'search_tag' => $this->search_tag,
                 'subcategories' => [],
+                'api_search' => 'search'
             ]
         );
     }
@@ -86,7 +87,7 @@ class SearchControllerCore extends ProductListingFrontController
     {
         parent::initContent();
 
-        $this->doProductSearch('catalog/listing/searchApi', ['entity' => 'search']);
+        $this->doProductSearch('catalog/listing/search', ['entity' => 'search']);
     }
 
     /**

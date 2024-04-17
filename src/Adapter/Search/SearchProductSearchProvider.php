@@ -84,9 +84,11 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
     ) {
         $products = [];
         $count = 0;
+
         if (($string = $query->getSearchString())) {
             $queryString = Tools::replaceAccentedChars(urldecode($string));
             $searchApi = $this->getSearchByApi($query->getSearchString());
+          
             $result = Search::find(
                 $context->getIdLang(),
                 $queryString,
