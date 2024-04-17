@@ -109,7 +109,6 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
             $count = $result['total'];            
 
             
-            // $this->context->smarty->assign('searchApiResult', $searchApi);
 
             Hook::exec('actionSearch', [
                 'searched_query' => $queryString,
@@ -162,7 +161,7 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
             $result
                 ->setProducts($products)
                 ->setTotalProductsCount($count)
-                ->setSearchApiResult($searchApi);
+                ->setSearchApiResult($searchApi['results']);
 
             $result->setAvailableSortOrders(
                 [
