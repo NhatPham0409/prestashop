@@ -21,27 +21,26 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  * *}
-{block name='product_miniature_item'}
+ {block name='product_miniature_item'}
   {if $api_search == 'search'}
     <div class="js-product product{if !empty($productClasses)} {$productClasses}{/if}">
-      <article class="product-miniature js-product-miniature" data-id-product="{$product.id_product}"
-        data-id-product-attribute="{$product.id_product_attribute}">
+      <article class="product-miniature js-product-miniature" data-id-product="{$product.id}">
         <div class="thumbnail-container">
           <div class="thumbnail-top">
             {block name='product_thumbnail'}
-                <a href="{$product.url}" class="thumbnail product-thumbnail">
-                    <img src="https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_UY396_CR6,0,267,396_AL_.jpg"
-                      alt="{if !empty($product.cover.legend)}{$product.cover.legend}{else}{$product.name|truncate:30:'...'}{/if}"
-                      loading="lazy" data-full-size-image-url="{$product.cover.large.url}"
-                      width="{$product.cover.bySize.home_default.width}" height="{$product.cover.bySize.home_default.height}" />
+                <a href="{$product.imdb}" class="thumbnail product-thumbnail">
+                    <img src={$product.image}
+                      alt="{$product.title}"
+                      loading="lazy" data-full-size-image-url="{$product.image_large}"
+                      width="255" height="378" />
                 </a>
             {/block}
           </div>
 
           <div class="product-description">
             {block name='product_name'}
-              <h3 class="h3 product-title"><a href="{$product.url}"
-                  content="{$product.url}">{'Name Film'|truncate:30:'...'}</a></h3>
+              <h3 class="h3 product-title"><a href="{$product.imdb}"
+                  content="{$product.imdb}">{$product.title|truncate:30:'...'}</a></h3>
             {/block}
           </div>
         </div>

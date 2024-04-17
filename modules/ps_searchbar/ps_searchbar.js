@@ -3,15 +3,16 @@ $(document).ready(function () {
     var $searchWidget = $('#search_widget');
     var $searchBox    = $searchWidget.find('input[type=text]');
     var searchURL     = $searchWidget.attr('data-search-controller-url');
+    console.log(searchURL)
     var $clearButton  = $searchWidget.find('i.clear');
     $.widget('prestashop.psBlockSearchAutocomplete', $.ui.autocomplete, {
         _renderItem: function (ul, product) {
-            var image = (product.cover) ? product.cover : prestashop.urls.no_picture_image;
-            var $img = $('<img class="autocomplete-thumbnail" src="'+image.bySize.small_default.url+'">');
+            var image = (product.image) ? product.image : prestashop.urls.no_picture_image;
+            var $img = $('<img class="autocomplete-thumbnail" src="'+image+'">');
             return $("<li>")
                 .append($("<a>")
                     .append($img)
-                    .append($("<span>").html(product.name).addClass("product"))
+                    .append($("<span>").html(product.title).addClass("product"))
                 ).appendTo(ul)
             ;
         }
@@ -36,7 +37,7 @@ $(document).ready(function () {
                 resultsPerPage: 10
             }, null, 'json')
             .then(function (resp) {
-                response(resp.products);
+                response(resp.searchApiResult);
             })
             .fail(response);
         },

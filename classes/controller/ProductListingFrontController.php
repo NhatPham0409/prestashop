@@ -380,6 +380,10 @@ abstract class ProductListingFrontControllerCore extends ProductPresentingFrontC
             $result->getProducts()
         );
 
+        $searchApiResult = $result->getApiSearchResult();
+        
+
+
         // render the facets
         if ($provider instanceof FacetsRendererInterface) {
             // with the provider if it wants to
@@ -440,6 +444,7 @@ abstract class ProductListingFrontControllerCore extends ProductPresentingFrontC
             'current_url' => $this->updateQueryString([
                 'q' => $result->getEncodedFacets(),
             ]),
+            'searchApiResult' => $searchApiResult,
         ];
 
         Hook::exec('filterProductSearch', ['searchVariables' => &$searchVariables]);
