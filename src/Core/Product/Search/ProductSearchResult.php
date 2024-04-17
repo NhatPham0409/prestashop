@@ -55,7 +55,7 @@ class ProductSearchResult
      /**
      * @var array
      */
-    private $searchApiResult = [];
+    public $searchApiResult = [];
 
     /**
      * @param array $products
@@ -173,6 +173,14 @@ class ProductSearchResult
         return $this;
     }
 
+       /**
+     * @return $array
+     */
+    public function getApiSearchResult()
+    {
+        return $this->searchApiResult;
+    }
+
     /**
      * @param array $searchApiResult
      *
@@ -185,7 +193,7 @@ class ProductSearchResult
         return $this;
     }
 
-
+   
     /**
      * @param SortOrder $currentSortOrder
      *
