@@ -75,6 +75,7 @@ class Ps_Searchbar extends Module implements WidgetInterface
             && $this->registerHook('displayTop')
             && $this->registerHook('displaySearch')
             && $this->registerHook('displayHeader')
+    
         ;
     }
 
@@ -90,7 +91,6 @@ class Ps_Searchbar extends Module implements WidgetInterface
         $widgetVariables = [
             'search_controller_url' => $this->context->link->getPageLink('search', null, null, null, false, null, true),
         ];
-
         /** @var array $templateVars */
         $templateVars = $this->context->smarty->getTemplateVars();
         if (is_array($templateVars) && !array_key_exists('search_string', $templateVars)) {

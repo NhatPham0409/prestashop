@@ -86,7 +86,7 @@ class SearchControllerCore extends ProductListingFrontController
     {
         parent::initContent();
 
-        $this->doProductSearch('catalog/listing/search', ['entity' => 'search']);
+        $this->doProductSearch('catalog/listing/searchApi', ['entity' => 'search']);
     }
 
     /**
@@ -100,7 +100,7 @@ class SearchControllerCore extends ProductListingFrontController
             ->setSortOrder(new SortOrder('product', 'position', 'desc'))
             ->setSearchString($this->search_string)
             ->setSearchTag($this->search_tag);
-
+        
         return $query;
     }
 

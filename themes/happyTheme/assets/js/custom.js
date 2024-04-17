@@ -60,7 +60,6 @@ $(document).ready(function(){
     });
     var numOfProduct = getCookie('MWG_NUMOFPRODUCT');
     var isSlide = getCookie('MWG_ISSLIDE');
-    console.log('kjanksjdas',isSlide)
     var $owl = $('');
     if(isSlide!=0){
      $owl = $('.home-block-section .product_list, .product-accessories .products');

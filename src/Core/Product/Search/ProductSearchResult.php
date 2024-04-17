@@ -52,6 +52,10 @@ class ProductSearchResult
      * @var SortOrder
      */
     private $currentSortOrder;
+     /**
+     * @var array
+     */
+    private $searchApiResult = [];
 
     /**
      * @param array $products
@@ -168,6 +172,19 @@ class ProductSearchResult
 
         return $this;
     }
+
+    /**
+     * @param array $searchApiResult
+     *
+     * @return $this
+     */
+    public function setSearchApiResult(array $searchApiResult)
+    {
+        $this->searchApiResult = $searchApiResult;
+
+        return $this;
+    }
+
 
     /**
      * @param SortOrder $currentSortOrder
