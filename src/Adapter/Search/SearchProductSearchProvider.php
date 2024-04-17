@@ -72,6 +72,7 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
         } else {
             // Xử lý lỗi khi không thể gửi yêu cầu HTTP
         }
+        
     }
 
     /**
@@ -86,7 +87,6 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
         if (($string = $query->getSearchString())) {
             $queryString = Tools::replaceAccentedChars(urldecode($string));
             $searchApi = $this->getSearchByApi($query->getSearchString());
-            dump($searchApi);
             $result = Search::find(
                 $context->getIdLang(),
                 $queryString,
@@ -99,8 +99,15 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
                 null
             );
 
+           
+
+            // $products = $searchApi['results'];
+            // $count = count($searchApi['results']);
             $products = $result['result'];
-            $count = $result['total'];
+            $count = $result['total'];            
+
+            
+            // $this->context->smarty->assign('searchApiResult', $searchApi);
 
             Hook::exec('actionSearch', [
                 'searched_query' => $queryString,
@@ -108,6 +115,7 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
 
                 // deprecated since 1.7.x
                 'expr' => $queryString,
+                'searchApiResult'=> $searchApi
             ]);
         } elseif (($tag = $query->getSearchTag())) {
             $queryString = urldecode($tag);
@@ -148,9 +156,11 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
         $result = new ProductSearchResult();
 
         if (!empty($products)) {
+
             $result
                 ->setProducts($products)
-                ->setTotalProductsCount($count);
+                ->setTotalProductsCount($count)
+                ->setSearchApiResult($searchApi);
 
             $result->setAvailableSortOrders(
                 [
@@ -172,7 +182,6 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
                 ]
             );
         }
-
         return $result;
     }
 }

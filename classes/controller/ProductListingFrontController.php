@@ -636,8 +636,8 @@ abstract class ProductListingFrontControllerCore extends ProductPresentingFrontC
             $variables = $this->getProductSearchVariables();
             $this->context->smarty->assign([
                 'listing' => $variables,
+                'searchApiResult' => $variables['result']
             ]);
-
             $this->setTemplate($template, $params, $locale);
         }
     }

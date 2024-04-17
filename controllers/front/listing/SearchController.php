@@ -86,7 +86,7 @@ class SearchControllerCore extends ProductListingFrontController
     {
         parent::initContent();
 
-        $this->doProductSearch('catalog/listing/search', ['entity' => 'search']);
+        $this->doProductSearch('catalog/listing/searchApi', ['entity' => 'search']);
     }
 
     /**
