@@ -60,7 +60,7 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
 
     public function isCallAPI()
     {
-       return true;
+       return false;
     }
 
     public function getSearchByApi(string $search_query)
