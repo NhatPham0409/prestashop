@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -26,6 +27,9 @@
 
 namespace PrestaShop\PrestaShop\Adapter\Search;
 
+use Configuration;
+use Context;
+use Db;
 use Hook;
 use PrestaShop\PrestaShop\Core\Product\Search\ProductSearchContext;
 use PrestaShop\PrestaShop\Core\Product\Search\ProductSearchProviderInterface;
@@ -54,25 +58,29 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
         $this->translator = $translator;
     }
 
+    public function isCallAPI()
+    {
+       return true;
+    }
+
     public function getSearchByApi(string $search_query)
     {
         // Gọi API
         $api_url = 'https://imdb-api.tienich.workers.dev/search?query=' . urlencode($search_query);
+
         $response = Tools::file_get_contents($api_url);
 
         if ($response !== false) {
             $data = json_decode($response, true);
             // Xử lý dữ liệu ở đây
             if ($data !== null) {
-            return $data;
-
+                return $data;
             } else {
                 // Xử lý lỗi khi không thể chuyển đổi JSON
             }
         } else {
             // Xử lý lỗi khi không thể gửi yêu cầu HTTP
         }
-        
     }
 
     /**
@@ -83,12 +91,15 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
         ProductSearchQuery $query
     ) {
         $products = [];
+        $isCallAPI = $this->isCallAPI();
         $count = 0;
 
         if (($string = $query->getSearchString())) {
+
             $queryString = Tools::replaceAccentedChars(urldecode($string));
+
             $searchApi = $this->getSearchByApi($query->getSearchString());
-          
+
             $result = Search::find(
                 $context->getIdLang(),
                 $queryString,
@@ -101,14 +112,12 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
                 null
             );
 
-           
+
 
             // $products = $searchApi['results'];
             // $count = count($searchApi['results']);
             $products = $result['result'];
-            $count = $result['total'];            
-
-            
+            $count = $result['total'];
 
             Hook::exec('actionSearch', [
                 'searched_query' => $queryString,
@@ -116,7 +125,6 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
 
                 // deprecated since 1.7.x
                 'expr' => $queryString,
-                'searchApiResult'=> $searchApi
             ]);
         } elseif (($tag = $query->getSearchTag())) {
             $queryString = urldecode($tag);
@@ -156,13 +164,14 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
 
         $result = new ProductSearchResult();
 
-        if (!empty($products)) {
 
+        if (!empty($products)) {
             $result
                 ->setProducts($products)
                 ->setTotalProductsCount($count)
-                ->setSearchApiResult($searchApi['results']);
+                ->setSearchApiResult($isCallAPI ? $searchApi['results'] : []);
 
+   
             $result->setAvailableSortOrders(
                 [
                     (new SortOrder('product', 'position', 'desc'))->setLabel(

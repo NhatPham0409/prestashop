@@ -317,6 +317,7 @@ abstract class ProductListingFrontControllerCore extends ProductPresentingFrontC
         }
 
         $resultsPerPage = (int) Tools::getValue('resultsPerPage');
+
         if ($resultsPerPage <= 0) {
             $resultsPerPage = Configuration::get('PS_PRODUCTS_PER_PAGE');
         }
@@ -381,9 +382,8 @@ abstract class ProductListingFrontControllerCore extends ProductPresentingFrontC
         );
 
         $searchApiResult = $result->getApiSearchResult();
+
         
-
-
         // render the facets
         if ($provider instanceof FacetsRendererInterface) {
             // with the provider if it wants to
@@ -641,7 +641,6 @@ abstract class ProductListingFrontControllerCore extends ProductPresentingFrontC
             $variables = $this->getProductSearchVariables();
             $this->context->smarty->assign([
                 'listing' => $variables,
-                'searchApiResult' => $variables['result']->getApiSearchResult(),
             ]);
             $this->setTemplate($template, $params, $locale);
         }

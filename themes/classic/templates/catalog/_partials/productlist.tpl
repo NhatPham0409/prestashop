@@ -27,13 +27,18 @@
 
 <div class="products{if !empty($cssClass)} {$cssClass}{/if}">
     {if $api_search == 'search'}
-        {foreach from=$searchApiResult item="product" key="position"}
-            {include file="catalog/_partials/miniatures/product.tpl" product=$product position=$position productClasses=$productClasses}
-        {/foreach}
+        {if $products.searchApiResult}
+            {foreach from=$products.searchApiResult item="product" key="position"}
+                {include file="catalog/_partials/miniatures/product.tpl" product=$product position=$position productClasses=$productClasses}
+            {/foreach}
+        {else}
+            {foreach from=$products.products item="product" key="position"}
+                {include file="catalog/_partials/miniatures/product.tpl" product=$product position=$position productClasses=$productClasses}
+            {/foreach}
+        {/if}
     {else}
         {foreach from=$products item="product" key="position"}
             {include file="catalog/_partials/miniatures/product.tpl" product=$product position=$position productClasses=$productClasses}
         {/foreach}
     {/if}
-    
 </div>

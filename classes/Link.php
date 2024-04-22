@@ -1158,6 +1158,7 @@ class LinkCore
             $request['token'] = Tools::getToken(false);
         }
 
+
         $uriPath = Dispatcher::getInstance()->createUrl($controller, $idLang, $request, false, '', $idShop);
 
         return $this->getBaseLink($idShop, $ssl, $relativeProtocol) . $this->getLangLink($idLang, null, $idShop) . ltrim($uriPath, '/');
