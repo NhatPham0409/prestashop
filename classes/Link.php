@@ -1157,10 +1157,13 @@ class LinkCore
         if ($controller === 'cart' && (!empty($request['add']) || !empty($request['delete'])) && Configuration::get('PS_TOKEN_ENABLE')) {
             $request['token'] = Tools::getToken(false);
         }
-
-
         $uriPath = Dispatcher::getInstance()->createUrl($controller, $idLang, $request, false, '', $idShop);
-
+        $url = $this->getBaseLink($idShop, $ssl, $relativeProtocol) . 
+       $this->getLangLink($idLang, null, $idShop) . 
+       ltrim($uriPath, '/') ;
+       if($controller == 'search' && isset($request['isApiSearch']) && $request['isApiSearch'] == true ){
+            return $url;
+       }
         return $this->getBaseLink($idShop, $ssl, $relativeProtocol) . $this->getLangLink($idLang, null, $idShop) . ltrim($uriPath, '/');
     }
 

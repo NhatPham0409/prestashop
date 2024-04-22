@@ -79,6 +79,66 @@ class Ps_Searchbar extends Module implements WidgetInterface
         ;
     }
 
+    public function getContent()
+    {
+        $output = '';
+
+        if (Tools::isSubmit('submit' . $this->name)) {
+            //retrieve the value set by the user
+            $searchApi = (string)Tools::getValue('SEARCH_API');
+            Configuration::updateValue('SEARCH_API',$searchApi,false, $this->context->shop->id_shop_group,$this->context->shop->id);
+            $output = $this->displayConfirmation($this->displayConfirmation($this->l('Settings updated')));
+        }
+
+        //display any message, the the form
+        return $output . $this->displayForm();
+    }    
+    /**
+     * Builds the configuration form
+     * @return string HTML code
+     */
+    public function displayForm()
+    {
+        //Init Fields form array
+        $form = [
+            'form' => [
+                'legend' => [
+                    'title' => $this->l('Settings api link for search bar'),
+                ],
+                'input' => [
+                    [
+                        'type' => 'text',
+                        'label' => $this->l('Api search link'),
+                        'name' => 'SEARCH_API',
+                        'size' => 70,
+                        'required' => true,
+                    ],
+                ],
+                'submit' => [
+                    'title' => $this->l('Save'),
+                    'class' => 'btn btn-default pull-right',
+                ],
+            ],
+        ];
+
+        $helper = new HelperForm();
+
+        //Module, token and currentIndex
+        $helper->table = $this->table;
+        $helper->name_controller = $this->name;
+        $helper->token = Tools::getAdminTokenLite('AdminModules');
+        $helper->currentIndex = AdminController::$currentIndex . '&' . http_build_query(['configure' => $this->name]);
+        $helper->submit_action = 'submit'. $this->name;
+
+        //Default language
+        $helper->default_form_language = (int) Configuration::get('PS_LANG_DEFAULT');
+
+        //Load current value into the form
+        $helper->fields_value['SEARCH_API'] = Tools::getValue('SEARCH_API',Configuration::get('SEARCH_API'));
+
+        return $helper->generateForm([$form]);
+    }
+
     public function hookDisplayHeader()
     {
         $this->context->controller->addJqueryUI('ui.autocomplete');
@@ -89,14 +149,13 @@ class Ps_Searchbar extends Module implements WidgetInterface
     public function getWidgetVariables($hookName, array $configuration = [])
     {
         $widgetVariables = [
-            'search_controller_url' => $this->context->link->getPageLink('search', null, null, null, false, null, true),
+            'search_controller_url' => $this->context->link->getPageLink('search', null, null, ['isApiSearch' => true], false, null, true),
         ];
         /** @var array $templateVars */
         $templateVars = $this->context->smarty->getTemplateVars();
         if (is_array($templateVars) && !array_key_exists('search_string', $templateVars)) {
             $widgetVariables['search_string'] = '';
         }
-
         return $widgetVariables;
     }
 
@@ -106,4 +165,5 @@ class Ps_Searchbar extends Module implements WidgetInterface
 
         return $this->fetch($this->templateFile);
     }
+
 }

@@ -1138,7 +1138,6 @@ class ToolsCore
      */
     public static function dieObject($object, $kill = true)
     {
-        dump($object);
 
         if ($kill) {
             die('END');
