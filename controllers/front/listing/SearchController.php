@@ -45,6 +45,7 @@ class SearchControllerCore extends ProductListingFrontController
     public function init()
     {
         parent::init();
+        $isApiSearch = Tools::getValue('isApiSearch');
 
         $this->search_string = Tools::getValue('s');
         if (!$this->search_string) {
@@ -86,7 +87,6 @@ class SearchControllerCore extends ProductListingFrontController
     public function initContent()
     {
         parent::initContent();
-
         $this->doProductSearch('catalog/listing/search', ['entity' => 'search']);
     }
 

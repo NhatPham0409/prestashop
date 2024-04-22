@@ -992,7 +992,6 @@ class DispatcherCore
         if ($this->use_routes || $force_routes) {
             $url = $route['rule'];
             $add_param = [];
-
             foreach ($params as $key => $value) {
                 if (!isset($route['keywords'][$key])) {
                     if (!isset($this->default_routes[$route_id]['keywords'][$key])) {
@@ -1017,9 +1016,11 @@ class DispatcherCore
                 }
             }
             $url = preg_replace('#\{([^{}]*:)?[a-z0-9_]+?(:[^{}]*)?\}#', '', $url);
+            
             if (count($add_param)) {
                 $url .= '?' . http_build_query($add_param, '', '&');
             }
+            
         } else {
             // Build a classic url index.php?controller=foo&...
             $add_params = [];
@@ -1045,7 +1046,9 @@ class DispatcherCore
 
             // Build the final URL
             $url = 'index.php?' . http_build_query($urlParams, '', '&');
+
         }
+
 
         return $url . $anchor;
     }
