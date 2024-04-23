@@ -36,6 +36,7 @@ use PrestaShop\PrestaShop\Core\Product\Search\ProductSearchProviderInterface;
 use PrestaShop\PrestaShop\Core\Product\Search\ProductSearchQuery;
 use PrestaShop\PrestaShop\Core\Product\Search\ProductSearchResult;
 use PrestaShop\PrestaShop\Core\Product\Search\SortOrder;
+use PSpell\Config;
 use Search;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Tools;
@@ -60,13 +61,18 @@ class SearchProductSearchProvider implements ProductSearchProviderInterface
 
     public function isCallAPI()
     {
-       return false;
+
+       if(Configuration::get('SEARCH_API',null,Context::getContext()->shop->id_shop_group,Context::getContext()->shop->id)){
+        return true;
+       }else{
+        return false;
+       }
     }
 
     public function getSearchByApi(string $search_query)
     {
         // Gọi API
-        $api_url = 'https://imdb-api.tienich.workers.dev/search?query=' . urlencode($search_query);
+        $api_url = Configuration::get('SEARCH_API',null,Context::getContext()->shop->id_shop_group,Context::getContext()->shop->id) . urlencode($search_query);
 
         $response = Tools::file_get_contents($api_url);
 
