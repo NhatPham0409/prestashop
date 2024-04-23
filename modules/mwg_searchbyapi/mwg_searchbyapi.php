@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2020 PrestaShop SA and Contributors
  *
@@ -45,20 +46,20 @@ class mwg_searchbyapi extends Module implements WidgetInterface
 
     public function __construct()
     {
-        $this->name = 'ps_searchbar';
+        $this->name = 'mwg_searchbyapi';
         $this->tab = 'front_office_features';
-        $this->author = 'PrestaShop';
-        $this->version = '2.1.3';
+        $this->author = 'NHAT_TRONG';
+        $this->version = '1.0.0';
         $this->need_instance = 0;
 
         parent::__construct();
 
-        $this->displayName = $this->trans('Search bar', [], 'Modules.Searchbar.Admin');
+        $this->displayName = $this->trans('Search By API', [], 'Modules.Searchbar.Admin');
         $this->description = $this->trans('Help your visitors find what they are looking for, add a quick search field to your store.', [], 'Modules.Searchbar.Admin');
 
         $this->ps_versions_compliancy = ['min' => '1.7.8.0', 'max' => _PS_VERSION_];
 
-        $this->templateFile = 'module:ps_searchbar/ps_searchbar.tpl';
+        $this->templateFile = 'module:mwg_searchbyapi/mwg_searchbyapi.tpl';
     }
 
     public function install()
@@ -74,8 +75,7 @@ class mwg_searchbyapi extends Module implements WidgetInterface
         return parent::install()
             && $this->registerHook('displayTop')
             && $this->registerHook('displaySearch')
-            && $this->registerHook('displayHeader')
-        ;
+            && $this->registerHook('displayHeader');
     }
 
     public function hookDisplayHeader()
@@ -83,6 +83,72 @@ class mwg_searchbyapi extends Module implements WidgetInterface
         $this->context->controller->addJqueryUI('ui.autocomplete');
         $this->context->controller->registerStylesheet('modules-searchbar', 'modules/' . $this->name . '/ps_searchbar.css');
         $this->context->controller->registerJavascript('modules-searchbar', 'modules/' . $this->name . '/ps_searchbar.js', ['position' => 'bottom', 'priority' => 150]);
+    }
+
+    public function getContent()
+    {
+        $output = '';
+
+        // this part is executed only when the form is submitted
+        if (Tools::isSubmit('submit' . $this->name)) {
+            // retrieve the value set by the user
+            $configValue = (string) Tools::getValue('SEARCH_API');
+
+            // check that the value is valid
+            if (empty($configValue) || !Validate::isGenericName($configValue)) {
+                // invalid value, show an error
+                $output = $this->displayError($this->l('Invalid Configuration value'));
+            } else {
+                // value is ok, update it and display a confirmation message
+                Configuration::updateValue('SEARCH_API', $configValue);
+                $output = $this->displayConfirmation($this->l('Settings updated'));
+            }
+        }
+
+        // display any message, then the form
+        return $output . $this->displayForm();
+    }
+
+    public function displayForm()
+    {
+        // Init Fields form array
+        $form = [
+            'form' => [
+                'legend' => [
+                    'title' => $this->l('Settings'),
+                ],
+                'input' => [
+                    [
+                        'type' => 'text',
+                        'label' => $this->l('Configuration value'),
+                        'name' => 'SEARCH_API',
+                        'size' => 20,
+                        'required' => true,
+                    ],
+                ],
+                'submit' => [
+                    'title' => $this->l('Save'),
+                    'class' => 'btn btn-default pull-right',
+                ],
+            ],
+        ];
+
+        $helper = new HelperForm();
+
+        // Module, token and currentIndex
+        $helper->table = $this->table;
+        $helper->name_controller = $this->name;
+        $helper->token = Tools::getAdminTokenLite('AdminModules');
+        $helper->currentIndex = AdminController::$currentIndex . '&' . http_build_query(['configure' => $this->name]);
+        $helper->submit_action = 'submit' . $this->name;
+
+        // Default language
+        $helper->default_form_language = (int) Configuration::get('PS_LANG_DEFAULT');
+
+        // Load current value into the form
+        $helper->fields_value['SEARCH_API'] = Tools::getValue('SEARCH_API', Configuration::get('SEARCH_API'));
+
+        return $helper->generateForm([$form]);
     }
 
     public function getWidgetVariables($hookName, array $configuration = [])
