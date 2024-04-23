@@ -154,7 +154,7 @@ class mwg_searchbyapi extends Module implements WidgetInterface
     public function getWidgetVariables($hookName, array $configuration = [])
     {
         $widgetVariables = [
-            'search_controller_url' => $this->context->link->getPageLink('search', null, null, null, false, null, true),
+            'search_controller_url' => $this->context->link->getPageLink('search_api', null, null, null, false, null, true),
         ];
 
         /** @var array $templateVars */
