@@ -5,8 +5,6 @@ class Mwg_SearchByApiSearchModuleFrontController extends ModuleFrontController
     {
         parent::initContent();
 
-        echo("123");
-
         $query = Tools::getValue('s');
         $results = $this->performAPISearch($query);
 
@@ -19,9 +17,6 @@ class Mwg_SearchByApiSearchModuleFrontController extends ModuleFrontController
 
     protected function performAPISearch($query)
     {
-        // Implement the logic to call the external API and return results.
-        // This is a pseudo-code example to simulate an API response.
-        // You would use curl or another HTTP client here.
         $apiUrl = 'https://api.example.com/search';
         $apiKey = 'YOUR_API_KEY';
 
