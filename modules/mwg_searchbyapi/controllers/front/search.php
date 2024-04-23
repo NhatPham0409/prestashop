@@ -17,13 +17,32 @@ class Mwg_SearchByApiSearchModuleFrontController extends ModuleFrontController
 
     protected function performAPISearch($query)
     {
-        $apiUrl = 'https://api.example.com/search';
-        $apiKey = 'YOUR_API_KEY';
+        $apiUrl = Configuration::get("SEARCH_API");
+        // Nếu cần thì có thể cung cấp API key vào đây
+        // $apiKey = 'YOUR_API_KEY';
 
-        // Simulated API response
-        return [
-            ['name' => 'Product 1', 'description' => 'A great product'],
-            ['name' => 'Product 2', 'description' => 'Another great product'],
-        ];
+        // Tạo query string từ dữ liệu tìm kiếm
+        $queryString = http_build_query(['query' => $query]);
+
+        // Gửi yêu cầu HTTP GET đến API
+        $response = file_get_contents($apiUrl . '?' . $queryString);
+
+        // Kiểm tra xem có dữ liệu trả về không
+        if ($response !== false) {
+            // Chuyển đổi dữ liệu JSON thành mảng kết quả
+            $data = json_decode($response, true);
+
+            // Kiểm tra xem có dữ liệu hợp lệ không
+            if ($data !== null) {
+                // Trả về dữ liệu kết quả từ API
+                return $data;
+            } else {
+                // Xử lý trường hợp lỗi khi không thể phân tích dữ liệu JSON
+                return ['error' => 'Unable to parse API response'];
+            }
+        } else {
+            // Xử lý trường hợp lỗi khi không thể kết nối tới API
+            return ['error' => 'Failed to connect to the API'];
+        }
     }
 }
