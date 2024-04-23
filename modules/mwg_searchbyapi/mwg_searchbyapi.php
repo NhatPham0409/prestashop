@@ -118,7 +118,7 @@ class mwg_searchbyapi extends Module implements WidgetInterface
                 'input' => [
                     [
                         'type' => 'text',
-                        'label' => $this->l('Configuration value'),
+                        'label' => $this->l('Link Search API'),
                         'name' => 'SEARCH_API',
                         'size' => 20,
                         'required' => true,
@@ -149,10 +149,12 @@ class mwg_searchbyapi extends Module implements WidgetInterface
         return $helper->generateForm([$form]);
     }
 
+
+
     public function getWidgetVariables($hookName, array $configuration = [])
     {
         $widgetVariables = [
-            'search_controller_url' => $this->context->link->getPageLink('search', null, null, null, false, null, true),
+            'search_controller_url' => $this->context->link->getModuleLink('mwg_searchbyapi', 'SearchController'),
         ];
 
         /** @var array $templateVars */
