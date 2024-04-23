@@ -23,9 +23,42 @@
  * International Registered Trademark & Property of PrestaShop SA
  *}
 
-<!-- /modules/search_api/views/templates/front/search_form.tpl -->
+{extends file="helpers/form/form.tpl"}
 
-<form action="{$search_api_action_url}" method="get">
-    <input type="text" name="s" value="" placeholder="{l s='Search for products' d='Shop.Theme.Catalog'}" aria-label="{l s='Search' d='Shop.Theme.Catalog'}">
-    <button type="submit">{l s='Search' d='Shop.Theme.Actions'}</button>
-</form>
+{block name="script"}
+$(document).ready(function(){
+$('#menuOrderUp').click(function(e){
+	e.preventDefault();
+    move(true);
+});
+$('#menuOrderDown').click(function(e){
+    e.preventDefault();
+    move();
+});
+$("#items").closest('form').on('submit', function(e) {
+	$("#items option").prop('selected', true);
+});
+
+function serialize()
+{
+	var options = "";
+	$("#items option").each(function(i){
+		options += $(this).val()+",";
+	});
+	$("#itemsInput").val(options.substr(0, options.length - 1));
+}
+{/block}
+
+{block name="input"}
+    {if $input.type == 'checkbox'}
+	    <div class="row">
+	    	<div class="col-sm-5">
+	    		<h4 style="margin-top:5px;">{l s='Categories Data' d='Modules.LoadCatalogs.Admin'}</h4>
+	    		{$choices}
+	    	</div>
+	    </div>
+	    <br/>
+	{else}
+		{$smarty.block.parent}
+    {/if}
+{/block}

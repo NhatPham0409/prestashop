@@ -33,16 +33,13 @@ if (!defined('_PS_VERSION_')) {
 //     require_once $autoloadPath;
 // }
 
-use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
-
-class mwg_searchbyapi extends Module implements WidgetInterface
+class mwg_searchbyapi extends Module
 {
     /**
      * @var string Name of the module running on PS 1.6.x. Used for data migration.
      */
     const PS_16_EQUIVALENT_MODULE = 'blocksearch';
 
-    private $templateFile;
 
     public function __construct()
     {
@@ -60,8 +57,6 @@ class mwg_searchbyapi extends Module implements WidgetInterface
         $this->description = $this->trans('Help your visitors find what they are looking for, add a quick search field to your store.', [], 'Modules.Searchbar.Admin');
 
         $this->ps_versions_compliancy = ['min' => '1.7.8.0', 'max' => _PS_VERSION_];
-
-        $this->templateFile = 'module:mwg_searchbyapi/mwg_searchbyapi.tpl';
     }
 
     public function install()
@@ -149,27 +144,13 @@ class mwg_searchbyapi extends Module implements WidgetInterface
         return $helper->generateForm([$form]);
     }
 
-
-
-    public function getWidgetVariables($hookName, array $configuration = [])
+    public function hookDisplayTop($params)
     {
-        $widgetVariables = [
-            'search_controller_url' => $this->context->link->getModuleLink('mwg_searchbyapi', 'SearchController'),
-        ];
-
-        /** @var array $templateVars */
-        $templateVars = $this->context->smarty->getTemplateVars();
-        if (is_array($templateVars) && !array_key_exists('search_string', $templateVars)) {
-            $widgetVariables['search_string'] = '';
-        }
-
-        return $widgetVariables;
-    }
-
-    public function renderWidget($hookName, array $configuration = [])
-    {
-        $this->smarty->assign($this->getWidgetVariables($hookName, $configuration));
-
-        return $this->fetch($this->templateFile);
+        // This is where you might add the search bar to your site.
+        // For now, let's just return a simple form. Remember to create the form template file.
+        $this->context->smarty->assign([
+            'search_api_action_url' => $this->context->link->getModuleLink($this->name, 'search'),
+        ]);
+        return $this->display(__FILE__, 'views/templates/front/search_form.tpl');
     }
 }
