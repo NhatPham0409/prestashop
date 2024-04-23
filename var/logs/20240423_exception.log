@@ -1,2 +1,4 @@
 *ERROR* 	v8.1.5	2024/04/23 - 01:44:07: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: NO) at line 119 in file classes/db/DbPDO.php
 *ERROR* 	v8.1.5	2024/04/23 - 01:44:08: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: NO) at line 119 in file classes/db/DbPDO.php
+*ERROR* 	v8.1.5	2024/04/23 - 04:57:49: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: YES) at line 119 in file classes/db/DbPDO.php
+*ERROR* 	v8.1.5	2024/04/23 - 04:57:49: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: YES) at line 119 in file classes/db/DbPDO.php
