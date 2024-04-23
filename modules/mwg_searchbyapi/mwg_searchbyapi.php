@@ -46,6 +46,7 @@ class mwg_searchbyapi extends Module implements WidgetInterface
 
     public function __construct()
     {
+
         $this->name = 'mwg_searchbyapi';
         $this->tab = 'front_office_features';
         $this->author = 'NHAT_TRONG';
@@ -53,6 +54,7 @@ class mwg_searchbyapi extends Module implements WidgetInterface
         $this->need_instance = 0;
 
         parent::__construct();
+        $this->bootstrap = true;
 
         $this->displayName = $this->trans('Search By API', [], 'Modules.Searchbar.Admin');
         $this->description = $this->trans('Help your visitors find what they are looking for, add a quick search field to your store.', [], 'Modules.Searchbar.Admin');
@@ -81,8 +83,8 @@ class mwg_searchbyapi extends Module implements WidgetInterface
     public function hookDisplayHeader()
     {
         $this->context->controller->addJqueryUI('ui.autocomplete');
-        $this->context->controller->registerStylesheet('modules-searchbar', 'modules/' . $this->name . '/ps_searchbar.css');
-        $this->context->controller->registerJavascript('modules-searchbar', 'modules/' . $this->name . '/ps_searchbar.js', ['position' => 'bottom', 'priority' => 150]);
+        $this->context->controller->registerStylesheet('modules-searchbar', 'modules/' . $this->name . '/mwg_searchbyapi.css');
+        $this->context->controller->registerJavascript('modules-searchbar', 'modules/' . $this->name . '/mwg_searchbyapi.js', ['position' => 'bottom', 'priority' => 150]);
     }
 
     public function getContent()
@@ -95,14 +97,10 @@ class mwg_searchbyapi extends Module implements WidgetInterface
             $configValue = (string) Tools::getValue('SEARCH_API');
 
             // check that the value is valid
-            if (empty($configValue) || !Validate::isGenericName($configValue)) {
-                // invalid value, show an error
-                $output = $this->displayError($this->l('Invalid Configuration value'));
-            } else {
-                // value is ok, update it and display a confirmation message
-                Configuration::updateValue('SEARCH_API', $configValue);
-                $output = $this->displayConfirmation($this->l('Settings updated'));
-            }
+
+            // value is ok, update it and display a confirmation message
+            Configuration::updateValue('SEARCH_API', $configValue, false, $this->context->shop->id_shop_group, $this->context->shop->id);
+            $output = $this->displayConfirmation($this->l('Settings updated'));
         }
 
         // display any message, then the form
@@ -128,7 +126,7 @@ class mwg_searchbyapi extends Module implements WidgetInterface
                 ],
                 'submit' => [
                     'title' => $this->l('Save'),
-                    'class' => 'btn btn-default pull-right',
+                    'class' => 'btn btn-primary',
                 ],
             ],
         ];
