@@ -1,0 +1,5 @@
+module_mwg_searchbyapi_search:
+  path: /search-api
+  methods: [GET]
+  defaults:
+    _controller: "Mwg_SearchByApi:SearchModuleFrontController:initContent"

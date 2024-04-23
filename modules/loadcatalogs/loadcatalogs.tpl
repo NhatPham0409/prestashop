@@ -23,9 +23,4 @@
  * International Registered Trademark & Property of PrestaShop SA
  *}
 
-<!-- /modules/search_api/views/templates/front/search_form.tpl -->
-
-<form action="{$search_api_action_url}" method="get">
-    <input type="text" name="s" value="" placeholder="{l s='Search for products' d='Shop.Theme.Catalog'}" aria-label="{l s='Search' d='Shop.Theme.Catalog'}">
-    <button type="submit">{l s='Search' d='Shop.Theme.Actions'}</button>
-</form>
+<div>Heloo world</div>
