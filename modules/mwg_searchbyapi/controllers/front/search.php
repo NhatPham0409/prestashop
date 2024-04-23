@@ -5,8 +5,8 @@ class Mwg_SearchByApiSearchModuleFrontController extends ModuleFrontController
     {
         parent::initContent();
 
-        $query = Tools::getValue('s');
-        $results = $this->performAPISearch($query);
+        $search_string = Tools::getValue('s');
+        $results = $this->performAPISearch($search_string);
 
         $this->context->smarty->assign(array(
             'results' => $results,
@@ -15,34 +15,27 @@ class Mwg_SearchByApiSearchModuleFrontController extends ModuleFrontController
         $this->setTemplate('module:mwg_searchbyapi/views/templates/front/search_results.tpl');
     }
 
-    protected function performAPISearch($query)
+    public function getDataByApi($search_string)
     {
-        $apiUrl = Configuration::get("SEARCH_API");
-        // Nếu cần thì có thể cung cấp API key vào đây
-        // $apiKey = 'YOUR_API_KEY';
-
-        // Tạo query string từ dữ liệu tìm kiếm
-        $queryString = http_build_query(['query' => $query]);
-
-        // Gửi yêu cầu HTTP GET đến API
-        $response = file_get_contents($apiUrl . '?' . $queryString);
-
-        // Kiểm tra xem có dữ liệu trả về không
+        $url = Configuration::get('SEARCH_API');
+        $response = Tools::file_get_contents($url . $search_string);
         if ($response !== false) {
-            // Chuyển đổi dữ liệu JSON thành mảng kết quả
-            $data = json_decode($response, true);
-
-            // Kiểm tra xem có dữ liệu hợp lệ không
-            if ($data !== null) {
-                // Trả về dữ liệu kết quả từ API
-                return $data;
-            } else {
-                // Xử lý trường hợp lỗi khi không thể phân tích dữ liệu JSON
-                return ['error' => 'Unable to parse API response'];
-            }
+            $data = json_decode($response, true); // Chuyển đổi dữ liệu JSON thành mảng PHP
+            return $data;
         } else {
-            // Xử lý trường hợp lỗi khi không thể kết nối tới API
-            return ['error' => 'Failed to connect to the API'];
+            echo 'Không thể kết nối đến API.';
+            return false;
+        }
+    }
+
+    protected function performAPISearch($search_string)
+    {
+        $data = $this->getDataByApi($search_string);
+        if ($data) {
+            dump($data); // Hiển thị dữ liệu trả về từ API
+            return $data;
+        } else {
+            return false;
         }
     }
 }
