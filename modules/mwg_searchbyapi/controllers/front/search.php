@@ -5,8 +5,8 @@ class Mwg_SearchByApiSearchModuleFrontController extends ModuleFrontController
     {
         parent::initContent();
 
-        $query = Tools::getValue('s');
-        $results = $this->performAPISearch($query);
+        $search_string = Tools::getValue('s');
+        $results = $this->performAPISearch($search_string);
 
         $this->context->smarty->assign(array(
             'results' => $results,
@@ -15,15 +15,27 @@ class Mwg_SearchByApiSearchModuleFrontController extends ModuleFrontController
         $this->setTemplate('module:mwg_searchbyapi/views/templates/front/search_results.tpl');
     }
 
-    protected function performAPISearch($query)
+    public function getDataByApi($search_string)
     {
-        $apiUrl = 'https://api.example.com/search';
-        $apiKey = 'YOUR_API_KEY';
+        $url = Configuration::get('SEARCH_API');
+        $response = Tools::file_get_contents($url . $search_string);
+        if ($response !== false) {
+            $data = json_decode($response, true); // Chuyển đổi dữ liệu JSON thành mảng PHP
+            return $data;
+        } else {
+            echo 'Không thể kết nối đến API.';
+            return false;
+        }
+    }
 
-        // Simulated API response
-        return [
-            ['name' => 'Product 1', 'description' => 'A great product'],
-            ['name' => 'Product 2', 'description' => 'Another great product'],
-        ];
+    protected function performAPISearch($search_string)
+    {
+        $data = $this->getDataByApi($search_string);
+        if ($data) {
+            dump($data); // Hiển thị dữ liệu trả về từ API
+            return $data;
+        } else {
+            return false;
+        }
     }
 }
