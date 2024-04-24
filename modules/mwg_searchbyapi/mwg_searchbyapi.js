@@ -1,6 +1,6 @@
 /* global $ */
 $(document).ready(function () {
-  var $searchWidget = $("#search_widget");
+  var $searchWidget = $("#search_widget_api");
   var $searchBox = $searchWidget.find("input[type=text]");
   var searchURL = $searchWidget.attr("data-search-controller-url");
   var $clearButton = $searchWidget.find("i.clear");

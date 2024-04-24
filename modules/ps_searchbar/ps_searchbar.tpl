@@ -24,7 +24,6 @@
  *}
 
 <div id="search_widget" class="search-widgets" data-search-controller-url="{$search_controller_url}">
-  {dump($search_controller_url)}
   <form method="get" action="{$search_controller_url}">
     <input type="hidden" name="controller" value="search">
     <i class="material-icons search" aria-hidden="true">search</i>
