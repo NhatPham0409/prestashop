@@ -5,14 +5,24 @@ class Mwg_SearchByApiSearchModuleFrontController extends ModuleFrontController
     {
         parent::initContent();
 
-        $search_string = Tools::getValue('s');
-        $results = $this->performAPISearch($search_string);
+        if($this->ajax){
+            ob_end_clean();
+            header('Content-Type: application/json');
+            $search_string = Tools::getValue('s');
+            $this->ajaxRender(json_encode($this->performAPISearch($search_string)));
 
-        $this->context->smarty->assign(array(
-            'results' => $results,
-        ));
-
-        $this->setTemplate('module:mwg_searchbyapi/views/templates/front/search_results.tpl');
+            return;
+        }
+        else{
+            $search_string = Tools::getValue('s');
+            $results = $this->performAPISearch($search_string);
+    
+            $this->context->smarty->assign(array(
+                'results' => $results,
+            ));
+    
+            $this->setTemplate('module:mwg_searchbyapi/views/templates/front/search_results.tpl');
+        }   
     }
 
     public function getDataByApi($search_string)
