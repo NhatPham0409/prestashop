@@ -23,10 +23,10 @@
  * International Registered Trademark & Property of PrestaShop SA
  *}
 
-<div id="search_widget_api" class="search-widgets" data-search-controller-url="{$search_api_action_url}">
+<div id="search_widget" class="search-widgets" data-search-controller-url="{$search_api_action_url}">
     <form action="{$search_api_action_url}" method="get">
         <i class="material-icons search" aria-hidden="true">search</i>
-        <input type="text" name="s" value="" placeholder="{l s='Search for products' d='Shop.Theme.Catalog'}"
+        <input type="text" name="s" value="" placeholder="{l s='Search with api' d='Shop.Theme.Catalog'}"
             aria-label="{l s='Search' d='Shop.Theme.Catalog'}">
         <i class="material-icons clear" aria-hidden="true">clear</i>
     </form>
