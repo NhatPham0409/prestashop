@@ -1,9 +1,10 @@
-#header, #header .header-top {
+#header,
+#header .header-top {
   background-color: white;
 }
 
 #search_widget {
-  margin-bottom: .625rem;
+  margin-bottom: 0.625rem;
   overflow: auto;
 }
 #search_widget form {
@@ -11,7 +12,7 @@
 }
 #search_widget form i {
   position: absolute;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 #search_widget form i.clear {
   right: 15px;
@@ -32,7 +33,8 @@
   border: none;
 }
 
-.ui-autocomplete.searchbar-autocomplete li a, .ui-autocomplete.searchbar-autocomplete li a.ui-state-focus {
+.ui-autocomplete.searchbar-autocomplete li a,
+.ui-autocomplete.searchbar-autocomplete li a.ui-state-focus {
   padding: 8px 15px;
   overflow: auto;
   border: none;
