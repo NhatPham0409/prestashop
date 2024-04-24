@@ -1,6 +1,6 @@
 /* global $ */
 $(document).ready(function () {
-  var $searchWidget = $("#search_widget_api");
+  var $searchWidget = $("#search_widget");
   var $searchBox = $searchWidget.find("input[type=text]");
   var searchURL = $searchWidget.attr("data-search-controller-url");
   var $clearButton = $searchWidget.find("i.clear");
@@ -46,7 +46,7 @@ $(document).ready(function () {
           "json"
         )
           .then(function (resp) {
-            console.log(resp);
+            console.log(resp.results);
             response(resp.results);
           })
           .fail(response);

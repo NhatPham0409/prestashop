@@ -3,22 +3,22 @@
   background-color: white;
 }
 
-#search_widget_api {
+#search_widget {
   margin-bottom: 0.625rem;
   overflow: auto;
 }
-#search_widget_api form {
+#search_widget form {
   position: relative;
 }
-#search_widget_api form i {
+#search_widget form i {
   position: absolute;
   padding: 0.5rem;
 }
-#search_widget_api form i.clear {
+#search_widget form i.clear {
   right: 15px;
   display: none;
 }
-#search_widget_api form input {
+#search_widget form input {
   width: 100%;
   padding: 10px 20px 10px 40px;
   outline: none;
@@ -56,7 +56,7 @@
 }
 
 @media only screen and (min-width: 768px) {
-  #search_widget_api {
+  #search_widget {
     float: right;
     margin-bottom: 0;
   }
@@ -69,7 +69,7 @@
 }
 
 @media only screen and (min-width: 992px) {
-  #search_widget_api {
+  #search_widget {
     min-width: 16.5rem;
   }
 }
