@@ -5,16 +5,14 @@
 {block name='page_content'}
     <h1>{l s='Search results' d='Shop.Theme.Catalog'}</h1>
 
-    {dump($results)}
-
     <div class="row">
         {foreach from=$results.results item="product" key="position"}
             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                <div class="card" style="width: 18rem;">
-                    <img src={$product.image} class="card-img-top" alt="...">
-                    <div class="card-body text-center">
-                        <p class="card-text text-center">{$product.title}</p>
-                        <p class="card-text text-center">{$product.year}</p>
+                <div class="card">
+                    <img src={$product.image} class="card-img-top" alt="..." style="object-fit: cover;">
+                    <div class="card-body" style="text-align: center">
+                        <p class="card-text">{$product.title}</p>
+                        <p class="card-text">{$product.year}</p>
             </div>
         </div>
     </div>

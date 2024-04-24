@@ -32,7 +32,6 @@ class Mwg_SearchByApiSearchModuleFrontController extends ModuleFrontController
     {
         $data = $this->getDataByApi($search_string);
         if ($data) {
-            dump($data); // Hiển thị dữ liệu trả về từ API
             return $data;
         } else {
             return false;
