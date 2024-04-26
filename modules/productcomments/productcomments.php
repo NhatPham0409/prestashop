@@ -699,6 +699,8 @@ class ProductComments extends Module implements WidgetInterface
         $criterion = $criterionRepository->findRelation($id_criterion);
         $selected_categories = $criterionRepository->getCategories($id_criterion);
 
+        dump($selected_categories);
+
         $product_table_values = Product::getSimpleProducts($this->langId);
         $selected_products = $criterionRepository->getProducts($id_criterion);
 

@@ -11,7 +11,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class LoadCatalogs extends Module implements WidgetInterface
+class LoadCatalogs extends Module
 {
     private $templateFile;
 
@@ -56,97 +56,6 @@ class LoadCatalogs extends Module implements WidgetInterface
         );
     }
 
-    public function renderWidget($hookName, array $configuration)
-    {
-        // $this->smarty->assign([
-        //     'menu' => $this->getWidgetVariables($hookName, $configuration),
-        // ]);
-
-        // return $this->fetch('module:ps_mainmenu/ps_mainmenu.tpl');
-        return $this->fetch($this->templateFile);
-    }
-
-    // public function getWidgetVariables($hookName, array $configuration)
-    // {
-    //     $query = new DbQuery();
-    //     $movies = $query
-    //         ->select('imdb_id', 'title', 'image', 'rating_star', 'release_year')
-    //         ->from(self::TABLE_MOVIES)
-    //         ->orderBy('imdb_id', 'ASC');
-    //     $movies = Db::getInstance()->executeS($movies);
-    //     $products = [];
-    //     if (!empty($movies)) {
-    //         foreach ($movies as $movie) {
-    //             $products[] = array(
-    //                 'id' => $movie['imdb_id'],
-    //                 'title' => $movie['title'],
-    //                 'image' => $movie['image'],
-    //                 'rating_star' => $movie['rating_star'],
-    //                 'release_year' => $movie['release_year'],
-    //             );
-    //         }
-    //     }
-    //     return $products;
-    // }
-    private function getCurrentPageIdentifier()
-    {
-        $controllerName = Dispatcher::getInstance()->getController();
-        if ($controllerName === 'cms' && ($id = Tools::getValue('id_cms'))) {
-            return 'cms-page-' . $id;
-        } elseif ($controllerName === 'category' && ($id = Tools::getValue('id_category'))) {
-            return 'category-' . $id;
-        } elseif ($controllerName === 'cms' && ($id = Tools::getValue('id_cms_category'))) {
-            return 'cms-category-' . $id;
-        } elseif ($controllerName === 'manufacturer' && ($id = Tools::getValue('id_manufacturer'))) {
-            return 'manufacturer-' . $id;
-        } elseif ($controllerName === 'manufacturer') {
-            return 'manufacturers';
-        } elseif ($controllerName === 'supplier' && ($id = Tools::getValue('id_supplier'))) {
-            return 'supplier-' . $id;
-        } elseif ($controllerName === 'supplier') {
-            return 'suppliers';
-        } elseif ($controllerName === 'product' && ($id = Tools::getValue('id_product'))) {
-            return 'product-' . $id;
-        } elseif ($controllerName === 'index') {
-            return 'shop-' . $this->context->shop->id;
-        } else {
-            $scheme = 'http';
-            if (array_key_exists('REQUEST_SCHEME', $_SERVER)) {
-                $scheme = $_SERVER['REQUEST_SCHEME'];
-            }
-
-            return "$scheme://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        }
-    }
-
-    public function getWidgetVariables($hookName, array $configuration)
-    {
-        $id_lang = $this->context->language->id;
-        $id_shop = $this->context->shop->id;
-
-        // $this->user_groups = Customer::getGroupsStatic($this->context->customer->id);
-        // $groupsKey = empty($this->user_groups) ? '' : '_' . join('_', $this->user_groups);
-        // $key = self::MENU_JSON_CACHE_KEY . '_' . $id_lang . '_' . $id_shop . $groupsKey . '.json';
-        $cacheDir = $this->getCacheDirectory();
-        $cacheFile = $cacheDir . DIRECTORY_SEPARATOR . $key;
-        $menu = json_decode(@file_get_contents($cacheFile), true);
-        if (!is_array($menu) || json_last_error() !== JSON_ERROR_NONE) {
-            $menu = $this->makeMenu();
-            if (!is_dir($cacheDir)) {
-                mkdir($cacheDir);
-            }
-            file_put_contents($cacheFile, json_encode($menu));
-        }
-
-        $page_identifier = $this->getCurrentPageIdentifier();
-        // Mark the current page
-        return $this->mapTree(function (array $node) use ($page_identifier) {
-            $node['current'] = ($page_identifier === $node['page_identifier']);
-
-            return $node;
-        }, $menu);
-    }
-
     function getContent()
     {
         $output = null;
@@ -156,10 +65,11 @@ class LoadCatalogs extends Module implements WidgetInterface
             //retrieve the value set by the user
             $apiUrl = Tools::getValue('categories');
 
+
             if (empty($apiUrl)) {
                 //invalid value, show an error
                 $output = $this->displayError($this->l('Invalid Configuration value'));
-                return $output .= $this->renderFormSync() . $this->renderFormCategoryList();
+                return $output .= $this->renderFormSync() . $this->renderFormCategoryList($apiData = []);
             }
 
             $httpClient = HttpClient::create();
@@ -168,26 +78,25 @@ class LoadCatalogs extends Module implements WidgetInterface
 
             if ($statusCode != 200) {
                 $output = $this->displayError('Failed to fetch movie data from API');
-                return $output .= $this->renderFormSync() . $this->renderFormCategoryList();
+                return $output .= $this->renderFormSync() . $this->renderFormCategoryList($apiData = []);
             }
 
             try {
                 $content = $response->getContent();
                 $apiData = json_decode($content, true);
-
                 if (Tools::getValue('DELETE_ALL_DATA_BEFORE_SYNC_CATEGORIES')) {
                     $this->deleteAllCategory();
                 }
                 $this->syncCategoriesFromAPI($apiData);
             } catch (ClientExceptionInterface | ServerExceptionInterface | RedirectionExceptionInterface | TransportExceptionInterface | Exception $e) {
                 $output = $this->displayError($this->l("Failed to sync categories from API\n" . $e->getMessage()));
-                return $output .= $this->renderFormSync() . $this->renderFormCategoryList();
+                return $output .= $this->renderFormSync() . $this->renderFormCategoryList($apiData = []);
             }
             $output = $this->displayConfirmation($this->l('Sync successfully'));
         }
 
         //display any message,
-        return $output .= $this->renderFormSync() . $this->renderFormCategoryList();
+        return $output .= $this->renderFormSync() . $this->renderFormCategoryList($apiData);
     }
 
     /**
@@ -269,107 +178,29 @@ class LoadCatalogs extends Module implements WidgetInterface
 
         return $helper->generateForm([$form]);
     }
-    public function renderFormCategoryList()
+    private function addActiveField(&$categories)
     {
-        $shops = Shop::getContextListShopID();
-
-        if (count($shops) == 1) {
-            $fields_form = [
-                'form' => [
-                    'legend' => [
-                        'title' => $this->trans('Api Data', [], 'Modules.LoadCatalogs.Admin'),
-                    ],
-                    'input' => [
-                        [
-                            'type' => 'checkbox',
-                            'label' => '',
-                            'name' => 'link',
-                            'lang' => true,
-                        ],
-                    ],
-                    'submit' => [
-                        'name' => 'submitBlocktopmenu',
-                        'title' => $this->trans('Save', [], 'Admin.Actions'),
-                    ],
-                ],
-            ];
-        } else {
-            $fields_form = [
-                'form' => [
-                    'legend' => [
-                        'title' => $this->trans('Api Data', [], 'Modules.LoadCatalogs.Admin'),
-                    ],
-                    'info' => '<div class="alert alert-warning">' .
-                        $this->trans('All active products combinations quantities will be changed', [], 'Modules.LoadCatalogs.Admin') . '</div>',
-                    'submit' => [
-                        'name' => 'submitBlocktopmenu',
-                        'title' => $this->trans('Apply', [], 'Admin.Actions'),
-                    ],
-                ],
-            ];
-        }
-
-        $helper = new HelperForm();
-        $helper->show_toolbar = false;
-        $helper->table = $this->table;
-        $lang = new Language((int) Configuration::get('PS_LANG_DEFAULT'));
-        $helper->default_form_language = $lang->id;
-        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
-        $helper->module = $this;
-        $helper->identifier = $this->identifier;
-        $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false) .
-            '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
-        $helper->token = Tools::getAdminTokenLite('AdminModules');
-        $helper->tpl_vars = [
-            'languages' => $this->context->controller->getLanguages(),
-            'id_language' => $this->context->language->id,
-            'choices' => $this->renderChoicesSelect(),
-        ];
-
-        return $helper->generateForm([$fields_form]);
-    }
-
-    public function renderChoicesSelect()
-    {
-
-        // $html = '<select multiple="multiple" id="availableItems" style="width: 300px; height: 160px;">';
-
-        // BEGIN Categories
-        $html = '<div label="' . $this->trans('Categories', [], 'Admin.Global') . '">';
-        $shops_to_get = Shop::getContextListShopID();
-
-        foreach ($shops_to_get as $shop_id) {
-            $html .= $this->generateCategoriesOption($this->checkboxGetNestedCategories());
-        }
-        $html .= '</div>';
-        // $html .= '</select>';
-
-        return $html;
-    }
-
-    protected function generateCategoriesOption($categories)
-    {
-        $html = '';
-
-        foreach ($categories as $key => $category) {
-
-            (object) Shop::getShop((int) $category['id_shop']);
-            // $html .= '<option value="CAT' . (int) $category['id_category'] . '">'
-            //     . str_repeat('&nbsp;', 5 * (int) $category['level_depth']) . $category['name'] . ' (' . $shop->name . ')</option>';
-            $html .= '<input type="checkbox" value="CAT' . (int) $category['id_category'] . '">'
-                . str_repeat('&nbsp;', 5 * (int) $category['level_depth']) . $category['name'] . '</input>';
-            $html .= '<br>';
-
-
-            if (isset($category['children']) && !empty($category['children'])) {
-                $html .= $this->generateCategoriesOption($category['children']);
+        foreach ($categories as &$category) {
+            if (isset($category["active"]) && $category["active"] == 0)
+                continue; // Thêm trường "active" với giá trị 0
+            else $category['active'] = 1; // Thêm trường "active" với giá trị 1
+            if (isset($category["children"])) {
+                $this->addActiveField($category["children"]); // Gọi đệ qui cho danh sách con nếu có
             }
         }
-
-        return $html;
     }
 
-   /**
+
+    public function renderFormCategoryList($apiData)
+    {
+        $this->addActiveField($apiData);
+        $this->context->smarty->assign('apiData', $apiData);
+
+        return $this->display(__FILE__, 'views/templates/admin/categoryTree.tpl');
+    }
+
+
+    /**
      * @throws PrestaShopException
      * @throws PrestaShopDatabaseException
      */
@@ -391,10 +222,11 @@ class LoadCatalogs extends Module implements WidgetInterface
         }
 
         $cache_id = 'Category::checkboxGetNestedCategories_' . md5($currentShopId . (int)$root_category . $currentLanguageId . (int)$active
-                . (isset($groups) && Group::isFeatureActive() ? implode('', $groups) : ''));
+            . (isset($groups) && Group::isFeatureActive() ? implode('', $groups) : ''));
 
         if (!Cache::isStored($cache_id)) {
-            $result = Db::getInstance()->executeS('
+            $result = Db::getInstance()->executeS(
+                '
        SELECT c.*, cl.*
     FROM ' . _DB_PREFIX_ . 'category c
     INNER JOIN ' . _DB_PREFIX_ . 'category_shop category_shop ON (category_shop.`id_category` = c.`id_category` AND category_shop.`id_shop` = ' . $currentShopId . ')

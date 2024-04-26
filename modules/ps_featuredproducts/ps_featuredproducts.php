@@ -155,6 +155,7 @@ class Ps_FeaturedProducts extends Module implements WidgetInterface
 
     public function renderForm()
     {
+        dump(Configuration::get('HOME_FEATURED_CAT'));
         $fields_form = [
             'form' => [
                 'legend' => [

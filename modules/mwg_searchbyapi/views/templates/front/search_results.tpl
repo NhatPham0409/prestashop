@@ -3,7 +3,7 @@
 {extends file='page.tpl'}
 
 {block name='page_content'}
-    {dump($results)}
+
     <h1>{l s='Search results' d='Shop.Theme.Catalog'}</h1>
     <div class="row">
         {if count($results.results) > 0}
