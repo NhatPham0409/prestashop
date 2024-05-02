@@ -24,10 +24,7 @@
     <div class="header">
       <a rel="nofollow" href="{$cart_url|escape:'html':'UTF-8'}">
         <i style="font-size: 20px;" class="icon icon_cart_alt"></i>
-        {* <span class="cart-products-label">{l s='Shopping Cart' d='Shop.Theme.Checkout'}</span> *}
-        {* <span class="cart-products-count">{$cart.products_count|escape:'html':'UTF-8'}
-          {if $cart.products_count > 1}{l s=' Items' d='Shop.Theme.Checkout'}{else}{l s=' Item' d='Shop.Theme.Checkout'}{/if}
-          - {$cart.totals.total.value|escape:'html':'UTF-8'} </span> *}
+          - {$cart.totals.total.value|escape:'html':'UTF-8'} </span> 
         <span
           class="cart-products-count cart-products-count-absolution">{$cart.products_count|escape:'html':'UTF-8'}</span>
       </a>

@@ -1,0 +1,3 @@
+*ERROR* 	v8.1.5	2024/04/25 - 05:35:55: [ThemeRepository] Theme configuration file not found for theme at `C:\xampp\htdocs\prestashop/themes/digital17/config/theme.yml`. at line 161 in file src/Core/Addon/Theme/ThemeRepository.php
+*ERROR* 	v8.1.5	2024/04/25 - 05:36:56: [ThemeRepository] Theme configuration file not found for theme at `C:\xampp\htdocs\prestashop/themes/digital17/config/theme.yml`. at line 161 in file src/Core/Addon/Theme/ThemeRepository.php
+*ERROR* 	v8.1.5	2024/04/25 - 05:38:37: [ThemeRepository] Theme configuration file not found for theme at `C:\xampp\htdocs\prestashop/themes/digital17/config/theme.yml`. at line 161 in file src/Core/Addon/Theme/ThemeRepository.php

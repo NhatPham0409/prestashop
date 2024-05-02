@@ -1,0 +1,6 @@
+[2024-04-24 23:42:42] request.INFO: Matched route "admin_themes_import". {"route":"admin_themes_import","route_parameters":{"_route":"admin_themes_import","_controller":"PrestaShopBundle\\Controller\\Admin\\Improve\\Design\\ThemeController::importAction","_legacy_controller":"AdminThemes","_legacy_link":"AdminThemes:importtheme"},"request_uri":"http://localhost/prestashop/admin659vzuy3srk824ownex/index.php/improve/design/themes/import?_token=95VlP-64CDmbJ5j0MS_HcHzN2XOAfoXxGY9sy2pPBZ8","method":"POST"} []
+[2024-04-24 23:42:42] security.DEBUG: Read existing security token from the session. {"key":"_security_main","token_class":"Symfony\\Component\\Security\\Core\\Authentication\\Token\\UsernamePasswordToken"} []
+[2024-04-24 23:42:42] security.DEBUG: User was reloaded from a user provider. {"provider":"PrestaShopBundle\\Security\\Admin\\EmployeeProvider","username":"123@gmail.com"} []
+[2024-04-24 23:42:54] app.ERROR: No result was found for query although at least one row was expected. {"object_type":"Translation"} []
+[2024-04-24 23:42:54] app.ERROR: No result was found for query although at least one row was expected. {"object_type":"Translation"} []
+[2024-04-24 23:42:57] security.DEBUG: Stored the security token in the session. {"key":"_security_main"} []
