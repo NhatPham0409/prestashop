@@ -11,6 +11,7 @@ RewriteEngine on
 
 
 #Domain: localhost
+RewriteCond %{HTTP_HOST} ^localhost$
 RewriteRule . - [E=REWRITEBASE:/prestashop/]
 RewriteRule ^api(?:/(.*))?$ %{ENV:REWRITEBASE}webservice/dispatcher.php?url=$1 [QSA,L]
 RewriteRule ^upload/.+$ %{ENV:REWRITEBASE}index.php [QSA,L]
@@ -35,13 +36,16 @@ RewriteRule ^c/([\d]+)(\-[\.*\w-]*)/.+(\.(?:jpe?g|webp|png|avif))$ %{ENV:REWRITE
 RewriteCond %{HTTP_HOST} ^localhost$
 RewriteRule ^c/([a-zA-Z_-]+)(-[\d]+)?/.+(\.(?:jpe?g|webp|png|avif))$ %{ENV:REWRITEBASE}img/c/$1$2$3 [L]
 # AlphaImageLoader for IE and fancybox
+RewriteCond %{HTTP_HOST} ^localhost$
 RewriteRule ^images_ie/?([^/]+)\.(jpe?g|png|gif)$ %{ENV:REWRITEBASE}js/jquery/plugins/fancybox/images/$1.$2 [L]
 
 # Dispatcher
 RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{HTTP_HOST} ^localhost$
 RewriteRule ^.*$ - [NC,L]
+RewriteCond %{HTTP_HOST} ^localhost$
 RewriteRule ^.*$ %{ENV:REWRITEBASE}index.php [NC,L]
 </IfModule>
 

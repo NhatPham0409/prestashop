@@ -6,18 +6,26 @@ $(document).ready(function () {
   var $clearButton = $searchWidget.find("i.clear");
 
   $.widget("prestashop.psBlockSearchAutocomplete", $.ui.autocomplete, {
-    _renderItem: function (ul, product) {
-      var image = product.image
-        ? product.image
-        : prestashop.urls.no_picture_image;
-      var $img = $('<img class="autocomplete-thumbnail" src="' + image + '">');
-      return $("<li>")
-        .append(
-          $("<a>")
-            .append($img)
-            .append($("<span>").html(product.title).addClass("product"))
-        )
-        .appendTo(ul);
+    _renderItem: function (ul, item) {
+      if (item.isMessage) {
+        // Hiển thị thông báo
+        return $("<li>")
+          .append($("<span>").text(item.message).addClass("no-results-message"))
+          .appendTo(ul);
+      } else {
+        // Hiển thị sản phẩm như thông thường
+        var image = item.image ? item.image : prestashop.urls.no_picture_image;
+        var $img = $(
+          '<img class="autocomplete-thumbnail" src="' + image + '">'
+        );
+        return $("<li>")
+          .append(
+            $("<a>")
+              .append($img)
+              .append($("<span>").text(item.title).addClass("product-title"))
+          )
+          .appendTo(ul);
+      }
     },
   });
 
@@ -46,8 +54,13 @@ $(document).ready(function () {
           "json"
         )
           .then(function (resp) {
-            console.log(resp.results);
-            response(resp.results);
+            if (resp.results.length === 0) {
+              // Đánh dấu có thông báo và gửi thông báo từ server
+              response([{ isMessage: true, message: resp.message }]);
+            } else {
+              // Nếu có kết quả, trả lại kết quả đó
+              response(resp.results);
+            }
           })
           .fail(response);
       },

@@ -1,2 +1,1 @@
-*ERROR* 	v8.1.5	2024/04/24 - 02:47:26: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: NO) at line 119 in file classes/db/DbPDO.php
-*ERROR* 	v8.1.5	2024/04/24 - 02:47:26: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: NO) at line 119 in file classes/db/DbPDO.php
+*ERROR* 	v8.1.5	2024/04/24 - 23:47:06: No template found for errors/404 at line 68 in file classes/Smarty/TemplateFinder.php
