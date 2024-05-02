@@ -21,13 +21,13 @@
 <section class="featured-products clearfix home-block-section">
   <div style="width: 100%; min-height: 30px;">
     <div style="width: auto; padding: 1px;">
-      <div style="width: 100%;display: inline-block;position: relative;">
+      <div class="featured_products_bhx_banner">
         <img alt="" loading="lazy" width="0" height="0" decoding="async" data-nimg="1" class="opacity-100"
           src="https://cdn.tgdd.vn/bachhoaxanh/shopinshop/14/featureproductgroup/1/unilever-viet-nam-22022022195039.png"
           style="color: transparent; width: 100%; height: auto;">
       </div>
     </div>
-    <div style="display: flex; flex-wrap: wrap; align-content: stretch; padding-left: 2px; padding-right: 2px;">
+    <div class="featured_products_bhx_listProduct">
       {assign var="count" value=0}
       {foreach from=$products item="product"}
         {if $count < 6}

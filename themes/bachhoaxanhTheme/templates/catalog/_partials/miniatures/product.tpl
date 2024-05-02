@@ -18,9 +18,8 @@
 *  @license    Valid for 1 website (or project) for each purchase of license
 *  International Registered Trademark & Property of ETS-Soft
 *}
-<div style="width: calc(100% / 6);padding: 3px;">
-    <div
-        style="box-shadow: 0 0 8px rgba(198, 218, 248, .4); background-color: rgb(255 255 255 /1); border-width: 1px;height: 100%;position: relative; min-height: 300px;">
+<div class="product_bhx_card">
+    <div class="product_bhx_card_item">
         <div style="display: flex;flex-direction: column;height: 100%;">
             <a style="position: relative;width: 100%;text-align: center;" id="product_112898"
                 title="Sữa tắm dưỡng sáng Hazeline matcha lựu đỏ 995ml"

@@ -1,0 +1,53 @@
+.header-top-bg {
+  background: radial-gradient(
+    159.85% 367.97% at 150% 123.85%,
+    #ffe147 0,
+    #65ae17 38.76%,
+    #469c4b 59.65%,
+    #00713b 100%
+  );
+}
+
+.icon_logo {
+  height: 100%;
+  background-image: url(https://cdn.tgdd.vn/bachhoaxanh/www/Content/images/bhx@2x.v202312101409.png);
+  background-repeat: no-repeat;
+  background-size: 325px auto;
+  box-sizing: border-box;
+  vertical-align: middle;
+  background-position: -98px -1804px;
+  background-size: 325px auto;
+  height: 30px;
+  width: 50%;
+  scale: 1.7;
+  margin-top: 20px;
+  margin-left: 40px;
+}
+
+.search_bhx {
+  height: 72px;
+  float: left !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+}
+
+.contact-link_bhx {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0 !important;
+}
+
+.contact-link_bhx a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0 97 51 / 1);
+    color: white;
+    border-radius: .375rem;
+    padding: 10px 20px 10px 40px;
+}

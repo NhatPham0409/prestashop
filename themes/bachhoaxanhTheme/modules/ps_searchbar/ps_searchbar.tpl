@@ -19,9 +19,8 @@
 *  International Registered Trademark & Property of ETS-Soft
 *}
 <!-- Block search module TOP -->
-<div id="search_widget" class="col-lg-7 col-md-7 col-sm-12 search-widget"
-	data-search-controller-url="{$search_controller_url|escape:'html':'UTF-8'}"
-	style="height: 72px; float: left; display: flex; align-items: center; justify-content: center; margin-left: 0; margin-top: 0;">
+<div id="search_widget" class="col-lg-7 col-md-7 col-sm-12 search-widget search_bhx"
+	data-search-controller-url="{$search_controller_url|escape:'html':'UTF-8'}">
 	<span class="toogle_search_top">
 		<i class="material-icons material-icons-search"></i>
 	</span>

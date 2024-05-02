@@ -24,19 +24,12 @@
   {include file='_partials/header/header3.tpl'}
 {else}
   <div class="header_content">
-
     {block name='header_top'}
-      <div class="header-top"
-        style="background: radial-gradient(159.85% 367.97% at 150% 123.85%, #ffe147 0, #65ae17 38.76%, #469c4b 59.65%, #00713b 100%);">
+      <div class="header-top header-top-bg">
         <div class="container" style="padding-top: 0; padding-bottom: 0;">
           <div class="row">
             <div id="_desktop_logo" style="height: 72px; margin-top: 0;" class="col-3">
-              <a href="{$urls.base_url|escape:'html':'UTF-8'}"
-                style="display: flex; align-items: center; justify-content: center; height: 100%;">
-                <img class="logo img-responsive"
-                  src="https://cdn.haitrieu.com/wp-content/uploads/2022/03/Logo-Bach-Hoa-Xanh-H.png"
-                  alt="{$shop.name|escape:'html':'UTF-8'}">
-              </a>
+              <div class="icon_logo"></div>
             </div>
             {hook h='displayNav1'}
             {hook h='displayTop'}
