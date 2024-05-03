@@ -177,7 +177,7 @@ global_settings:
         - ps_searchbar
         - ybc_widget
         - ets_megamenu
-      - ps_shoppingcart
+        - ps_shoppingcart
         - blockwishlist
       displayTopColumn:
         - ets_multilayerslider
