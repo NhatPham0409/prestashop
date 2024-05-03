@@ -20,26 +20,29 @@
 *}
 <div class="product-add-to-cart">
   {if !$configuration.is_catalog}
-    <span class="control-label">{l s='Quantity' d='Shop.Theme.Catalog'}</span>
 
     {block name='product_quantity'}
-      <div class="product-quantity">
+      <div >
         <div class="qty">
-          <input
-            type="text"
-            name="qty"
-            id="quantity_wanted"
-            value="{$product.quantity_wanted|escape:'html':'UTF-8'}"
-            class="input-group"
-            {*min="{$product.minimal_quantity|escape:'html':'UTF-8'}"*}
-          >
+          <input type="text" name="qty" id="quantity_wanted" value="{$product.quantity_wanted|escape:'html':'UTF-8'}"
+            class="input-group" {*min="{$product.minimal_quantity|escape:'html':'UTF-8'}"*}>
         </div>
 
         <div class="add">
-          <button class="btn btn-primary add-to-cart" data-button-action="add-to-cart" type="submit" {if !$product.add_to_cart_url} disabled {/if} >
-            <i class="icon-first icon icon_cart_alt"></i>
-            <i class="icon-second icon icon_cart_alt"></i>
-            {l s='Add to cart' d='Shop.Theme.Actions'}
+          <button data-button-action="add-to-cart" type="submit"
+            {if !$product.add_to_cart_url} disabled {/if}
+              style="cursor: pointer; gap: 0.5rem; @keyframes gradient {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }};opacity: 0.9; display: flex; height: 40px; width: 100%; align-items: center; justify-content: center; border-radius: 5px; border: none; padding-top: 6px;
+        padding-bottom: 6px; font-size: 20px;font-weight: 600;text-transform: uppercase;background-image: radial-gradient(circle, #98c230 0, #59a646 49%, #22994f 75%, #007e42 100%); color:#fff; animation: gradient 4s ease infinite;" >
+            {l s='Mua' d='Shop.Theme.Actions'}
           </button>
 
           {block name='product_availability'}
@@ -58,19 +61,19 @@
           {/block}
 
         </div>
-        {hook h='displayProductActions' product=$product}
+        {* {hook h='displayProductActions' product=$product} *}
       </div>
-      <div class="clearfix"></div>
+      {* <div class="clearfix"></div> *}
     {/block}
 
     {block name='product_minimal_quantity'}
       <p class="product-minimal-quantity">
         {if $product.minimal_quantity > 1}
           {l
-          s='The minimum purchase order quantity for the product is %quantity%.'
-          d='Shop.Theme.Checkout'
-          sprintf=['%quantity%' => $product.minimal_quantity]
-          }
+                s='The minimum purchase order quantity for the product is %quantity%.'
+                d='Shop.Theme.Checkout'
+                sprintf=['%quantity%' => $product.minimal_quantity]
+                }
         {/if}
       </p>
     {/block}

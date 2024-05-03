@@ -43,10 +43,12 @@
 
 {block name='content'}
 
-  <div id="main" itemscope itemtype="https://schema.org/Product">
+  <div id="main" itemscope itemtype="https://schema.org/Product" style="background-color: rgb(233 237 240/1);">
     <meta itemprop="url" content="{$product.url|escape:'html':'UTF-8'}">
-    <div class="row">
-      <div class="col-md-6 col-xs-12">
+    <div class="row" >
+      <div class="col-md-6 col-xs-12" style="position: relative;border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;background-color: #fff;padding-top: 0.5rem;
+    padding-bottom: 0.5rem;">
         {block name='page_content_container'}
           <div class="page-content" id="content">
             {block name='page_content'}
@@ -58,11 +60,11 @@
           </div>
         {/block}
       </div>
-      <div class="col-md-6 col-xs-12">
+      <div class="col-md-6 col-xs-12" style="position: sticky;top: 100px; z-index: 10; margin-left: 10px;max-height: calc(100vh - 170px);flex: 1;overflow: auto;border-radius: 0.5rem;border-width: 2px; border-color: #D1D5DB;background-color: #fff;padding: 0.625rem;">
         {block name='page_header_container'}
           {block name='page_header'}
             <h1 class="h1 page-heading-product" itemprop="name" style="font-family: none; text-transform: none;">
-              {block name='page_title'}{"Sữa tắm dưỡng sáng Hazeline matcha lựu đỏ 796ml"|escape:'html':'UTF-8'}{/block}</h1>
+              {block name='page_title'}{$product.name|escape:'html':'UTF-8'}{/block}</h1>
           {/block}
         {/block}
         <div style="display: flex; align-items: center; justify-content: flex-end ">
@@ -71,29 +73,34 @@
         </div>
 
         <div>
-
           <div style="outline: none; width: 117px;">
             <div>
               <div style="width: 100%; display: inline-block;cursor: pointer; border-radius: 8px; width: 112px;">
-                <div style="position: relative; overflow:hidden; border-radius: 0.375rem;border-style: solid; border-width: 1px; border-color: #E4E9F2; text-align: center">
+                <div
+                  style="position: relative; overflow:hidden; border-radius: 0.375rem;border-style: solid; border-width: 1px; border-color: #E4E9F2; text-align: center">
                   <div class="relative inline-block" style="width: 110px; height: 110px;"><img alt="Chai 796ml"
                       loading="lazy" width="0" height="0" decoding="async" data-nimg="1" class="opacity-100"
-                      src="https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_85,s_198x198/https://cdn.tgdd.vn/Products/Images/2444/194749/bhx/sua-tam-duong-sang-hazeline-matcha-luu-do-796ml-202212081558593752_300x300.jpg"
+                      src={$product.cover.bySize.home_default.url|escape:'html':'UTF-8'}
                       style="color: transparent; width: 100%; height: auto;"></div>
-                  <div style="background-color: #00AC5B; text-align: center; font-size: 12px; font-weight: bold; line-height: 16px; color: white">Chai 796ml</div>
+                  <div
+                    style="background-color: #00AC5B; text-align: center; font-size: 12px; font-weight: bold; line-height: 16px; color: white">
+                    Black</div>
                 </div>
                 <div style="display: flex; align-items: center; justify-content: center; height: 30px">
-                <input type="radio" style="color: #00AC5B;"> 
+                  <input type="radio" style="color: #00AC5B;">
                 </div>
-                <div class="flex min-h-45px flex-col  justify-start " style="display: flex; min-heigh">
-                  <div class="text-center text-12 font-bold text-[#222B45]">71.000<span class="inline-block">₫</span>
+                <div style="display: flex; flex-direction: column; justify-content: flex-start; min-height: 45px;">
+                  <div style="text-align: center; font-size: 12px; font-weight: bold; color: #222B45;">
+                    {$product.price}<span style="display: inline-block;">₫</span>
                   </div>
-                  <div class="flex justify-center">
-                    <div class="text-center text-[9px] leading-4 text-[#9da7bc] line-through">98.000<span
-                        class="inline-block">₫</span></div>
+                  <div style="display: flex; justify-content: center">
                     <div
-                      class="ml-1 rounded-3px bg-[rgb(255,1,1)]/70 px-1 text-[9px] font-semibold leading-[15px] text-white lg:text-12">
-                      -28%</div>
+                      style="text-align: center; font-size: 9px;  line-height: 1rem; color: #9da7bc; text-decoration: line-through;">
+                      {$product.regular_price}<span style="display: inline-block;">₫</span></div>
+                    <div style="margin-left: 0.25rem; border-radius: 3px; background-color: rgb(255, 1, 1);
+                      background-color: rgba(255, 1, 1, 0.7); padding-left: 0.25rem;
+    padding-right: 0.25rem; font-size: 9px;font-weight: 600; line-height: 15px;color: #fff;font-size: 12px;">
+                      {$product.discount_percentage}</div>
                   </div>
                   <div class="text-center text-10 leading-4 text-[#9da7bc]"></div>
                 </div>
@@ -116,8 +123,8 @@
                 {include file="catalog/_partials/product-customization.tpl" customizations=$product.customizations}
               {/block} *}
         {* {/if} *}
-        <div class="line clearfix"></div>
-        <div class="product-actions">
+        {* <div class="line clearfix"></div> *}
+        <div class="product-actions" >
           {block name='product_buy'}
             <form action="{$urls.pages.cart|escape:'html':'UTF-8'}" method="post" id="add-to-cart-or-refresh">
               <input type="hidden" name="token" value="{$static_token|escape:'html':'UTF-8'}">
@@ -126,11 +133,11 @@
               <input type="hidden" name="id_customization" value="{$product.id_customization|escape:'html':'UTF-8'}"
                 id="product_customization_id">
 
-              {block name='product_variants'}
+              {* {block name='product_variants'}
                 {include file='catalog/_partials/product-variants.tpl'}
-              {/block}
+              {/block} *}
 
-              {block name='product_pack'}
+              {* {block name='product_pack'}
                 {if $packItems}
                   <section class="product-pack">
                     <h3 class="h4">{l s='This pack contains' d='Shop.Theme.Catalog'}</h3>
@@ -141,21 +148,21 @@
                     {/foreach}
                   </section>
                 {/if}
-              {/block}
+              {/block} *}
 
-              {block name='product_discounts'}
+              {* {block name='product_discounts'}
                 {include file='catalog/_partials/product-discounts.tpl'}
-              {/block}
-              <div class="line clearfix"></div>
+              {/block} *}
+              {* <div class="line clearfix"></div> *}
               {block name='product_add_to_cart'}
                 {include file='catalog/_partials/product-add-to-cart.tpl'}
               {/block}
 
-              <div class="line clearfix"></div>
-              {if isset($tc_config.YBC_TC_SOCIAL_SHARING) && $tc_config.YBC_TC_SOCIAL_SHARING == 1}
+              {* <div class="line clearfix"></div> *}
+              {* {if isset($tc_config.YBC_TC_SOCIAL_SHARING) && $tc_config.YBC_TC_SOCIAL_SHARING == 1}
                 {hook h='displayProductButtons' product=$product}
-              {/if}
-              {hook h='productcustom' product=$product}
+              {/if} *}
+              {* {hook h='productcustom' product=$product}
 
               {block name='product_additional_info'}
                 {include file='catalog/_partials/product-additional-info.tpl'}
@@ -163,7 +170,7 @@
               {block name='product_refresh'}
                 <input class="product-refresh ps-hidden-by-js" name="refresh" type="submit"
                   value="{l s='Refresh' d='Shop.Theme.Actions'}">
-              {/block}
+              {/block} *}
             </form>
           {/block}
 
