@@ -55,9 +55,11 @@
 
               {block name='product_cover_thumbnails'}
                 {include file='catalog/_partials/product-cover-thumbnails.tpl'}
+                
               {/block}
             {/block}
           </div>
+
         {/block}
       </div>
       <div class="col-md-6 col-xs-12" style="position: sticky;top: 18px; z-index: 10; margin-left: 10px;max-height: calc(100vh - 300px);flex: 1;overflow: auto;border-radius: 0.5rem;border-width: 2px; border-color: #D1D5DB;background-color: #fff;padding: 0.625rem; flex:4">
@@ -205,7 +207,7 @@
         {/foreach}
         {hook h='productTab' product=$product}
       </ul> *}
-
+      
       <div style=" position: relative;
       margin-top: 10px;
       background-color: #fff;

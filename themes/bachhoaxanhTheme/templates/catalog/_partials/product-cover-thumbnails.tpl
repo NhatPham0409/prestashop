@@ -248,4 +248,5 @@
    </div>
  {/block}
 {hook h='displayAfterProductThumbs' product=$product}
+
 </div>
