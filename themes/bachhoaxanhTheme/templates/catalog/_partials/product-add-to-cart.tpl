@@ -22,7 +22,7 @@
   {if !$configuration.is_catalog}
 
     {block name='product_quantity'}
-      <div >
+      <div style="width: 100%;">
         <div class="qty">
           <input type="text" name="qty" id="quantity_wanted" value="{$product.quantity_wanted|escape:'html':'UTF-8'}"
             class="input-group" {*min="{$product.minimal_quantity|escape:'html':'UTF-8'}"*}>

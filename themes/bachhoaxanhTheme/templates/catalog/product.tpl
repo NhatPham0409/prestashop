@@ -45,10 +45,10 @@
 
   <div id="main" itemscope itemtype="https://schema.org/Product" style="background-color: rgb(233 237 240/1);">
     <meta itemprop="url" content="{$product.url|escape:'html':'UTF-8'}">
-    <div class="row" >
+    <div style="display: flex;" >
       <div class="col-md-6 col-xs-12" style="position: relative;border-top-left-radius: 0.5rem;
       border-top-right-radius: 0.5rem;background-color: #fff;padding-top: 0.5rem;
-    padding-bottom: 0.5rem;">
+    padding-bottom: 0.5rem; flex: 7">
         {block name='page_content_container'}
           <div class="page-content" id="content">
             {block name='page_content'}
@@ -60,7 +60,7 @@
           </div>
         {/block}
       </div>
-      <div class="col-md-6 col-xs-12" style="position: sticky;top: 100px; z-index: 10; margin-left: 10px;max-height: calc(100vh - 170px);flex: 1;overflow: auto;border-radius: 0.5rem;border-width: 2px; border-color: #D1D5DB;background-color: #fff;padding: 0.625rem;">
+      <div class="col-md-6 col-xs-12" style="position: sticky;top: 18px; z-index: 10; margin-left: 10px;max-height: calc(100vh - 300px);flex: 1;overflow: auto;border-radius: 0.5rem;border-width: 2px; border-color: #D1D5DB;background-color: #fff;padding: 0.625rem; flex:4">
         {block name='page_header_container'}
           {block name='page_header'}
             <h1 class="h1 page-heading-product" itemprop="name" style="font-family: none; text-transform: none;">
@@ -181,7 +181,7 @@
       </div>
     </div>
     <div class="tabs col-md-12 col-xs-12">
-      <ul class="nav nav-tabs">
+      {* <ul class="nav nav-tabs">
         {if $product.description}
           <li class="nav-item">
             <a class="nav-link{if $product.description} active{/if}" data-toggle="tab"
@@ -204,9 +204,14 @@
           </li>
         {/foreach}
         {hook h='productTab' product=$product}
-      </ul>
+      </ul> *}
 
-      <div class="tab-content" id="tab-content">
+      <div style=" position: relative;
+      margin-top: 10px;
+      background-color: #fff;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-bottom: 12px;">
         <div class="tab-pane fade in{if $product.description} active{/if}" id="description">
           {block name='product_description'}
             <div class="product-description">{$product.description nofilter}</div>

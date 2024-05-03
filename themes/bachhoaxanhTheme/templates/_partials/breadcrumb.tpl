@@ -18,7 +18,8 @@
 *  @license    Valid for 1 website (or project) for each purchase of license
 *  International Registered Trademark & Property of ETS-Soft
 *}
-<nav data-depth="{$breadcrumb.count|escape:'html':'UTF-8'}" class="breadcrumb hidden-sm-down">
+<nav data-depth="{$breadcrumb.count|escape:'html':'UTF-8'}" class="breadcrumb hidden-sm-down" style="height: 87px;border-top-width: 2px;
+border-bottom-width: 2px;border-color: #f2f5f9;background-color: #fff; padding-left:8px">
   <ol itemscope itemtype="http://schema.org/BreadcrumbList">
     {foreach from=$breadcrumb.links item=path name=breadcrumb}
       {block name='breadcrumb_item'}
