@@ -176,14 +176,14 @@
       <div style="display: flex; align-items: center;">
         <div style="font-size: 12px;">Bán hàng 7:00 - 21:30</div>
         <span style="margin-left: .5rem; font-size: 14px; font-weight: 600;">
-          <i class="fa-solid fa-phone"></i>
+          <i class="fa fa-phone"></i>
           <a style="font-size: 14px;">1900 1908</a>
         </span>
       </div>
       <div style="margin-left: 20px; display: flex; align-items: center;">
         <div style="font-size: 12px;">Khiếu nại 7:30 - 21:00</div>
         <span style="margin-left: .5rem; font-size: 14px; font-weight: 600;">
-          <i class="fa-solid fa-phone"></i>
+          <i class="fa fa-phone"></i>
           <a style="font-size: 14px;">1800 1067</a>
         </span>
       </div>
@@ -194,15 +194,15 @@
       </div>
       <div style="margin-left: 2px; display: flex; width: 100%; align-items: center; font-size: 12px; color: white;">
         <div style="margin-right: 10px; display: inline-flex; align-items: center; font-size: 12px;">
+          <i class="fa fa-circle-check"></i>
           <span style="white-space: nowrap;">15.000 sản phẩm</span>
-          <span style="margin-left: .5rem; font-size: 14px; font-weight: 600;">
-            <a style="font-size: 14px;">1800 1067</a>
-          </span>
         </div>
         <div style="margin-right: 10px; display: inline-flex; align-items: center; font-size: 12px;">
+          <i class="fa fa-circle-check"></i>
           <span style="white-space: nowrap;">Freeship đơn 150k</span>
         </div>
         <div style="margin-right: 10px; display: inline-flex; align-items: center; font-size: 12px;">
+          <i class="fa fa-circle-check"></i>
           <span style="white-space: nowrap;">Giao 2h</span>
         </div>
       </div>

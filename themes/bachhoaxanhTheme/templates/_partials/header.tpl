@@ -28,9 +28,12 @@
       <div class="header-top header-top-bg">
         <div class="container" style="padding-top: 0; padding-bottom: 0;">
           <div class="row">
-            <div id="_desktop_logo" style="height: 72px; margin-top: 0;" class="col-3">
-              <div class="icon_logo"></div>
-            </div>
+            <a href="{$urls.base_url|escape:'html':'UTF-8'}">
+              <div id="_desktop_logo" style="height: 72px; margin-top: 0;" class="col-3">
+                <div class="icon_logo"></div>
+              </div>
+            </a>
+
             {hook h='displayNav1'}
             {hook h='displayTop'}
           </div>

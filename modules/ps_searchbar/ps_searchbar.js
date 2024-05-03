@@ -5,6 +5,8 @@ $(document).ready(function () {
   var searchURL = $searchWidget.attr("data-search-controller-url");
   var $clearButton = $searchWidget.find("i.clear");
 
+  console.log($searchBox)
+
   $.widget("prestashop.psBlockSearchAutocomplete", $.ui.autocomplete, {
     _renderItem: function (ul, product) {
       var image = product.cover
