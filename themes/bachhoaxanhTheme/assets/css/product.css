@@ -1,0 +1,27 @@
+.featured_products_bhx_banner {
+  width: 100%;
+  display: inline-block;
+  position: relative;
+}
+
+.featured_products_bhx_listProduct {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: stretch;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.product_bhx_card {
+  width: calc(100% / 6);
+  padding: 3px;
+}
+
+.product_bhx_card_item {
+  box-shadow: 0 0 8px rgba(198, 218, 248, 0.4);
+  background-color: rgb(255 255 255 /1);
+  border-width: 1px;
+  height: 100%;
+  position: relative;
+  min-height: 300px;
+}
