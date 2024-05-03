@@ -87,6 +87,45 @@
     </div>
 
     <div class="container">
+      <div
+        style="background-color: rgb(0 126 66 /1);display: flex; width: 100%; align-items: center; justify-content: space-between; padding: 0.5rem; font-size: 10px; color: white;">
+        <div style="display: flex;">
+          <div style="display: flex; align-items: center;">
+            <div style="font-size: 12px;">Bán hàng 7:00 - 21:30</div>
+            <span style="margin-left: .5rem; font-size: 14px; font-weight: 600;">
+              <i class="fa fa-phone"></i>
+              <a style="font-size: 14px;">1900 1908</a>
+            </span>
+          </div>
+          <div style="margin-left: 20px; display: flex; align-items: center;">
+            <div style="font-size: 12px;">Khiếu nại 7:30 - 21:00</div>
+            <span style="margin-left: .5rem; font-size: 14px; font-weight: 600;">
+              <i class="fa fa-phone"></i>
+              <a style="font-size: 14px;">1800 1067</a>
+            </span>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <div style="width: 58px; min-width: 65px; font-size: 12px; font-weight: bold; color: rgb(255 241 1 /1);">
+            Cam kết :
+          </div>
+          <div
+            style="margin-left: 2px; display: flex; width: 100%; align-items: center; font-size: 12px; color: white;">
+            <div style="margin-right: 10px; display: inline-flex; align-items: center; font-size: 12px;">
+              <i class="fa fa-circle-check"></i>
+              <span style="white-space: nowrap;">15.000 sản phẩm</span>
+            </div>
+            <div style="margin-right: 10px; display: inline-flex; align-items: center; font-size: 12px;">
+              <i class="fa fa-circle-check"></i>
+              <span style="white-space: nowrap;">Freeship đơn 150k</span>
+            </div>
+            <div style="margin-right: 10px; display: inline-flex; align-items: center; font-size: 12px;">
+              <i class="fa fa-circle-check"></i>
+              <span style="white-space: nowrap;">Giao 2h</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <footer id="footer"
         style="display: flex; width: 100%; flex-direction: column;margin: auto; padding-top: 0px;border: 0 solid #f4f6f9;margin-bottom: 20px;">
         {block name="footer"}

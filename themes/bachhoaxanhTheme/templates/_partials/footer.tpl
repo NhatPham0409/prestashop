@@ -18,7 +18,9 @@
 *  @license    Valid for 1 website (or project) for each purchase of license
 *  International Registered Trademark & Property of ETS-Soft
 *}
-<div class="footer-container" style="box-shadow: 0 0 8px rgba(198, 218, 248, .4);display: flex; flex-direction: column; padding: .75rem">
+<div class="footer-container"
+    style="box-shadow: 0 0 8px rgba(198, 218, 248, .4);display: flex; flex-direction: column; padding: .75rem">
+
     <div style="display: flex;">
         <div style="display: flex; width: 60%; justify-content: space-between;">
             <!-- Cột 1 -->
