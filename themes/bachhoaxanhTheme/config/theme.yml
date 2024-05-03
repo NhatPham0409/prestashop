@@ -53,13 +53,13 @@ global_settings:
     to_enable:
       - ps_linklist
     to_reset:
-      - ets_megamenu
-      - ets_multilayerslider
-      - ybc_themeconfig
-      - ybc_widget
-      - ybc_themeconfig
-      - ybc_specificprices
-      - ybc_productimagehover
+      # - ets_megamenu
+      # - ets_multilayerslider
+      # - ybc_themeconfig
+      # - ybc_widget
+      # - ybc_themeconfig
+      # - ybc_specificprices
+      # - ybc_productimagehover
   hooks:
     modules_to_hook:
       blogCategoriesBlock:
@@ -177,13 +177,13 @@ global_settings:
         - ps_searchbar
         - ybc_widget
         - ets_megamenu
-        - ps_shoppingcart
+      - ps_shoppingcart
         - blockwishlist
       displayTopColumn:
         - ets_multilayerslider
         - ybc_widget
       displayYbcProductReview:
-        - ybc_themeconfig
+        # - ybc_themeconfig
       paymentOptions:
         - ps_checkpayment
         - ps_wirepayment
