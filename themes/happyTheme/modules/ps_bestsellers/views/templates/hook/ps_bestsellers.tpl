@@ -29,5 +29,4 @@
       {include file="catalog/_partials/miniatures/product-bestSeller.tpl" product=$product}
     {/foreach}
   </div>
-
 </section>

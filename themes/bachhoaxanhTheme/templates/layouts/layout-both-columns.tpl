@@ -35,7 +35,7 @@
     {hook h='displayAfterBodyOpeningTag'}
   {/block}
 
-  <main>
+  <main style="background-color: rgb(233 237 240 / 1);">
     {block name='product_activation'}
       {include file='catalog/_partials/product-activation.tpl'}
     {/block}

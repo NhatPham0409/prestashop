@@ -18,7 +18,7 @@
 *  @license    Valid for 1 website (or project) for each purchase of license
 *  International Registered Trademark & Property of ETS-Soft
 *}
-<div>
+<section class="featured-products clearfix home-block-section">
   <div style="margin-top: 8px; background-color: rgb(255 255 255 /1)">
     <div style="min-height: 30px;width: 100%;">
       <div style="padding: 1px; width: auto;">
@@ -208,4 +208,4 @@
       </div>
     </div>
   </div>
-</div>
+</section>
