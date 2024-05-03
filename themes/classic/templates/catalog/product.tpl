@@ -50,7 +50,6 @@
 
   <section id="main">
     <meta content="{$product.url}">
-
     <div class="row product-container js-product-container">
       <div class="col-md-6">
         {block name='page_content_container'}

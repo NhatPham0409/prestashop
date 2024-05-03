@@ -14944,10 +14944,12 @@ a:hover i.icon-second {
   width: -webkit-calc(100% - 80px);
 }
 #main .images-container .js-qv-mask {
-  float: left;
-  max-width: 100%;
   overflow: hidden;
-  width: 100%;
+  white-space: nowrap;
+}
+#main .images-container .js-qv-mask.scroll {
+  width: calc(100% - 60px);
+  margin: 0 auto;
 }
 .product-actions .add-to-cart:disabled {
   display: none;

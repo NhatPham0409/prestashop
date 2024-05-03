@@ -24,7 +24,7 @@
         <div style="display: flex;flex-direction: column;height: 100%;">
             <a style="position: relative;width: 100%;text-align: center;" id="product_112898"
                 title="Sữa tắm dưỡng sáng Hazeline matcha lựu đỏ 995ml"
-                href="/sua-tam/sua-tam-duong-sang-hazeline-matcha-luu-do-119-lit">
+                href={$product.url}>
                 <div
                     style="position: relative;display: inline-block;top: 0;left: 0;margin-top: auto;height: auto; object-fit: contain; max-width: 100%;">
                     <img class="img-fluid" alt="Sữa tắm dưỡng sáng Hazeline matcha lựu đỏ 995ml" loading="lazy"
@@ -33,7 +33,7 @@
             </a>
             <div
                 style="display: flex;padding-bottom: 4px;padding-left: 6px; padding-right: 6px;margin-top: 4px; width: 100%;flex: 1 1 0%;flex-direction: column;">
-                <a href="/sua-tam/sua-tam-duong-sang-hazeline-matcha-luu-do-119-lit">
+                <a  href={$product.url}>
                     <span
                         style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; line-height: 18px; font-size: 14px; height: 36px; color: rgb(157 167 188 /1); margin-bottom: .5rem;">Sữa
                         tắm dưỡng sáng Hazeline matcha lựu đỏ 995ml</span>
