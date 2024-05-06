@@ -33,9 +33,11 @@
                 <div class="icon_logo"></div>
               </div>
             </a>
-
             {hook h='displayNav1'}
-            {hook h='displayTop'}
+            {* {hook h='displayTop'} *}
+            <div class="search_bhx">
+              {hook h='displaySearch'}
+            </div>
           </div>
         </div>
       </div>

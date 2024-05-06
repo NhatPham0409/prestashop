@@ -19,17 +19,15 @@
 *  International Registered Trademark & Property of ETS-Soft
 *}
 <!-- Block search module TOP -->
-<div id="search_widget" class="col-lg-7 col-md-7 col-sm-12 search-widget search_bhx"
-	data-search-controller-url="{$search_controller_url}">
-	<div class="search_block_top_fixed" style="width: 100%;">
-		<form method="get" action="{$search_controller_url|escape:'html':'UTF-8'}">
-			<input type="hidden" name="controller" value="search">
-			<input type="text" name="s" value="{$search_string|escape:'html':'UTF-8'}"
-				placeholder="{l s='Bạn tìm gì ở Bách Hóa Xanh' d='Shop.Theme.Catalog'}">
-			<button type="submit">
-				<i class="material-icons material-icons-search"></i>
-			</button>	
-		</form>
-	</div>
+<div id="search_widget" class="search-widgets" data-search-controller-url="{$search_controller_url}">
+	<form method="get" action="{$search_controller_url|escape:'html':'UTF-8'}">
+		<input type="hidden" name="controller" value="search">
+		<button type="submit">
+			<i class="material-icons material-icons-search"></i>
+		</button>
+		<input type="text" name="s" value="{$search_string|escape:'html':'UTF-8'}"
+			placeholder="{l s='Bạn tìm gì ở Bách Hóa Xanh' d='Shop.Theme.Catalog'}">
+
+	</form>
 </div>
 <!-- /Block search module TOP -->

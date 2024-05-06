@@ -61,18 +61,41 @@ class mwg_searchbyapi extends Module
 
     public function install()
     {
-        // Migrate data from 1.6 equivalent module (if applicable), then uninstall
-        if (Module::isInstalled(self::PS_16_EQUIVALENT_MODULE)) {
-            $oldModule = Module::getInstanceByName(self::PS_16_EQUIVALENT_MODULE);
-            if ($oldModule) {
-                $oldModule->uninstall();
+        if (
+            parent::install()
+            // && $this->registerHook('displayTop')
+            && $this->registerHook('displayHeader')
+            && $this->registerHook('displaySearch')
+        ) {
+
+            if (Module::isInstalled('ps_searchbar')) {
+                $searchBarModule = Module::getInstanceByName('ps_searchbar');
+                if ($searchBarModule) {
+                    $searchBarModule->uninstall();
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function uninstall()
+    {
+        // Gỡ cài đặt module mwg_searchbyapi
+        if (!parent::uninstall()) {
+            return false;
+        }
+
+        if (!Module::isInstalled('ps_searchbar')) {
+            $searchBarModule = Module::getInstanceByName('ps_searchbar');
+            if ($searchBarModule) {
+                $searchBarModule->install();
             }
         }
 
-        return parent::install()
-            && $this->registerHook('displayTop')
-            && $this->registerHook('displaySearch')
-            && $this->registerHook('displayHeader');
+        return true;
     }
 
     public function hookDisplayHeader()
@@ -144,7 +167,7 @@ class mwg_searchbyapi extends Module
         return $helper->generateForm([$form]);
     }
 
-    public function hookDisplayTop($params)
+    public function hookDisplaySearch($params)
     {
         // This is where you might add the search bar to your site.
         // For now, let's just return a simple form. Remember to create the form template file.

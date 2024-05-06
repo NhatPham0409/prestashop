@@ -173,11 +173,10 @@ global_settings:
         - blockwishlist
       displaySearch:
         - ps_searchbar
+        - ps_shoppingcart
       displayTop:
-        - ps_searchbar
         - ybc_widget
         - ets_megamenu
-        - ps_shoppingcart
         - blockwishlist
       displayTopColumn:
         - ets_multilayerslider
