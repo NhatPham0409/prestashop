@@ -20,40 +20,82 @@
 *}
 {assign var=_counter value=0}
 {function name="menu" nodes=[] depth=0 parent=null}
-    {if $nodes|count}
-      <ul class="top-menu" {if $depth == 0}id="top-menu"{/if} data-depth="{$depth|escape:'html':'UTF-8'}">
-        {foreach from=$nodes item=node}
-            <li class="{$node.type|escape:'html':'UTF-8'}{if $node.current} current {/if}" id="{$node.page_identifier|escape:'html':'UTF-8'}">
-            {assign var=_counter value=$_counter+1}
-              <a
-                class="{if $depth >= 0}dropdown-item{/if}{if $depth === 1} dropdown-submenu{/if}"
-                href="{$node.url|escape:'html':'UTF-8'}" data-depth="{$depth|escape:'html':'UTF-8'}"
-                {if $node.open_in_new_window} target="_blank" {/if}
-              >
-                {if $node.children|count}
-                  {* Cannot use page identifier as we can have the same page several times *}
-                  {assign var=_expand_id value=10|mt_rand:100000}
-                  <span class="pull-xs-right hidden-md-up">
-                    <span data-target="#top_sub_menu_{$_expand_id|escape:'html':'UTF-8'}" data-toggle="collapse" class="navbar-toggler collapse-icons">
-                      <i class="material-icons add">&#xE313;</i>
-                      <i class="material-icons remove">&#xE316;</i>
-                    </span>
-                  </span>
-                {/if}
-                {$node.label|escape:'html':'UTF-8'}
-              </a>
-              {if $node.children|count}
-              <div {if $depth === 0} class="popover sub-menu js-sub-menu collapse"{else} class="collapse"{/if} id="top_sub_menu_{$_expand_id|escape:'html':'UTF-8'}">
-                {menu nodes=$node.children depth=$node.depth parent=$node}
-              </div>
-              {/if}
-            </li>
-        {/foreach}
-      </ul>
-    {/if}
+  {if $nodes|count}
+    <div style="background-color: #fff; max-width: 270px; ">
+      {foreach from=$nodes item=node}
+        <a href="{$node['url']}"
+          style="display: flex; cursor: pointer; position: relative; margin-left: 6px; margin-right: 6px">
+          <div
+            style="position: absolute; right: 6px; top: 15px; width: 8px; height: 8px; border-left: 1px solid #222b45; border-top: 1px solid #222b45; transform: rotate(225deg);">
+          </div>
+          <div style="display: flex; flex-direction: column; padding-top: 12px; padding-bottom: 12px;">
+            <span
+              style="display: flex; align-items: center; font-size: 14px; font-weight: 600; text-transform: uppercase; color: #222b45;">
+              {$node['label']}
+            </span>
+          </div>
+          <div style="    
+          position: absolute;
+          top: 0;
+          left: 1%;
+          width: 98%;
+          border-top: #7a7a7a 1px solid;
+          opacity: 0.25;"></div>
+        </a>
+        {if $node['children']|count}
+          {foreach from=$node['children'] item=child}
+            <a href="{$child['url']}"
+              style="display:flex;width: 100%; border-radius: 6px; background-color: white; padding: 6px 0; font-size: 14px; font-weight: normal; cursor: pointer; color: #222b45; padding-left: 24px">
+              {$child['label']}
+              <div style="    
+              position: absolute;
+              top: 0;
+              left: 1%;
+              width: 98%;
+              border-top: #7a7a7a 1px solid;
+              opacity: 0.25;"></div>
+            </a>
+
+          {/foreach}
+        {/if}
+
+      {/foreach}
+    </div>
+
+  {/if}
 {/function}
 
-<div class="menu col-lg-8 col-md-7 js-top-menu position-static hidden-sm-down" id="_desktop_top_menu">
-    {menu nodes=$menu.children}
-    <div class="clearfix"></div>
+<button
+  style="position: relative; margin-top: 10px; display: flex; width: 270px; align-items: center; border-top-left-radius: 0.375rem; border-top-right-radius: 0.375rem; background-color: #006133; padding-left: 10px; padding-right: 10px; padding-top: 0.25rem; padding-bottom: 0.25rem; font-size: 16px; color: white; cursor: pointer;"
+  disabled="" id="categoryButton">
+  <div style="position: relative; display: inline-block; margin-right: 2px;"><img alt="menu" width="0" height="0"
+      src="https://www.bachhoaxanh.com/static/icons/menu%20icon.svg"
+      style="color: transparent; width: 100%; height: auto;"></div>DANH MỤC SẢN PHẨM
+</button>
+
+<div class="menu " id="_desktop_top_menu" style="display: none; width: 100%; margin-left: auto; margin-right: auto; background-color: rgb(29 29 29/0.8); position: absolute; padding-left:0 !important;
+  top: 118px;">
+  {menu nodes=$menu.children}
+  <div class="clearfix"></div>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const categoryButton = document.getElementById('categoryButton');
+    const menu = document.getElementById('_desktop_top_menu');
+
+    // Thêm hoặc xóa lớp CSS 'hovered' khi hover vào nút
+    categoryButton.addEventListener('mouseenter', function() {
+      menu.style.display = 'block';
+    });
+    menu.addEventListener('mouseenter', function() {
+      menu.style.display = 'block';
+    });
+
+    categoryButton.addEventListener('mouseleave', function() {
+      menu.style.display = 'none';
+    });
+    menu.addEventListener('mouseleave', function() {
+      menu.style.display = 'none';
+    });
+  });
+</script>

@@ -214,7 +214,8 @@ global_settings:
         - ybc_widget
       ybcLayoutUpdate:
         - ybc_themeconfig
-
+      displayCat:
+        - ps_mainmenu
   image_types:
     cart_default:
       width: 125

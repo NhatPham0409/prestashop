@@ -27,15 +27,19 @@
     {block name='header_top'}
       <div class="header-top header-top-bg">
         <div class="container" style="padding-top: 0; padding-bottom: 0;">
-          <div class="row">
-            <a href="{$urls.base_url|escape:'html':'UTF-8'}">
-              <div id="_desktop_logo" style="height: 72px; margin-top: 0;" class="col-3">
-                <div class="icon_logo"></div>
-              </div>
-            </a>
-
-            {hook h='displayNav1'}
+          <div style="display: flex; flex-direction: row">
+            <div style="display: flex; flex-direction:column; flex: 3">
+              <a href="{$urls.base_url|escape:'html':'UTF-8'}">
+                <div id="_desktop_logo" style="height: 72px; margin-top: 0; width: 90%">
+                  <div class="icon_logo"></div>
+                </div>
+              </a>
+              
+              {hook h='displayCat'}
+            </div>
             {hook h='displayTop'}
+            {hook h='displayNav1'}
+
           </div>
         </div>
       </div>
