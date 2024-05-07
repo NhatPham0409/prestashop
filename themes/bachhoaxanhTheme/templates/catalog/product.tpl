@@ -43,12 +43,13 @@
 
 {block name='content'}
 
-  <div id="main" itemscope itemtype="https://schema.org/Product" style="background-color: rgb(233 237 240/1);">
+  <div id="main" itemscope itemtype="https://schema.org/Product"
+    style="background-color: rgb(233 237 240/1);display:flex">
     <meta itemprop="url" content="{$product.url|escape:'html':'UTF-8'}">
-    <div style="display: flex;">
-      <div class="col-md-6 col-xs-12" style="position: relative;border-top-left-radius: 0.5rem;
+    <div style="display: flex; flex-direction: column; flex: 7">
+      <div style="position: relative;border-top-left-radius: 0.5rem;
       border-top-right-radius: 0.5rem;background-color: #fff;padding-top: 0.5rem;
-    padding-bottom: 0.5rem; flex: 7">
+      padding-bottom: 0.5rem; ">
         {block name='page_content_container'}
           <div class="page-content" id="content">
             {block name='page_content'}
@@ -62,8 +63,48 @@
 
         {/block}
       </div>
+      <div style="
+        padding-bottom: 12px; font-family: Arial, Helvetica">
+        <div class="tab-pane fade in{if $product.description} active{/if}" id="description">
+          {block name='product_description'}
+            <div class="product-description">{$product.description nofilter}</div>
+          {/block}
+        </div>
+
+        {block name='product_details'}
+          {include file='catalog/_partials/product-details.tpl'}
+        {/block}
+        {block name='product_attachments'}
+          {if $product.attachments}
+            <div class="tab-pane fade in" id="attachments">
+              <section class="product-attachments">
+                <h3 class="h5 text-uppercase">{l s='Download' d='Shop.Theme.Actions'}</h3>
+                {foreach from=$product.attachments item=attachment}
+                  <div class="attachment">
+                    <h4><a
+                        href="{url entity='attachment' params=['id_attachment' => $attachment.id_attachment]}">{$attachment.name|escape:'html':'UTF-8'}</a>
+                    </h4>
+                    <p>{$attachment.description|escape:'html':'UTF-8'}</p <a
+                      href="{url entity='attachment' params=['id_attachment' => $attachment.id_attachment]}">
+                    {l s='Download' d='Shop.Theme.Actions'} ({$attachment.file_size_formatted|escape:'html':'UTF-8'})
+                    </a>
+                  </div>
+                {/foreach}
+              </section>
+            </div>
+          {/if}
+        {/block}
+        {foreach from=$product.extraContent item=extra key=extraKey}
+          <div class="tab-pane fade in {$extra.attr.class|escape:'html':'UTF-8'}"
+            id="extra-{$extraKey|escape:'html':'UTF-8'}" {foreach $extra.attr as $key => $val}
+            {$key|escape:'html':'UTF-8'}="{$val|escape:'html':'UTF-8'}" {/foreach}>
+            {$extra.content nofilter}
+          </div>
+        {/foreach}
+        {hook h='productTabContent' product=$product}
+      </div>
     </div>
-    <div class="col-md-6 col-xs-12"
+    <div 
       style="position: sticky;top: 18px; z-index: 10; margin-left: 10px;max-height: calc(100vh - 300px);flex: 1;overflow: auto;border-radius: 0.5rem;border-width: 2px; border-color: #D1D5DB;background-color: #fff;padding: 0.625rem; flex:4">
       {block name='page_header_container'}
         {block name='page_header'}
@@ -75,7 +116,9 @@
         <i class="fa fa-link"></i>
         <button class="btn btn-link" style="padding: 2px; color: #007aff">Chia sẻ</button>
       </div>
-
+      <div style="margin-bottom: 46px; display: flex; align-items: center;">
+        <div style="font-size: 20px; font-weight: bold; color: rgb(177 14 14 /1)">{$product.price}</div>
+      </div>
       <div>
         <div style="outline: none; width: 117px;">
           <div>
@@ -93,17 +136,18 @@
               <div style="display: flex; align-items: center; justify-content: center; height: 30px">
                 <input type="radio" style="color: #00AC5B;">
               </div>
-              <div style="display: flex; flex-direction: column; justify-content: flex-start; min-height: 45px;">
+              <div style="display: flex; flex-direction: column; justify-content: flex-start; min-height: 45px; ">
                 <div style="text-align: center; font-size: 12px; font-weight: bold; color: #222B45;">
-                  {$product.price}<span style="display: inline-block;">₫</span>
+                  {$product.price}
                 </div>
                 <div style="display: flex; justify-content: center">
                   <div
                     style="text-align: center; font-size: 9px;  line-height: 1rem; color: #9da7bc; text-decoration: line-through;">
-                    {$product.regular_price}<span style="display: inline-block;">₫</span></div>
-                  <div style="margin-left: 0.25rem; border-radius: 3px; background-color: rgb(255, 1, 1);
+                    {$product.regular_price}</div>
+                  <div
+                    style="margin-left: 0.25rem; border-radius: 3px; background-color: rgb(255, 1, 1);
                       background-color: rgba(255, 1, 1, 0.7); padding-left: 0.25rem;
-    padding-right: 0.25rem; font-size: 9px;font-weight: 600; line-height: 15px;color: #fff;font-size: 12px;">
+                      padding-right: 0.25rem; font-size: 9px;font-weight: 600; line-height: 15px;color: #fff;font-size: 12px;">
                     {$product.discount_percentage}</div>
                 </div>
                 <div class="text-center text-10 leading-4 text-[#9da7bc]"></div>
@@ -183,7 +227,7 @@
 
     </div>
   </div>
-  <div class="tabs col-md-12 col-xs-12">
+  <div class="tabs col-md-7 col-xs-7">
     {* <ul class="nav nav-tabs">
         {if $product.description}
           <li class="nav-item">
@@ -209,12 +253,12 @@
         {hook h='productTab' product=$product}
       </ul> *}
 
-    <div style=" position: relative;
+    {* <div style=" position: relative;
       margin-top: 10px;
       background-color: #fff;
       padding-left: 10px;
       padding-right: 10px;
-      padding-bottom: 12px;">
+      padding-bottom: 12px; font-family: Arial, Helvetica">
       <div class="tab-pane fade in{if $product.description} active{/if}" id="description">
         {block name='product_description'}
           <div class="product-description">{$product.description nofilter}</div>
@@ -251,7 +295,7 @@
         </div>
       {/foreach}
       {hook h='productTabContent' product=$product}
-    </div>
+    </div> *}
   </div>
 
   {block name='product_accessories'}

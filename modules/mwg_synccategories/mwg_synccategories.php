@@ -387,6 +387,8 @@ class MWG_SyncCategories extends Module
 
         if (isset($value['additional_description']) && !strpbrk($value['additional_description'], $invalid))
             $category->additional_description = array(Context::getContext()->language->id => "<p>" . $value['additional_description']);
+        if (isset($value['additional_description']) && !strpbrk($value['additional_description'], $invalid))
+            $category->additional_description = array(Context::getContext()->language->id => "<p>" . $value['additional_description']);
 
         if (isset($value['meta_title']))
             $category->meta_title = array(Context::getContext()->language->id => $value['meta_title']);
