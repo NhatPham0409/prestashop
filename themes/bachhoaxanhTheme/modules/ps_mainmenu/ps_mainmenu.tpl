@@ -23,14 +23,16 @@
   {if $nodes|count}
     <div style="background-color: #fff; max-width: 270px; ">
       {foreach from=$nodes item=node}
-        <a href="{$node['url']}"
-          style="display: flex; cursor: pointer; position: relative; margin-left: 6px; margin-right: 6px">
-          <div
+        <a class="menu" href="{$node['url']}"
+          style="display: flex; cursor: pointer; position: relative; padding-left: 6px; padding-right: 6px">
+          {if $node['children']|count}
+            <div
             style="position: absolute; right: 6px; top: 15px; width: 8px; height: 8px; border-left: 1px solid #222b45; border-top: 1px solid #222b45; transform: rotate(225deg);">
           </div>
+          {/if}
           <div style="display: flex; flex-direction: column; padding-top: 12px; padding-bottom: 12px;">
             <span
-              style="display: flex; align-items: center; font-size: 14px; font-weight: 600; text-transform: uppercase; color: #222b45;">
+              style="display: flex; align-items: center; font-size: 14px; font-weight: 600; text-transform: uppercase;">
               {$node['label']}
             </span>
           </div>
@@ -44,8 +46,8 @@
         </a>
         {if $node['children']|count}
           {foreach from=$node['children'] item=child}
-            <a href="{$child['url']}"
-              style="display:flex;width: 100%; border-radius: 6px; background-color: white; padding: 6px 0; font-size: 14px; font-weight: normal; cursor: pointer; color: #222b45; padding-left: 24px">
+            <a class="submenu" href="{$child['url']}"
+              style="display:flex; width: 100%; border-radius: 6px; padding: 6px 0; font-size: 14px; font-weight: normal; cursor: pointer; padding-left: 24px">
               {$child['label']}
               <div style="    
               position: absolute;
@@ -73,7 +75,7 @@
       style="color: transparent; width: 100%; height: auto;"></div>DANH MỤC SẢN PHẨM
 </button>
 
-<div class="menu " id="_desktop_top_menu" style="display: none; width: 100%; margin-left: auto; margin-right: auto; background-color: rgb(29 29 29/0.8); position: absolute; padding-left:0 !important;
+<div id="_desktop_top_menu" style="display: none; width: 100%; margin-left: auto; margin-right: auto; background-color: rgb(29 29 29/0.8); position: absolute; padding-left:0 !important;
   top: 118px;">
   {menu nodes=$menu.children}
   <div class="clearfix"></div>
@@ -99,3 +101,13 @@
     });
   });
 </script>
+<style>
+.menu:hover {
+    background-color: #f0f0f0;
+    color: #006133;
+}
+.submenu:hover {
+    background-color: #f0f0f0;
+    color: #006133;
+}
+</style>
