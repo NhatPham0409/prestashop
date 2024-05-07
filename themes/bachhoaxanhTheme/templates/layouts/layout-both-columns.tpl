@@ -60,7 +60,7 @@
             {if $page.page_name == 'product'}
               {hook h='displayLeftColumnProduct'}
             {else}
-              {hook h="displayLeftColumn"}
+              <div></div>
             {/if}
           </div>
         {/block}

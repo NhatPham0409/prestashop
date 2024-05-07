@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
-    <name>loadcatalogs</name>
-    <displayName><![CDATA[MWG load catalogs]]></displayName>
-    <version><![CDATA[2.0.0]]></version>
-    <description><![CDATA[Load catalogs api to database]]></description>
+    <name>mwg_synccategories</name>
+    <displayName><![CDATA[MWG sync categories]]></displayName>
+    <version><![CDATA[1.0.0]]></version>
+    <description><![CDATA[Sync categories api to database]]></description>
     <author><![CDATA[mwgshop]]></author>
     <tab><![CDATA[others]]></tab>
 	<confirmUninstall><![CDATA[Are you sure you want to uninstall?]]></confirmUninstall>

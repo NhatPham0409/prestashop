@@ -27,12 +27,11 @@
           style="display: flex; cursor: pointer; position: relative; padding-left: 6px; padding-right: 6px">
           {if $node['children']|count}
             <div
-            style="position: absolute; right: 6px; top: 15px; width: 8px; height: 8px; border-left: 1px solid #222b45; border-top: 1px solid #222b45; transform: rotate(225deg);">
-          </div>
+              style="position: absolute; right: 6px; top: 15px; width: 8px; height: 8px; border-left: 1px solid #222b45; border-top: 1px solid #222b45; transform: rotate(225deg);">
+            </div>
           {/if}
           <div style="display: flex; flex-direction: column; padding-top: 12px; padding-bottom: 12px;">
-            <span
-              style="display: flex; align-items: center; font-size: 14px; font-weight: 600; text-transform: uppercase;">
+            <span style="display: flex; align-items: center; font-size: 14px; font-weight: 600; text-transform: uppercase;">
               {$node['label']}
             </span>
           </div>
@@ -102,12 +101,13 @@
   });
 </script>
 <style>
-.menu:hover {
+  .menu:hover {
     background-color: #f0f0f0;
     color: #006133;
-}
-.submenu:hover {
+  }
+
+  .submenu:hover {
     background-color: #f0f0f0;
     color: #006133;
-}
+  }
 </style>

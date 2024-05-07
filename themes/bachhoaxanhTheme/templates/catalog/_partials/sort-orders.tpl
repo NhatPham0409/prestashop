@@ -26,7 +26,8 @@
   </a>
   <div class="dropdown-menu">
     {foreach from=$listing.sort_orders item=sort_order}
-      <a rel="nofollow" href="{$sort_order.url|escape:'html':'UTF-8'}" class="select-list {['current' => $sort_order.current, 'js-search-link' => true]|classnames}">
+      <a rel="nofollow" href="{$sort_order.url|escape:'html':'UTF-8'}"
+        class="select-list {['current' => $sort_order.current, 'js-search-link' => true]|classnames}">
         {$sort_order.label|escape:'html':'UTF-8'}
       </a>
     {/foreach}

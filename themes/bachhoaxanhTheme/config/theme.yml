@@ -215,6 +215,8 @@ global_settings:
         - ybc_themeconfig
       displayCat:
         - ps_mainmenu
+      displayFilter:
+        - ps_facetedsearch
   image_types:
     cart_default:
       width: 125
