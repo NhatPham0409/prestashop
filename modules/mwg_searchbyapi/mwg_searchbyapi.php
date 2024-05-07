@@ -65,6 +65,7 @@ class mwg_searchbyapi extends Module
             parent::install()
             // && $this->registerHook('displayTop')
             && $this->registerHook('displayHeader')
+            && $this->registerHook('displayTop')
             && $this->registerHook('displaySearch')
         ) {
 
@@ -168,6 +169,16 @@ class mwg_searchbyapi extends Module
     }
 
     public function hookDisplaySearch($params)
+    {
+        // This is where you might add the search bar to your site.
+        // For now, let's just return a simple form. Remember to create the form template file.
+        $this->context->smarty->assign([
+            'search_api_action_url' => $this->context->link->getModuleLink($this->name, 'search'),
+        ]);
+        return $this->display(__FILE__, 'views/templates/front/search_form.tpl');
+    }
+
+    public function hookDisplayTop()
     {
         // This is where you might add the search bar to your site.
         // For now, let's just return a simple form. Remember to create the form template file.

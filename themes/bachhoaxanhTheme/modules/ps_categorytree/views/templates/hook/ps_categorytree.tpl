@@ -27,7 +27,8 @@
             {if $depth===0}
               <a href="{$node.link|escape:'html':'UTF-8'}">{$node.name|escape:'html':'UTF-8'}</a>
               {if $node.children}
-                <div class="navbar-toggler collapse-icons" data-toggle="collapse" data-target="#exCollapsingNavbar{$node.id|escape:'html':'UTF-8'}">
+                <div class="navbar-toggler collapse-icons" data-toggle="collapse"
+                  data-target="#exCollapsingNavbar{$node.id|escape:'html':'UTF-8'}">
                   <i class="material-icons material-icons-add add"></i>
                   <i class="material-icons material-icons-remove remove"></i>
                 </div>
@@ -54,9 +55,10 @@
   {/strip}
 {/function}
 
-<div class="block-categories hidden-sm-down">
+{* <div class="block-categories hidden-sm-down">
   <ul class="category-top-menu">
-    <li><a class="text-uppercase h6" href="{$categories.link nofilter}">{$categories.name|escape:'html':'UTF-8'}</a></li>
+    <li><a class="text-uppercase h6" href="{$categories.link nofilter}">{$categories.name|escape:'html':'UTF-8'}</a>
+    </li>
     <li>{categories nodes=$categories.children}</li>
   </ul>
-</div>
+</div> *}
