@@ -34,14 +34,13 @@
                   <div class="icon_logo"></div>
                 </div>
               </a>
-              
+
               {hook h='displayCat'}
             </div>
-            {hook h='displayNav1'}
             <div class="search_bhx">
               {hook h='displaySearch'}
             </div>
-
+            {hook h='displayNav1'}
           </div>
         </div>
       </div>

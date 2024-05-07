@@ -35,6 +35,12 @@
     </div>
     <span style="padding-left: 4px; padding-right: 9px; font-size: 14px; font-weight: 600;">Thịt heo</span>
   </div>
+
+  <div
+    style="margin-top: .25rem; margin-bottom: .25rem;display: flex; align-items: center;border-radius: .375rem;border-bottom: 1px solid #f2f5f9; background-color: white;padding-top: 2px; padding-bottom: 2px; font-size: 13px; color: rgb(34 43 69 /1)">
+
+    <div></div>
+  </div>
   {* <div class="col-md-6 hidden-sm-down total-products">
     <ul class="display hidden-xs">
       <li id="grid" class="active">
