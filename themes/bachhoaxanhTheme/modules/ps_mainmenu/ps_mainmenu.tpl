@@ -21,18 +21,17 @@
 {assign var=_counter value=0}
 {function name="menu" nodes=[] depth=0 parent=null}
   {if $nodes|count}
-    <div style="background-color: #fff; max-width: 270px; ">
+    <div id="inmenu" style="background-color: #fff; max-width: 270px;overflow: scroll;height: calc(100vh - 125px) ">
       {foreach from=$nodes item=node}
-        <a class="menu" href="{$node['url']}"
-          style="display: flex; cursor: pointer; position: relative; padding-left: 6px; padding-right: 6px">
+        <div onclick="toggleChildren(this)"
+          style="display: flex; cursor: pointer; position: relative; padding-left: 6px; padding-right: 6px; flex-direction: column">
           {if $node['children']|count}
             <div
-            style="position: absolute; right: 6px; top: 15px; width: 8px; height: 8px; border-left: 1px solid #222b45; border-top: 1px solid #222b45; transform: rotate(225deg);">
-          </div>
+              style="position: absolute; right: 6px; top: 15px; width: 8px; height: 8px; border-left: 1px solid #222b45; border-top: 1px solid #222b45; transform: rotate(225deg);">
+            </div>
           {/if}
           <div style="display: flex; flex-direction: column; padding-top: 12px; padding-bottom: 12px;">
-            <span
-              style="display: flex; align-items: center; font-size: 14px; font-weight: 600; text-transform: uppercase;">
+            <span style="display: flex; align-items: center; font-size: 14px; font-weight: 600; text-transform: uppercase;">
               {$node['label']}
             </span>
           </div>
@@ -43,28 +42,34 @@
           width: 98%;
           border-top: #7a7a7a 1px solid;
           opacity: 0.25;"></div>
-        </a>
-        {if $node['children']|count}
-          {foreach from=$node['children'] item=child}
+          {if isset($node['children']) && $node['children']|count > 0}
+            {$node=$node['children']}
+            {foreach from = $node item=node2}
+            {$node=$node2['children']}
+
+          {/foreach}
+          {/if}
+          {foreach from=$node item=child}
             <a class="submenu" href="{$child['url']}"
-              style="display:flex; width: 100%; border-radius: 6px; padding: 6px 0; font-size: 14px; font-weight: normal; cursor: pointer; padding-left: 24px">
+              style="display:none; width: 100%; border-radius: 6px; padding: 6px 0; font-size: 14px; font-weight: normal; cursor: pointer; padding-left: 24px;">
               {$child['label']}
               <div style="    
-              position: absolute;
-              top: 0;
-              left: 1%;
-              width: 98%;
-              border-top: #7a7a7a 1px solid;
-              opacity: 0.25;"></div>
+                position: absolute;
+                top: 0;
+                left: 1%;
+                width: 98%;
+                border-top: #7a7a7a 1px solid;
+                opacity: 0.25;"></div>
             </a>
 
           {/foreach}
-        {/if}
+      </div>
 
-      {/foreach}
-    </div>
 
-  {/if}
+    {/foreach}
+  </div>
+
+{/if}
 {/function}
 
 <button
@@ -76,38 +81,58 @@
 </button>
 
 <div id="_desktop_top_menu" style="display: none; width: 100%; margin-left: auto; margin-right: auto; background-color: rgb(29 29 29/0.8); position: absolute; padding-left:0 !important;
-  top: 118px;">
+  top: 118px; ;
+">
   {menu nodes=$menu.children}
   <div class="clearfix"></div>
 </div>
 <script>
+  function toggleChildren(clickedDiv) {
+    const allSubMenu = clickedDiv.querySelectorAll('.submenu');
+
+    allSubMenu.forEach(function(submenu) {
+      submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    const allParentDivs = document.querySelectorAll('.menu');
+    allParentDivs.forEach(function(parentDiv) {
+      if (parentDiv !== clickedDiv) {
+        const otherSubmenu = parentDiv.querySelectorAll('.submenu');
+        otherSubmenu.forEach(function(sub) {
+          sub.style.display = 'none';
+        })
+      }
+    });
+  }
   document.addEventListener("DOMContentLoaded", function() {
     const categoryButton = document.getElementById('categoryButton');
     const menu = document.getElementById('_desktop_top_menu');
+    const wrap = document.getElementById("wrapper");
+    const inmenu = document.getElementById('inmenu')
 
     // Thêm hoặc xóa lớp CSS 'hovered' khi hover vào nút
     categoryButton.addEventListener('mouseenter', function() {
       menu.style.display = 'block';
+      // wrap.style.backgroundColor = 'rgb(29 29 29/0.8)'
     });
-    menu.addEventListener('mouseenter', function() {
+    inmenu.addEventListener('mouseenter', function() {
       menu.style.display = 'block';
     });
 
     categoryButton.addEventListener('mouseleave', function() {
       menu.style.display = 'none';
+      // wrap.style.backgroundColor = '#fff'
+
     });
-    menu.addEventListener('mouseleave', function() {
+    inmenu.addEventListener('mouseleave', function() {
       menu.style.display = 'none';
     });
+
   });
 </script>
 <style>
-.menu:hover {
+  .submenu:hover {
     background-color: #f0f0f0;
     color: #006133;
-}
-.submenu:hover {
-    background-color: #f0f0f0;
-    color: #006133;
-}
+  }
 </style>
