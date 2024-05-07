@@ -37,8 +37,10 @@
               
               {hook h='displayCat'}
             </div>
-            {hook h='displayTop'}
             {hook h='displayNav1'}
+            <div class="search_bhx">
+              {hook h='displaySearch'}
+            </div>
 
           </div>
         </div>

@@ -116,10 +116,10 @@ global_settings:
         - ps_bestsellers
 
       displayLeftColumn:
-        - ps_categorytree
-        - ps_facetedsearch
-        - ybc_widget
-        - ybc_blog_free
+        # - ps_categorytree
+        # - ps_facetedsearch
+        # - ybc_widget
+        # - ybc_blog_free
       displayMegaMenu:
         - ets_megamenu
       displayMLS:
@@ -173,11 +173,10 @@ global_settings:
         - blockwishlist
       displaySearch:
         - ps_searchbar
+        - ps_shoppingcart
       displayTop:
-        - ps_searchbar
         - ybc_widget
         - ets_megamenu
-        - ps_shoppingcart
         - blockwishlist
       displayTopColumn:
         - ets_multilayerslider

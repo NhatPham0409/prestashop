@@ -30,7 +30,6 @@
 
 <body id="{$page.page_name|escape:'html':'UTF-8'}"
   class="{$page.body_classes|classnames} {if isset($YBC_TC_CLASSES)}{$YBC_TC_CLASSES|escape:'html':'UTF-8'}{/if}">
-
   {block name='hook_after_body_opening_tag'}
     {hook h='displayAfterBodyOpeningTag'}
   {/block}
@@ -52,9 +51,9 @@
 
     <div id="wrapper">
       <div class="container">
-        {block name='breadcrumb'}
+        {* {block name='breadcrumb'}
           {include file='_partials/breadcrumb.tpl'}
-        {/block}
+        {/block} *}
 
         {block name="left_column"}
           <div id="left-column" class="col-xs-12 col-sm-4 col-md-3">

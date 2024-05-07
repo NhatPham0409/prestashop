@@ -11589,12 +11589,29 @@ small.value {
   color: #ec4249;
 }
 
-.search-widget {
-  float: left;
-  margin-left: 12%;
-  margin-top: 30px;
+.search_bhx{
+  position: relative;
+  height: 72px;
+  float: left !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+  width: 58.33333%;
 }
-.search-widget form {
+
+.search-widgets {
+  height: 72px;
+  float: left !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+  width: 100%;
+}
+.search-widgets form {
   float: left;
   position: relative;
   width: 100%;
@@ -11604,7 +11621,7 @@ small.value {
   border-radius: 0 0 0 0;
   margin-bottom: 0;
 }
-.search-widget form input[type="text"] {
+.search-widgets form input[type="text"] {
   background: none repeat scroll 0 0 #ebebeb;
   border: medium none;
   color: #acaaa6;
@@ -11613,54 +11630,53 @@ small.value {
   padding: 0 10px;
 }
 
-.search-widget form input[type="text"]::-webkit-input-placeholder {
+.search-widgets form input[type="text"]::-webkit-input-placeholder {
   color: #666;
   text-indent: 0.625rem;
 }
-.search-widget form input[type="text"]::-moz-placeholder {
+.search-widgets form input[type="text"]::-moz-placeholder {
   color: #666;
   text-indent: 0.625rem;
 }
-.search-widget form input[type="text"]:-moz-placeholder {
+.search-widgets form input[type="text"]:-moz-placeholder {
   color: #666;
   text-indent: 0.625rem;
 }
-.search-widget form input[type="text"]:-ms-input-placeholder {
+.search-widgets form input[type="text"]:-ms-input-placeholder {
   color: #666;
   text-indent: 0.625rem;
 }
-.search-widget form button[type="submit"] {
+.search-widgets form button[type="submit"] {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
   border: medium none;
   bottom: 0.3125rem;
   color: #666666;
-  float: right;
+  float: left;
   font-size: 16px;
   height: 100%;
   line-height: 42px;
-  margin-left: 12px;
-  padding: 0 15px;
+  padding: 0 10px;
   position: absolute;
-  right: 0;
+  left: 0;
   text-transform: uppercase;
   top: 0;
   width: auto;
 }
-.search-widget form button[type="submit"] .search:hover {
+.search-widgets form button[type="submit"] .search:hover {
   color: #ec4249;
 }
-.header-top .search-widget form input[type="text"] {
+.header-top .search-widgets form input[type="text"] {
   background-color: #ffffff;
   border: 1px solid #d4d4d4;
   border-radius: 33px 33px 33px 33px;
   color: #333333;
   float: left;
   min-width: inherit;
-  padding-left: 20px !important;
+  padding-left: 30px !important;
   width: 100%;
   padding-right: 45px;
 }
-.header-top .search-widget form input[type="text"]:focus {
+.header-top .search-widgets form input[type="text"]:focus {
   outline: none;
   -webkit-outline: none;
 }
@@ -11695,10 +11711,13 @@ small.value {
 
 /*** Responsive part ***/
 @media (max-width: 767px) {
-  .header-top .search-widget form {
+  .search-widgets{
+    width: 100%;
+  }
+  .header-top .search-widgets form {
     margin: 0 auto;
   }
-  .header-top .search-widget form input[type="text"] {
+  .header-top .search-widgets form input[type="text"] {
     min-width: inherit;
     background: white;
   }
@@ -12406,6 +12425,9 @@ body#checkout #gift_message {
 }
 
 @media (max-width: 991px) {
+  .search-widgets{
+    width: 58.33333%;
+  }
   .done {
     margin: 0;
     padding: 0;
@@ -13618,8 +13640,8 @@ a:hover i.icon-second {
   float: right;
   margin-top: 12px;
   position: absolute;
-  right: 0;
-  top: 100%;
+  right: 5px;
+  top: 10px;
   z-index: 90;
 }
 #ybc-nivo-slider-wrapper {
@@ -13653,7 +13675,8 @@ a:hover i.icon-second {
   line-height: 20px;
 }
 #_desktop_cart .header a i {
-  font-size: 30px;
+  color: black;
+  font-size: 25px;
   left: 0;
   line-height: 100%;
   position: absolute;
@@ -17007,8 +17030,8 @@ body#index .maincontent_v1 .mls_pag_button:not(.active) {
   font-weight: 700;
   margin: 0.5rem 0 1rem;
 }
-#products .page-not-found .search-widget,
-#pagenotfound .page-not-found .search-widget {
+#products .page-not-found .search-widgets,
+#pagenotfound .page-not-found .search-widgets {
   float: none;
   margin: 20px 0 0;
   padding: 0;
@@ -17018,8 +17041,8 @@ body#index .maincontent_v1 .mls_pag_button:not(.active) {
   display: block;
   float: none;
 }
-#products .page-not-found .search-widget input,
-#pagenotfound .page-not-found .search-widget input {
+#products .page-not-found .search-widgets input,
+#pagenotfound .page-not-found .search-widgets input {
   width: 100%;
 }
 
@@ -17616,7 +17639,7 @@ body#index .maincontent_v1 .mls_pag_button:not(.active) {
     width: 100%;
     margin-top: 1rem;
   }
-  .header-top .search-widget {
+  .header-top .search-widgets {
     height: 0;
     position: absolute;
     right: 0;
@@ -17690,13 +17713,13 @@ body#index .maincontent_v1 .mls_pag_button:not(.active) {
   .cart-preview .cart-products-count {
     top: 8px;
   }
-  .header-top .search-widget {
+  .header-top .search-widgets {
     padding: 0;
   }
   #search_widget form.form_focus {
     opacity: 1;
   }
-  .search-widget form button[type="submit"] {
+  .search-widgets form button[type="submit"] {
     font-size: 14px;
     line-height: 35px;
     margin-left: 12px;
@@ -18540,7 +18563,7 @@ body #search_widget form i {
     padding-top: 30px;
     position: relative;
   }
-  .header-top .search-widget {
+  .header-top .search-widgets {
     margin: 0;
     padding: 0;
   }

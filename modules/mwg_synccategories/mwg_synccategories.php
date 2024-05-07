@@ -8,7 +8,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class mwg_synccategories extends Module
+class MWG_SyncCategories extends Module
 {
     public function __construct()
     {
@@ -20,9 +20,9 @@ class mwg_synccategories extends Module
         $this->ps_versions_compliancy = ['min' => '1.7.7.0', 'max' => _PS_VERSION_];
         $this->bootstrap = true;
         parent::__construct();
-        $this->displayName = $this->trans('MWG sync categories', [], '');
-        $this->description = $this->trans('Sync categories api to database', [], '');
-        $this->confirmUninstall = $this->trans('Are you sure you want to uninstall?', [], '');
+        $this->displayName = $this->trans('MWG sync categories', [], 'Modules.MWG_SyncCategories.Admin');
+        $this->description = $this->trans('Sync categories api to database', [], 'Modules.MWG_SyncCategories.Admin');
+        $this->confirmUninstall = $this->trans('Are you sure you want to uninstall?', [], 'Modules.MWG_SyncCategories.Admin');
     }
 
     public function install()
