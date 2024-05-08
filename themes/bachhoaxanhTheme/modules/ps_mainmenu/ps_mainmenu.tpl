@@ -24,7 +24,7 @@
   {if $nodes|count}
     <div id="inmenu" style="background-color: #fff; max-width: 270px;overflow: scroll;height: calc(100vh - 125px) ">
       {foreach from=$nodes item=node}
-        <div onclick="toggleChildren(this)"
+        <div class="menu" onclick="toggleChildren(this)"
           style="display: flex; cursor: pointer; position: relative; padding-left: 6px; padding-right: 6px; flex-direction: column">
           {if $node['children']|count}
             <div
@@ -46,24 +46,41 @@
           {if isset($node['children']) && $node['children']|count > 0}
             {$node=$node['children']}
             {foreach from = $node item=node2}
-              {$node=$node2['children']}
 
-            {/foreach}
-          {/if}
-          {foreach from=$node item=child}
-            <a class="submenu" href="{$child['url']}"
-              style="display:none; width: 100%; border-radius: 6px; padding: 6px 0; font-size: 14px; font-weight: normal; cursor: pointer; padding-left: 24px;">
-              {$child['label']}
-              <div style="    
+              {if isset($node2['children'] && $node2['children']|count > 0)}
+                {$node=$node2['children']}
+                {foreach from=$node item=child}
+                  <a class="submenu" href="{$child['url']}"
+                    style="display:none; width: 100%; border-radius: 6px; padding: 6px 0; font-size: 14px; font-weight: normal; cursor: pointer; padding-left: 24px;">
+                    {$child['label']}
+                    <div style="    
                 position: absolute;
                 top: 0;
                 left: 1%;
                 width: 98%;
                 border-top: #7a7a7a 1px solid;
                 opacity: 0.25;"></div>
-            </a>
+                  </a>
+                {/foreach}
+              {else}
+                <a class="submenu" href="{$node2['url']}"
+                  style="display:none; width: 100%; border-radius: 6px; padding: 6px 0; font-size: 14px; font-weight: normal; cursor: pointer; padding-left: 24px;">
+                  {$node2['label']}
+                  <div style="    
+                  position: absolute;
+                  top: 0;
+                  left: 1%;
+                  width: 98%;
+                  border-top: #7a7a7a 1px solid;
+                  opacity: 0.25;"></div>
+                </a>
+              {/if}
+            {/foreach}
 
-          {/foreach}
+          {/if}
+
+
+
         </div>
 
 
@@ -81,19 +98,19 @@
       src="https://www.bachhoaxanh.com/static/icons/menu%20icon.svg"
       style="color: transparent; width: 100%; height: auto;"></div>DANH MỤC SẢN PHẨM
 </button>
-
-
-
-<div id="_desktop_top_menu" style="display: none; width: 100%; margin-left: auto; margin-right: auto; background-color: rgb(29 29 29/0.8); position: absolute; padding-left:0 !important;
+<div id="_desktop_top_menu" style="{if $page.page_name == 'category'} display: block;  {else} display: none; background-color: rgb(29 29 29/0.8); {/if}; width: 100%; margin-left: auto; margin-right: auto;  position: absolute; padding-left:0 !important;
   top: 118px; ;
 ">
   {menu nodes=$menu.children}
   <div class="clearfix"></div>
 </div>
+
+
 <script>
+  console.log('jhjhjhjknkljnkljnknlknkl')
+
   function toggleChildren(clickedDiv) {
     const allSubMenu = clickedDiv.querySelectorAll('.submenu');
-
     allSubMenu.forEach(function(submenu) {
       submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
     });
@@ -113,23 +130,24 @@
     const menu = document.getElementById('_desktop_top_menu');
     const wrap = document.getElementById("wrapper");
     const inmenu = document.getElementById('inmenu')
+    const pageName = '{$page.page_name}'
 
-    // Thêm hoặc xóa lớp CSS 'hovered' khi hover vào nút
     categoryButton.addEventListener('mouseenter', function() {
       menu.style.display = 'block';
-      // wrap.style.backgroundColor = 'rgb(29 29 29/0.8)'
     });
     inmenu.addEventListener('mouseenter', function() {
       menu.style.display = 'block';
     });
 
     categoryButton.addEventListener('mouseleave', function() {
-      menu.style.display = 'none';
-      // wrap.style.backgroundColor = '#fff'
-
+      if (pageName !== 'category') {
+        menu.style.display = 'none';
+      }
     });
     inmenu.addEventListener('mouseleave', function() {
-      menu.style.display = 'none';
+      if (pageName !== 'category') {
+        menu.style.display = 'none';
+      }
     });
 
   });
