@@ -19,6 +19,7 @@
 *  International Registered Trademark & Property of ETS-Soft
 *}
 {assign var=_counter value=0}
+{assign var=newMenu value=1}
 {function name="menu" nodes=[] depth=0 parent=null}
   {if $nodes|count}
     <div id="inmenu" style="background-color: #fff; max-width: 270px;overflow: scroll;height: calc(100vh - 125px) ">
@@ -72,6 +73,7 @@
   {/if}
 {/function}
 
+
 <button
   style="position: relative; margin-top: 10px; display: flex; width: 270px; align-items: center; border-top-left-radius: 0.375rem; border-top-right-radius: 0.375rem; background-color: #006133; padding-left: 10px; padding-right: 10px; padding-top: 0.25rem; padding-bottom: 0.25rem; font-size: 16px; color: white; cursor: pointer;"
   disabled="" id="categoryButton">
@@ -79,6 +81,8 @@
       src="https://www.bachhoaxanh.com/static/icons/menu%20icon.svg"
       style="color: transparent; width: 100%; height: auto;"></div>DANH MỤC SẢN PHẨM
 </button>
+
+
 
 <div id="_desktop_top_menu" style="display: none; width: 100%; margin-left: auto; margin-right: auto; background-color: rgb(29 29 29/0.8); position: absolute; padding-left:0 !important;
   top: 118px; ;
