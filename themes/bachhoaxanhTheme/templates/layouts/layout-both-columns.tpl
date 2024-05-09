@@ -48,6 +48,7 @@
     {block name='notifications'}
       {include file='_partials/notifications.tpl'}
     {/block}
+  {assign var="myVariable" value="Hello from file1.tpl"}
 
     <div id="wrapper">
       <div class="container">

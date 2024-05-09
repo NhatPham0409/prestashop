@@ -109,11 +109,14 @@ global_settings:
         - ybc_themeconfig
       displayFooterBefore:
         - ps_socialfollow
+
       displayFooterProduct:
-        - ps_categoryproducts
+        - ps_categoryproducts        
+
       displayHome:
         - ps_featuredproducts
         - ps_bestsellers
+
 
       displayLeftColumn:
         # - ps_categorytree

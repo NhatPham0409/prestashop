@@ -19,9 +19,12 @@
 *  International Registered Trademark & Property of ETS-Soft
 *}
 
+<<<<<<< HEAD
 {$clean_label = str_replace('Category: ', '', $listing.label)}
 
 
+=======
+>>>>>>> tuda
 <div id="js-product-list-top" class="row products-selection">
   <div
     style="margin-bottom: .25rem; margin-top: .5rem; display: flex; align-items: center; border-radius: .375rem; background-color: white; padding-top: 4px; padding-bottom: 4px; font-size: 14px; font-weight: 600; color: rgb(34 43 69 /1)">
