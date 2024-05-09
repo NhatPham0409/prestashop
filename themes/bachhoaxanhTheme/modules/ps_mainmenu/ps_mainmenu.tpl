@@ -19,7 +19,6 @@
 *  International Registered Trademark & Property of ETS-Soft
 *}
 {assign var=_counter value=0}
-{assign var=newMenu value=1}
 {function name="menu" nodes=[] depth=0 parent=null}
   {if $nodes|count}
     <div id="inmenu" style="background-color: #fff; max-width: 270px;overflow: scroll;height: calc(100vh - 125px) ">
@@ -98,17 +97,16 @@
       src="https://www.bachhoaxanh.com/static/icons/menu%20icon.svg"
       style="color: transparent; width: 100%; height: auto;"></div>DANH MỤC SẢN PHẨM
 </button>
-<div id="_desktop_top_menu" style="{if $page.page_name == 'category'} display: block;  {else} display: none; background-color: rgb(29 29 29/0.8); {/if}; width: 100%; margin-left: auto; margin-right: auto;  position: absolute; padding-left:0 !important;
+<div id="_desktop_top_menu" style="{if $page.page_name == 'category'} display: block;max-width: 270px;  {else} display: none; background-color: rgb(29 29 29/0.8); {/if}; width: 100%; margin-left: auto; margin-right: auto;  position: absolute; padding-left:0 !important;
   top: 118px; ;
 ">
   {menu nodes=$menu.children}
+
   <div class="clearfix"></div>
 </div>
 
 
 <script>
-  console.log('jhjhjhjknkljnkljnknlknkl')
-
   function toggleChildren(clickedDiv) {
     const allSubMenu = clickedDiv.querySelectorAll('.submenu');
     allSubMenu.forEach(function(submenu) {
@@ -126,6 +124,7 @@
     });
   }
   document.addEventListener("DOMContentLoaded", function() {
+
     const categoryButton = document.getElementById('categoryButton');
     const menu = document.getElementById('_desktop_top_menu');
     const wrap = document.getElementById("wrapper");

@@ -120,6 +120,7 @@ global_settings:
         # - ps_facetedsearch
         # - ybc_widget
         # - ybc_blog_free
+        
       displayMegaMenu:
         - ets_megamenu
       displayMLS:

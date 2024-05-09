@@ -32,7 +32,7 @@
             </a>
             <div
                 style="display: flex;padding-bottom: 4px;padding-left: 6px; padding-right: 6px;margin-top: 4px; width: 100%;flex: 1 1 0%;flex-direction: column;">
-                <a  href={$product.url}>
+                <a href={$product.url}>
                     <span
                         style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; line-height: 18px; font-size: 14px; height: 36px; color: rgb(157 167 188 /1); margin-bottom: .5rem;">
                         {$product.name}

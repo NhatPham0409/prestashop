@@ -20,6 +20,8 @@
 *}
 
 {$clean_label = str_replace('Category: ', '', $listing.label)}
+
+
 <div id="js-product-list-top" class="row products-selection">
   <div
     style="margin-bottom: .25rem; margin-top: .5rem; display: flex; align-items: center; border-radius: .375rem; background-color: white; padding-top: 4px; padding-bottom: 4px; font-size: 14px; font-weight: 600; color: rgb(34 43 69 /1)">
@@ -101,6 +103,14 @@
       </div>
     </div>
   </div>
+
+  <div style="background-color: white;padding: 4px 9px 4px 9px;">
+    <div
+      style="margin: 2px;margin-bottom: 2px;width: 100%;border-radius: 5px;border: 1px solid rgb(48 228 143 /1);background-color: #d8ecd4;color: rgb(0 126 66 /1);">
+      <p style="padding: 13px;font-size: 14px;margin-bottom: 0;">Nếu tồn
+        kho có thay đổi, Bách hoá XANH sẽ liên hệ trước khi giao hàng</p>
+    </div>
+  </div>
 </div>
 {* <div class="col-md-6 hidden-sm-down total-products">
     <ul class="display hidden-xs">
@@ -133,4 +143,3 @@
 
     </div>
   </div> *}
-</div>
