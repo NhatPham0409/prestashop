@@ -52,16 +52,19 @@
 
     <div id="wrapper">
       <div class="container">
-        {* {block name='breadcrumb'}
-          {include file='_partials/breadcrumb.tpl'}
-        {/block} *}
+        {if $page.page_name != 'category'}
+          {block name='breadcrumb'}
+            {include file='_partials/breadcrumb.tpl'}
+          {/block}
+        {/if}
+
 
         {block name="left_column"}
           <div id="left-column" class="col-xs-12 col-sm-4 col-md-3">
             {if $page.page_name == 'product'}
               {hook h='displayLeftColumnProduct'}
             {else}
-              {hook h="displayLeftColumn"}
+              {hook h='displayLeftColumn'}
             {/if}
           </div>
         {/block}

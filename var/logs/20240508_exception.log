@@ -1,0 +1,1 @@
+*ERROR* 	v8.1.5	2024/05/08 - 05:41:06: Link to database cannot be established: SQLSTATE[HY000] [1045] Access denied for user &#039;root&#039;@&#039;localhost&#039; (using password: YES) at line 119 in file classes/db/DbPDO.php

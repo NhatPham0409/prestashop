@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>blockcategoriesi</name>
+    <displayName><![CDATA[Categories block image]]></displayName>
+    <version><![CDATA[4.0.0]]></version>
+    <description><![CDATA[Adds a block featuring product categories - catalogo-onlienrsi.net]]></description>
+    <author><![CDATA[RSI]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

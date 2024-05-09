@@ -36,11 +36,14 @@
           {/block}
         </div>
 
+
         {block name='product_list_active_filters'}
           <div class="hidden-sm-down">
             {$listing.rendered_active_filters nofilter}
           </div>
         {/block}
+
+        {hook h='displayFilter'}
 
         <div>
           {block name='product_list'}

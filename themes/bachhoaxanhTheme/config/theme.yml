@@ -123,6 +123,7 @@ global_settings:
         # - ps_facetedsearch
         # - ybc_widget
         # - ybc_blog_free
+        
       displayMegaMenu:
         - ets_megamenu
       displayMLS:
@@ -218,6 +219,8 @@ global_settings:
         - ybc_themeconfig
       displayCat:
         - ps_mainmenu
+      displayFilter:
+        - ps_facetedsearch
   image_types:
     cart_default:
       width: 125

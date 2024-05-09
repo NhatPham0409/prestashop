@@ -90,6 +90,7 @@
   {/if}
 {/function}
 
+
 <button
   style="position: relative; margin-top: 10px; display: flex; width: 270px; align-items: center; border-top-left-radius: 0.375rem; border-top-right-radius: 0.375rem; background-color: #006133; padding-left: 10px; padding-right: 10px; padding-top: 0.25rem; padding-bottom: 0.25rem; font-size: 16px; color: white; cursor: pointer;"
   disabled="" id="categoryButton">
@@ -97,10 +98,15 @@
       src="https://www.bachhoaxanh.com/static/icons/menu%20icon.svg"
       style="color: transparent; width: 100%; height: auto;"></div>DANH MỤC SẢN PHẨM
 </button>
+<<<<<<< HEAD
 <div id="_desktop_top_menu" style="{if $page.page_name == 'category'} display: block; max-width: 270px  {else} display: none; background-color: rgb(29 29 29/0.8); {/if}; width: 100%; margin-left: auto; margin-right: auto;  position: absolute; padding-left:0 !important;
+=======
+<div id="_desktop_top_menu" style="{if $page.page_name == 'category'} display: block;max-width: 270px;  {else} display: none; background-color: rgb(29 29 29/0.8); {/if}; width: 100%; margin-left: auto; margin-right: auto;  position: absolute; padding-left:0 !important;
+>>>>>>> tuda_trong
   top: 118px; ;
 ">
   {menu nodes=$menu.children}
+
   <div class="clearfix"></div>
 </div>
 
@@ -123,7 +129,10 @@
   }
   document.addEventListener("DOMContentLoaded", function() {
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> tuda_trong
     const categoryButton = document.getElementById('categoryButton');
     const menu = document.getElementById('_desktop_top_menu');
     const wrap = document.getElementById("wrapper");
@@ -139,12 +148,12 @@
     });
 
     categoryButton.addEventListener('mouseleave', function() {
-      if(pageName !== 'category'){
+      if (pageName !== 'category') {
         menu.style.display = 'none';
       }
     });
     inmenu.addEventListener('mouseleave', function() {
-      if(pageName !== 'category'){
+      if (pageName !== 'category') {
         menu.style.display = 'none';
       }
     });

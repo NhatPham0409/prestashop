@@ -23,7 +23,7 @@
 {block name='right_column'}{/block}
 
 {block name='content_wrapper'}
-  <div id="content-wrapper" class="left-column has_left_col col-xs-12 col-sm-8 col-md-9">
+  <div id="content-wrapper" class="left-column has_left_col col-xs-12 col-sm-8 col-md-9" style="margin-top: 0;">
     {block name='content'}
       <p>Hello world! This is HTML5 Boilerplate.</p>
     {/block}
