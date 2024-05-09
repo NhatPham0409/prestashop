@@ -1,6 +1,7 @@
 <?php
 
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 session_start();
 
@@ -8,7 +9,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class MWG_SyncCategories extends Module
+class Mwg_SyncCategories extends Module
 {
     public function __construct()
     {
@@ -20,9 +21,9 @@ class MWG_SyncCategories extends Module
         $this->ps_versions_compliancy = ['min' => '1.7.7.0', 'max' => _PS_VERSION_];
         $this->bootstrap = true;
         parent::__construct();
-        $this->displayName = $this->trans('MWG sync categories', [], 'Modules.MWG_SyncCategories.Admin');
-        $this->description = $this->trans('Sync categories api to database', [], 'Modules.MWG_SyncCategories.Admin');
-        $this->confirmUninstall = $this->trans('Are you sure you want to uninstall?', [], 'Modules.MWG_SyncCategories.Admin');
+        $this->displayName = $this->trans('MWG sync categories', [], 'Modules.SyncCategories.Admin');
+        $this->description = $this->trans('Sync categories api to database', [], 'Modules.SyncCategories.Admin');
+        $this->confirmUninstall = $this->trans('Are you sure you want to uninstall?', [], 'Modules.SyncCategories.Admin');
     }
 
     public function install()
@@ -378,6 +379,7 @@ class MWG_SyncCategories extends Module
         } else {
             $category = new Category($categoryId);
         }
+
         $category->active = isset($value['active']) ? $value['active'] : 1;
 
         $invalid = '<>;=#{}';
@@ -385,8 +387,6 @@ class MWG_SyncCategories extends Module
         if (isset($value['description']) && !strpbrk($value['description'], $invalid))
             $category->description = array(Context::getContext()->language->id => "<p>" . $value['description']);
 
-        if (isset($value['additional_description']) && !strpbrk($value['additional_description'], $invalid))
-            $category->additional_description = array(Context::getContext()->language->id => "<p>" . $value['additional_description']);
         if (isset($value['additional_description']) && !strpbrk($value['additional_description'], $invalid))
             $category->additional_description = array(Context::getContext()->language->id => "<p>" . $value['additional_description']);
 
@@ -398,7 +398,21 @@ class MWG_SyncCategories extends Module
 
         if (isset($value['meta_keywords']))
             $category->meta_keywords = array(Context::getContext()->language->id => $value['meta_keywords']);
+
         return $category;
+    }
+
+    public function copyImg($categoryId, $images)
+    {
+        $type = 0;
+        foreach ($images as $image) {
+            if ($type == 3) {
+                return false;
+            }
+            Tools::copy($image, _PS_TMP_IMG_DIR_ . 'category' . '_' . $categoryId . '-' . $type . '_thumb.jpg');
+            Tools::copy($image, _PS_CAT_IMG_DIR_ . $categoryId . '-' . $type . '_thumb.jpg');
+            $type++;
+        }
     }
 
     /**
@@ -430,15 +444,19 @@ class MWG_SyncCategories extends Module
         $currentLanguageId = Context::getContext()->language->id;
 
         $category = $this->validCategory(null, $value);
+
         $category->id_parent = $parentId;
         $category->link_rewrite = array($currentLanguageId => Tools::str2url($value['name']));
         $category->name = array($currentLanguageId => $value['name']);
 
         $category->id_shop_list = array($currentShopId);
         $category->id_shop_default = (int)$currentShopId;
-
         if ($category->add()) {
             $newCategory = $this->searchCurrentShopCategoryByNameAndParentCategoryId($currentLanguageId, $value['name'], $parentId, $currentShopId);
+
+            if (isset($value['images'])) {
+                $this->copyImg($newCategory['id_category'], $value['images']);
+            }
 
             foreach ($this->context->shop->getShops() as $shop) {
                 if ($shop['id_shop'] != $currentShopId) {

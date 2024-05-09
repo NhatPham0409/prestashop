@@ -34,7 +34,6 @@
                   <div class="icon_logo"></div>
                 </div>
               </a>
-
               {hook h='displayCat'}
             </div>
             <div class="search_bhx">

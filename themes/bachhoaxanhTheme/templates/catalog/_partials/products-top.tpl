@@ -18,6 +18,7 @@
 *  @license    Valid for 1 website (or project) for each purchase of license
 *  International Registered Trademark & Property of ETS-Soft
 *}
+
 <div id="js-product-list-top" class="row products-selection">
   <div
     style="margin-bottom: .25rem; margin-top: .5rem; display: flex; align-items: center; border-radius: .375rem; background-color: white; padding-top: 4px; padding-bottom: 4px; font-size: 14px; font-weight: 600; color: rgb(34 43 69 /1)">
@@ -39,7 +40,6 @@
   <div
     style="margin-top: .25rem; margin-bottom: .25rem;display: flex; align-items: center;border-radius: .375rem;border-bottom: 1px solid #f2f5f9; background-color: white;padding-top: 2px; padding-bottom: 2px; font-size: 13px; color: rgb(34 43 69 /1)">
 
-    <div></div>
   </div>
   {* <div class="col-md-6 hidden-sm-down total-products">
     <ul class="display hidden-xs">
@@ -72,4 +72,7 @@
 
     </div>
   </div> *}
+  <div>
+  </div>
+
 </div>
