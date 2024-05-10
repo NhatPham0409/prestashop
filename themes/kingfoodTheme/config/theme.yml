@@ -118,7 +118,8 @@ global_settings:
         - ps_featuredproducts
       displayProductActions:
         - blockwishlist
-
+      displayCat:
+        - ps_mainmenu
   image_types:
     cart_default:
       width: 125

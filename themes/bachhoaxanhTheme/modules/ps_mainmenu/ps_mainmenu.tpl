@@ -76,17 +76,10 @@
                 </a>
               {/if}
             {/foreach}
-
           {/if}
-
-
-
         </div>
-
-
       {/foreach}
     </div>
-
   {/if}
 {/function}
 

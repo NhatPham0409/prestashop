@@ -1,39 +1,129 @@
-{assign var=_counter value=0}
 {function name="menu" nodes=[] depth=0 parent=null}
-    {if $nodes|count}
-      <ul class="top-menu" {if $depth == 0}id="top-menu"{/if} data-depth="{$depth}">
-        {foreach from=$nodes item=node}
-            <li class="{$node.type}{if $node.current} current {/if}" id="{$node.page_identifier}">
-            {assign var=_counter value=$_counter+1}
-              <a
-                class="{if $depth >= 0}dropdown-item{/if}{if $depth === 1} dropdown-submenu{/if}"
-                href="{$node.url}" data-depth="{$depth}"
-                {if $node.open_in_new_window} target="_blank" {/if}
-              >
-                {if $node.children|count}
-                  {* Cannot use page identifier as we can have the same page several times *}
-                  {assign var=_expand_id value=10|mt_rand:100000}
-                  <span class="float-xs-right hidden-md-up">
-                    <span data-target="#top_sub_menu_{$_expand_id}" data-toggle="collapse" class="navbar-toggler collapse-icons">
-                      <i class="material-icons add">&#xE313;</i>
-                      <i class="material-icons remove">&#xE316;</i>
-                    </span>
-                  </span>
-                {/if}
-                {$node.label}
-              </a>
-              {if $node.children|count}
-              <div {if $depth === 0} class="popover sub-menu js-sub-menu collapse"{else} class="collapse"{/if} id="top_sub_menu_{$_expand_id}">
-                {menu nodes=$node.children depth=$node.depth parent=$node}
-              </div>
+  {if $nodes|count}
+    <div id="inmenu" style="background-color: #fff; max-width: 270px;overflow: scroll;height: calc(100vh - 125px) ">
+      {foreach from=$nodes item=node}
+        <div class="menu" onclick="toggleChildren(this)"
+          style="display: flex; cursor: pointer; position: relative; padding-left: 6px; padding-right: 6px; flex-direction: column">
+          {if $node['children']|count}
+            <div
+              style="position: absolute; right: 6px; top: 15px; width: 8px; height: 8px; border-left: 1px solid #222b45; border-top: 1px solid #222b45; transform: rotate(225deg);">
+            </div>
+          {/if}
+          <div style="display: flex; flex-direction: column; padding-top: 12px; padding-bottom: 12px;">
+            <span style="display: flex; align-items: center; font-size: 14px; font-weight: 600; text-transform: uppercase;">
+              {$node['label']}
+            </span>
+          </div>
+          <div style="    
+          position: absolute;
+          top: 0;
+          left: 1%;
+          width: 98%;
+          border-top: #7a7a7a 1px solid;
+          opacity: 0.25;"></div>
+          {if isset($node['children']) && $node['children']|count > 0}
+            {$node=$node['children']}
+            {foreach from = $node item=node2}
+
+              {if isset($node2['children'] && $node2['children']|count > 0)}
+                {$node=$node2['children']}
+                {foreach from=$node item=child}
+                  <a class="submenu" href="{$child['url']}"
+                    style="display:none; width: 100%; border-radius: 6px; padding: 6px 0; font-size: 14px; font-weight: normal; cursor: pointer; padding-left: 24px;">
+                    {$child['label']}
+                    <div style="    
+                position: absolute;
+                top: 0;
+                left: 1%;
+                width: 98%;
+                border-top: #7a7a7a 1px solid;
+                opacity: 0.25;"></div>
+                  </a>
+                {/foreach}
+              {else}
+                <a class="submenu" href="{$node2['url']}"
+                  style="display:none; width: 100%; border-radius: 6px; padding: 6px 0; font-size: 14px; font-weight: normal; cursor: pointer; padding-left: 24px;">
+                  {$node2['label']}
+                  <div style="    
+                  position: absolute;
+                  top: 0;
+                  left: 1%;
+                  width: 98%;
+                  border-top: #7a7a7a 1px solid;
+                  opacity: 0.25;"></div>
+                </a>
               {/if}
-            </li>
-        {/foreach}
-      </ul>
-    {/if}
+            {/foreach}
+          {/if}
+        </div>
+      {/foreach}
+    </div>
+  {/if}
 {/function}
 
-<div class="menu js-top-menu position-static hidden-sm-down" id="_desktop_top_menu">
-    {menu nodes=$menu.children}
-    <div class="clearfix"></div>
+<div style=" display: flex; max-width: 270px; width: 100%; margin-left: auto; margin-right: auto;  position: fixed; padding-left:0 !important;
+  top: 0; height:100vh; flex-direction: column; background-color: #fff; z-index:1
+">
+  <div class="flex items-center justify-center h-[124px]"
+    style="display: flex; align-items: center; justify-content: center; height: 124px;">
+    <a href="/" style="text-decoration: none;">
+      <img src="https://kingfoodmart.com/assets/images/ic_brands_horz_kfm.svg" alt="" class="h-[32px] max-w-[150px]"
+        style="height: 32px; max-width: 150px;">
+    </a>
+  </div>
+  {menu nodes=$menu.children}
+  <div class="clearfix"></div>
 </div>
+
+<script>
+  function toggleChildren(clickedDiv) {
+    const allSubMenu = clickedDiv.querySelectorAll('.submenu');
+    allSubMenu.forEach(function(submenu) {
+      submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    const allParentDivs = document.querySelectorAll('.menu');
+    allParentDivs.forEach(function(parentDiv) {
+      if (parentDiv !== clickedDiv) {
+        const otherSubmenu = parentDiv.querySelectorAll('.submenu');
+        otherSubmenu.forEach(function(sub) {
+          sub.style.display = 'none';
+        })
+      }
+    });
+  }
+  document.addEventListener("DOMContentLoaded", function() {
+
+    const categoryButton = document.getElementById('categoryButton');
+    const menu = document.getElementById('_desktop_top_menu');
+    const wrap = document.getElementById("wrapper");
+    const inmenu = document.getElementById('inmenu')
+    const pageName = '{$page.page_name}'
+
+
+    categoryButton.addEventListener('mouseenter', function() {
+      menu.style.display = 'block';
+    });
+    inmenu.addEventListener('mouseenter', function() {
+      menu.style.display = 'block';
+    });
+
+    categoryButton.addEventListener('mouseleave', function() {
+      if (pageName !== 'category') {
+        menu.style.display = 'none';
+      }
+    });
+    inmenu.addEventListener('mouseleave', function() {
+      if (pageName !== 'category') {
+        menu.style.display = 'none';
+      }
+    });
+
+  });
+</script>
+<style>
+  .submenu:hover {
+    background-color: #f0f0f0;
+    color: #006133;
+  }
+</style>
